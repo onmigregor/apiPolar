@@ -1,0 +1,32 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: polar-productos-api
+    container_name: polar-productos_api
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      APP_SERVICE: app
+      DB_HOST: mysql-8.0
+      DB_DATABASE: polar-productos_api
+      DB_USERNAME: netred_docker
+      DB_PASSWORD: netred_docker
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8091:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - polar_network
+      - appnet
+
+networks:
+  polar_network:
+    driver: bridge
+  appnet:
+    external: true
