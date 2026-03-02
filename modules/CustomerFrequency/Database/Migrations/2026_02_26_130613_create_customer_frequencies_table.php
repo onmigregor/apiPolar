@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('customer_frequencies', function (Blueprint $table) {
             $table->id();
             $table->string('fre_code', 2)->comment('Código clave frecuencia');
-            $table->string('fre_name', 20)->comment('Descripción (estado, provincia, distrito)');
+            $table->string('fre_name', 40)->comment('Descripción frecuencia');
             $table->string('fre_week1', 1)->comment('Frecuencia lunes');
             $table->string('fre_week2', 1)->comment('Frecuencia martes');
             $table->string('fre_week3', 1)->comment('Frecuencia miercoles');

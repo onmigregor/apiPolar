@@ -29,4 +29,5 @@ return [
     Modules\DiscountDetail\Providers\DiscountDetailServiceProvider::class,
     Modules\DiscountDetailProduct\Providers\DiscountDetailProductServiceProvider::class,
     Modules\DiscountDetailRoute\Providers\DiscountDetailRouteServiceProvider::class,
+    Modules\City\Providers\CityServiceProvider::class,
 ];

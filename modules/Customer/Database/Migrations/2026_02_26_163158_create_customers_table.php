@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tp1_code', 3)->comment('Grupo de clientes 4 (segmento) - FK to CustomerGroup');
             $table->string('tp2_code', 10)->comment('Código de ramo 1 (tipo cliente) - FK to CustomerBranch');
             $table->string('cit_code', 2)->comment('Código clave región - FK to CustomerRegion');
-            $table->string('txn_code', 1)->comment('Clasificación fiscal para el deudor');
+            $table->string('txn_code', 2)->comment('Clasificación fiscal para el deudor');
             $table->string('cus_phone', 16)->comment('1º número de teléfono');
             $table->string('cus_fax', 16)->comment('Nº telefax');
             $table->string('cus_street1', 40)->comment('Nombre 1 (nombre dirección)');

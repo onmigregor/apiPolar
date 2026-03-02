@@ -30,7 +30,7 @@ class CustomerRequest extends FormRequest
             'tp1_code'            => ['required', 'string', 'max:3'],
             'tp2_code'            => ['required', 'string', 'max:10'],
             'cit_code'            => ['required', 'string', 'max:2'],
-            'txn_code'            => ['required', 'string', 'max:1'],
+            'txn_code'            => ['required', 'string', 'max:2'],
             'cus_phone'           => ['nullable', 'string', 'max:16'],
             'cus_fax'             => ['nullable', 'string', 'max:16'],
             'cus_street1'         => ['nullable', 'string', 'max:40'],

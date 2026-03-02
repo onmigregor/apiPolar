@@ -23,7 +23,7 @@ class CustomerFrequencyRequest extends FormRequest
     {
         return [
             'fre_code'     => ['required', 'string', 'max:2'],
-            'fre_name'     => ['required', 'string', 'max:20'],
+            'fre_name'     => ['required', 'string', 'max:40'],
             'fre_week1'    => ['required', 'string', 'max:1'],
             'fre_week2'    => ['required', 'string', 'max:1'],
             'fre_week3'    => ['required', 'string', 'max:1'],

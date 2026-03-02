@@ -1,0 +1,403 @@
+{
+    "info": {
+        "_postman_id": "polar-productos-api-collection",
+        "name": "POLAR Productos API",
+        "description": "Colección de endpoints para los módulos del ecosistema POLAR.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8091/api",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "CustomerGroup",
+            "item": [
+                {
+                    "name": "Create CustomerGroup",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"tp1Code\": \"111\",\n\t\"tp1Name\": \"CS Alta Visibilidad\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customer_groups",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer_groups"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CustomerBranch",
+            "item": [
+                {
+                    "name": "Create CustomerBranch",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"tp2Code\": \"TC00000044\",\n\t\"tp2Name\": \"BODEGON/EXQUISITES\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customer_branches",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer_branches"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CustomerRegion",
+            "item": [
+                {
+                    "name": "Create CustomerRegion",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"citCode\": \"15\",\n\t\"citName\": \"Miranda\",\n\t\"staCode\": \"ST1\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customer_regions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer_regions"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "City",
+            "item": [
+                {
+                    "name": "Create City",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"citCode\": \"15\",\n\t\"citName\": \"Caracas\",\n\t\"staCode\": \"DC1\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/cities",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "cities"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CustomerFrequency",
+            "item": [
+                {
+                    "name": "Create CustomerFrequency",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"freCode\": \"01\",\n\t\"freName\": \"Semanal s/dia del plan\",\n\t\"freWeek1\": \"1\",\n\t\"freWeek2\": \"1\",\n\t\"freWeek3\": \"1\",\n\t\"freWeek4\": \"1\",\n\t\"freCustomer\": \"1\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customer_frequencies",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer_frequencies"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Customer",
+            "item": [
+                {
+                    "name": "Create Customer",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"cusCode\": \"0000055043\",\n\t\"cusName\": \"CLIENTES QEC-101\",\n\t\"cusBusinessName\": \"CLIENTES QEC-101\",\n\t\"cusDuns\": \"10.495630\",\n\t\"cusCommId\": \"-66.85450\",\n\t\"tp1Code\": \"111\",\n\t\"tp2Code\": \"TC00000044\",\n\t\"citCode\": \"15\",\n\t\"txnCode\": \"01\",\n\t\"cusPhone\": \"212-2665346\",\n\t\"cusFax\": \"424-1761380\",\n\t\"cusStreet1\": \"EDIF EDIF. CLIENTES QEC-101\",\n\t\"cusStreet2\": \"NTES QEC-101 VIA 2\",\n\t\"cusStreet3\": \"URBANIZACION CLIENTES QEC-101\",\n\t\"cusTaxID1\": \"J-30085248-2\",\n\t\"brcCode\": \"0022405492\",\n\t\"cusLatitude\": \"10.495630\",\n\t\"cusLongitude\": \"-66.85450\",\n\t\"prcCodeForSale\": \"A001\",\n\t\"prcCodeForReturn\": \"A001\",\n\t\"cusContactPerson\": \"CLIENTES QEC-101\",\n\t\"cusEmail\": \"noaplica@noaplica.com\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customers",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customers"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CustomerRoute",
+            "item": [
+                {
+                    "name": "Create CustomerRoute",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"rotCode\": \"01751\",\n\t\"cusCode\": \"0000055659\",\n\t\"freCode\": \"01\",\n\t\"ctrMonday\": \"3\",\n\t\"ctrTuesday\": \"3\",\n\t\"ctrWednesday\": \"0\",\n\t\"ctrThursday\": \"0\",\n\t\"ctrFriday\": \"0\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customer_routes",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer_routes"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CustomerPrice",
+            "item": [
+                {
+                    "name": "Create CustomerPrice",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"rotCode\": \"0555A\",\n\t\"cusCode\": \"0000055041\",\n\t\"prcCode\": \"A001\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customer_prices",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer_prices"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "InfoType",
+            "item": [
+                {
+                    "name": "Create InfoType",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"iftCode\": \"04\",\n\t\"iftName\": \"Den. Comercial\",\n\t\"iftCharType\": \"04\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/info_types",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "info_types"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "CustomerInfo",
+            "item": [
+                {
+                    "name": "Create CustomerInfo",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"cusCode\": \"0000955971\",\n\t\"iftCode\": \"02\",\n\t\"ctnCharValue\": \"LIC-2024-00123456\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/customer_infos",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "customer_infos"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "MasterCustomer",
+            "item": [
+                {
+                    "name": "Carga Masiva - 10 Clientes en 1 Transaccion",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055043\", \"cusName\": \"BODEGA EL SOL\", \"cusBusinessName\": \"BODEGA EL SOL CA\", \"cusDuns\": \"10.495630\", \"cusCommId\": \"-66.854500\", \"tp1Code\": \"111\", \"tp2Code\": \"TC00000044\", \"citCode\": \"15\", \"txnCode\": \"01\", \"cusPhone\": \"212-2665346\", \"cusFax\": \"424-1761380\", \"cusStreet1\": \"AV PRINCIPAL CHACAO\", \"cusStreet2\": \"EDIF TORRE SOL PISO 3\", \"cusStreet3\": \"URB CHACAO MIRANDA\", \"cusTaxID1\": \"J-30085248-2\", \"brcCode\": \"0022405492\", \"cusLatitude\": \"10.495630\", \"cusLongitude\": \"-66.854500\", \"prcCodeForSale\": \"A001\", \"prcCodeForReturn\": \"A001\", \"cusContactPerson\": \"JUAN PEREZ\", \"cusEmail\": \"bodegaelsol@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"111\", \"tp1Name\": \"CS Alta Visibilidad\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000044\", \"tp2Name\": \"BODEGON/EXQUISITES\" },\n\t\t\"regionCliente\": { \"citCode\": \"15\", \"citName\": \"Miranda\", \"staCode\": \"MIR\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"01\", \"freName\": \"Semanal s/dia del plan\", \"freWeek1\": \"1\", \"freWeek2\": \"1\", \"freWeek3\": \"1\", \"freWeek4\": \"1\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01751\", \"cusCode\": \"0000055043\", \"freCode\": \"01\", \"ctrMonday\": \"3\", \"ctrTuesday\": \"3\", \"ctrWednesday\": \"0\", \"ctrThursday\": \"0\", \"ctrFriday\": \"0\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"04\", \"iftName\": \"Den. Comercial\", \"iftCharType\": \"04\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055044\", \"cusName\": \"MINIMARKET LA ESTRELLA\", \"cusBusinessName\": \"MINIMARKET LA ESTRELLA SRL\", \"cusDuns\": \"10.501200\", \"cusCommId\": \"-66.912340\", \"tp1Code\": \"112\", \"tp2Code\": \"TC00000045\", \"citCode\": \"16\", \"txnCode\": \"02\", \"cusPhone\": \"212-3451234\", \"cusFax\": \"424-9876543\", \"cusStreet1\": \"CALLE BOLIVAR 456\", \"cusStreet2\": \"LOCAL 12\", \"cusStreet3\": \"URB LOS PALOS GRANDES\", \"cusTaxID1\": \"V-12345678-9\", \"brcCode\": \"0022405493\", \"cusLatitude\": \"10.501200\", \"cusLongitude\": \"-66.912340\", \"prcCodeForSale\": \"A002\", \"prcCodeForReturn\": \"A002\", \"cusContactPerson\": \"MARIA GONZALEZ\", \"cusEmail\": \"minimarket.estrella@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"112\", \"tp1Name\": \"CS Media Visibilidad\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000045\", \"tp2Name\": \"MINIMARKET\" },\n\t\t\"regionCliente\": { \"citCode\": \"16\", \"citName\": \"Caracas\", \"staCode\": \"DC\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"02\", \"freName\": \"Quincenal\", \"freWeek1\": \"1\", \"freWeek2\": \"0\", \"freWeek3\": \"1\", \"freWeek4\": \"0\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01752\", \"cusCode\": \"0000055044\", \"freCode\": \"02\", \"ctrMonday\": \"1\", \"ctrTuesday\": \"0\", \"ctrWednesday\": \"1\", \"ctrThursday\": \"0\", \"ctrFriday\": \"1\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"01\", \"iftName\": \"Patente Comercial\", \"iftCharType\": \"01\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055045\", \"cusName\": \"SUPERMERCADO TROPICAL\", \"cusBusinessName\": \"SUPERMERCADO TROPICAL CA\", \"cusDuns\": \"8.625400\", \"cusCommId\": \"-71.150200\", \"tp1Code\": \"113\", \"tp2Code\": \"TC00000046\", \"citCode\": \"17\", \"txnCode\": \"01\", \"cusPhone\": \"261-7891234\", \"cusFax\": \"261-7894567\", \"cusStreet1\": \"AV 5 DE JULIO\", \"cusStreet2\": \"CC LAGO MALL LOCAL 23\", \"cusStreet3\": \"MARACAIBO ZULIA\", \"cusTaxID1\": \"J-40567890-1\", \"brcCode\": \"0022405494\", \"cusLatitude\": \"8.625400\", \"cusLongitude\": \"-71.150200\", \"prcCodeForSale\": \"A003\", \"prcCodeForReturn\": \"A003\", \"cusContactPerson\": \"CARLOS RAMIREZ\", \"cusEmail\": \"super.tropical@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"113\", \"tp1Name\": \"Autoservicios\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000046\", \"tp2Name\": \"SUPERMERCADO\" },\n\t\t\"regionCliente\": { \"citCode\": \"17\", \"citName\": \"Zulia\", \"staCode\": \"ZUL\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"03\", \"freName\": \"Diario\", \"freWeek1\": \"1\", \"freWeek2\": \"1\", \"freWeek3\": \"1\", \"freWeek4\": \"1\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01753\", \"cusCode\": \"0000055045\", \"freCode\": \"03\", \"ctrMonday\": \"1\", \"ctrTuesday\": \"1\", \"ctrWednesday\": \"1\", \"ctrThursday\": \"1\", \"ctrFriday\": \"1\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"02\", \"iftName\": \"Licencia Sanitaria\", \"iftCharType\": \"02\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055046\", \"cusName\": \"DISTRIBUIDORA EL FARO\", \"cusBusinessName\": \"DISTRIBUIDORA EL FARO SRL\", \"cusDuns\": \"10.065800\", \"cusCommId\": \"-69.322100\", \"tp1Code\": \"114\", \"tp2Code\": \"TC00000047\", \"citCode\": \"18\", \"txnCode\": \"01\", \"cusPhone\": \"251-2531234\", \"cusFax\": \"251-2534567\", \"cusStreet1\": \"CARRERA 19 ENTRE CALLES 31 Y 32\", \"cusStreet2\": \"LOCAL 5B\", \"cusStreet3\": \"BARQUISIMETO LARA\", \"cusTaxID1\": \"J-50123456-3\", \"brcCode\": \"0022405495\", \"cusLatitude\": \"10.065800\", \"cusLongitude\": \"-69.322100\", \"prcCodeForSale\": \"A004\", \"prcCodeForReturn\": \"A004\", \"cusContactPerson\": \"LUIS MARTINEZ\", \"cusEmail\": \"elfaro.dist@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"114\", \"tp1Name\": \"Distribuidoras\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000047\", \"tp2Name\": \"DISTRIBUIDORA\" },\n\t\t\"regionCliente\": { \"citCode\": \"18\", \"citName\": \"Lara\", \"staCode\": \"LAR\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"04\", \"freName\": \"Mensual\", \"freWeek1\": \"1\", \"freWeek2\": \"0\", \"freWeek3\": \"0\", \"freWeek4\": \"0\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01754\", \"cusCode\": \"0000055046\", \"freCode\": \"04\", \"ctrMonday\": \"1\", \"ctrTuesday\": \"0\", \"ctrWednesday\": \"0\", \"ctrThursday\": \"0\", \"ctrFriday\": \"0\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"03\", \"iftName\": \"Registro Mercantil\", \"iftCharType\": \"03\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055047\", \"cusName\": \"PANADERIA SAN JOSE\", \"cusBusinessName\": \"PANADERIA SAN JOSE CA\", \"cusDuns\": \"10.401100\", \"cusCommId\": \"-66.938900\", \"tp1Code\": \"115\", \"tp2Code\": \"TC00000048\", \"citCode\": \"15\", \"txnCode\": \"01\", \"cusPhone\": \"212-5551234\", \"cusFax\": \"212-5554567\", \"cusStreet1\": \"AV LIBERTADOR\", \"cusStreet2\": \"ESQUINA LA PELOTA\", \"cusStreet3\": \"CATIA CARACAS\", \"cusTaxID1\": \"J-12987654-0\", \"brcCode\": \"0022405496\", \"cusLatitude\": \"10.401100\", \"cusLongitude\": \"-66.938900\", \"prcCodeForSale\": \"A001\", \"prcCodeForReturn\": \"A001\", \"cusContactPerson\": \"ANA RODRIGUEZ\", \"cusEmail\": \"panaderia.sanjose@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"115\", \"tp1Name\": \"Panaderias\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000048\", \"tp2Name\": \"PANADERIA\" },\n\t\t\"regionCliente\": { \"citCode\": \"15\", \"citName\": \"Miranda\", \"staCode\": \"MIR\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"01\", \"freName\": \"Semanal s/dia del plan\", \"freWeek1\": \"1\", \"freWeek2\": \"1\", \"freWeek3\": \"1\", \"freWeek4\": \"1\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01755\", \"cusCode\": \"0000055047\", \"freCode\": \"01\", \"ctrMonday\": \"2\", \"ctrTuesday\": \"2\", \"ctrWednesday\": \"2\", \"ctrThursday\": \"0\", \"ctrFriday\": \"0\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"05\", \"iftName\": \"Permiso Sanitario Alimentos\", \"iftCharType\": \"05\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055048\", \"cusName\": \"FARMACIA SANTA RITA\", \"cusBusinessName\": \"FARMACIA SANTA RITA CA\", \"cusDuns\": \"7.883300\", \"cusCommId\": \"-72.235600\", \"tp1Code\": \"116\", \"tp2Code\": \"TC00000049\", \"citCode\": \"19\", \"txnCode\": \"02\", \"cusPhone\": \"276-3451234\", \"cusFax\": \"276-3454567\", \"cusStreet1\": \"CALLE 10 ENTRE AV 7 Y 8\", \"cusStreet2\": \"SECTOR CENTRO\", \"cusStreet3\": \"SAN CRISTOBAL TACHIRA\", \"cusTaxID1\": \"J-60234567-8\", \"brcCode\": \"0022405497\", \"cusLatitude\": \"7.883300\", \"cusLongitude\": \"-72.235600\", \"prcCodeForSale\": \"A005\", \"prcCodeForReturn\": \"A005\", \"cusContactPerson\": \"PEDRO SANCHEZ\", \"cusEmail\": \"farmacia.santarita@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"116\", \"tp1Name\": \"Farmacias\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000049\", \"tp2Name\": \"FARMACIA\" },\n\t\t\"regionCliente\": { \"citCode\": \"19\", \"citName\": \"Tachira\", \"staCode\": \"TAC\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"02\", \"freName\": \"Quincenal\", \"freWeek1\": \"1\", \"freWeek2\": \"0\", \"freWeek3\": \"1\", \"freWeek4\": \"0\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01756\", \"cusCode\": \"0000055048\", \"freCode\": \"02\", \"ctrMonday\": \"0\", \"ctrTuesday\": \"1\", \"ctrWednesday\": \"0\", \"ctrThursday\": \"1\", \"ctrFriday\": \"0\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"06\", \"iftName\": \"Permiso Farmaceutico\", \"iftCharType\": \"06\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055049\", \"cusName\": \"LICORERIA EL PARRAL\", \"cusBusinessName\": \"LICORERIA EL PARRAL CA\", \"cusDuns\": \"10.180200\", \"cusCommId\": \"-67.997800\", \"tp1Code\": \"117\", \"tp2Code\": \"TC00000050\", \"citCode\": \"20\", \"txnCode\": \"01\", \"cusPhone\": \"241-8231234\", \"cusFax\": \"241-8234567\", \"cusStreet1\": \"AV BOLIVAR NORTE\", \"cusStreet2\": \"CC PARRAL MALL\", \"cusStreet3\": \"VALENCIA CARABOBO\", \"cusTaxID1\": \"J-70345678-5\", \"brcCode\": \"0022405498\", \"cusLatitude\": \"10.180200\", \"cusLongitude\": \"-67.997800\", \"prcCodeForSale\": \"A006\", \"prcCodeForReturn\": \"A006\", \"cusContactPerson\": \"ROBERTO DIAZ\", \"cusEmail\": \"licoreria.parral@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"117\", \"tp1Name\": \"Licorerias\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000050\", \"tp2Name\": \"LICORERIA\" },\n\t\t\"regionCliente\": { \"citCode\": \"20\", \"citName\": \"Carabobo\", \"staCode\": \"CAR\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"01\", \"freName\": \"Semanal s/dia del plan\", \"freWeek1\": \"1\", \"freWeek2\": \"1\", \"freWeek3\": \"1\", \"freWeek4\": \"1\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01757\", \"cusCode\": \"0000055049\", \"freCode\": \"01\", \"ctrMonday\": \"1\", \"ctrTuesday\": \"1\", \"ctrWednesday\": \"1\", \"ctrThursday\": \"1\", \"ctrFriday\": \"1\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"07\", \"iftName\": \"Licencia de Licores\", \"iftCharType\": \"07\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055050\", \"cusName\": \"RESTAURANTE CRIOLLO\", \"cusBusinessName\": \"RESTAURANTE CRIOLLO CA\", \"cusDuns\": \"10.473200\", \"cusCommId\": \"-66.876500\", \"tp1Code\": \"118\", \"tp2Code\": \"TC00000051\", \"citCode\": \"15\", \"txnCode\": \"01\", \"cusPhone\": \"212-7771234\", \"cusFax\": \"212-7774567\", \"cusStreet1\": \"CALLE LAS MERCEDES\", \"cusStreet2\": \"ZONA GASTRONOMICA\", \"cusStreet3\": \"LAS MERCEDES CARACAS\", \"cusTaxID1\": \"J-80456789-2\", \"brcCode\": \"0022405499\", \"cusLatitude\": \"10.473200\", \"cusLongitude\": \"-66.876500\", \"prcCodeForSale\": \"A001\", \"prcCodeForReturn\": \"A001\", \"cusContactPerson\": \"ELENA TORRES\", \"cusEmail\": \"rest.criollo@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"118\", \"tp1Name\": \"Restaurantes\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000051\", \"tp2Name\": \"RESTAURANTE\" },\n\t\t\"regionCliente\": { \"citCode\": \"15\", \"citName\": \"Miranda\", \"staCode\": \"MIR\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"03\", \"freName\": \"Diario\", \"freWeek1\": \"1\", \"freWeek2\": \"1\", \"freWeek3\": \"1\", \"freWeek4\": \"1\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01758\", \"cusCode\": \"0000055050\", \"freCode\": \"03\", \"ctrMonday\": \"1\", \"ctrTuesday\": \"1\", \"ctrWednesday\": \"1\", \"ctrThursday\": \"1\", \"ctrFriday\": \"1\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"08\", \"iftName\": \"Permiso de Alimentos\", \"iftCharType\": \"08\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055051\", \"cusName\": \"FERRETERIA LOS ANDES\", \"cusBusinessName\": \"FERRETERIA LOS ANDES SRL\", \"cusDuns\": \"8.598600\", \"cusCommId\": \"-71.140200\", \"tp1Code\": \"119\", \"tp2Code\": \"TC00000052\", \"citCode\": \"21\", \"txnCode\": \"02\", \"cusPhone\": \"274-2521234\", \"cusFax\": \"274-2524567\", \"cusStreet1\": \"AV UNIVERSIDAD\", \"cusStreet2\": \"SECTOR LA PARROQUIA\", \"cusStreet3\": \"MERIDA MERIDA\", \"cusTaxID1\": \"J-90567890-4\", \"brcCode\": \"0022405500\", \"cusLatitude\": \"8.598600\", \"cusLongitude\": \"-71.140200\", \"prcCodeForSale\": \"A007\", \"prcCodeForReturn\": \"A007\", \"cusContactPerson\": \"FRANCISCO LOPEZ\", \"cusEmail\": \"ferreteria.andes@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"119\", \"tp1Name\": \"Ferreterias\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000052\", \"tp2Name\": \"FERRETERIA\" },\n\t\t\"regionCliente\": { \"citCode\": \"21\", \"citName\": \"Merida\", \"staCode\": \"MER\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"04\", \"freName\": \"Mensual\", \"freWeek1\": \"1\", \"freWeek2\": \"0\", \"freWeek3\": \"0\", \"freWeek4\": \"0\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01759\", \"cusCode\": \"0000055051\", \"freCode\": \"04\", \"ctrMonday\": \"1\", \"ctrTuesday\": \"0\", \"ctrWednesday\": \"0\", \"ctrThursday\": \"0\", \"ctrFriday\": \"0\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"09\", \"iftName\": \"Registro Industrial\", \"iftCharType\": \"09\" }\n\t},\n\t{\n\t\t\"Clientes\": { \"cusCode\": \"0000055052\", \"cusName\": \"TIENDA DEPORTIVA MAX\", \"cusBusinessName\": \"TIENDA DEPORTIVA MAX CA\", \"cusDuns\": \"10.489700\", \"cusCommId\": \"-66.879300\", \"tp1Code\": \"120\", \"tp2Code\": \"TC00000053\", \"citCode\": \"16\", \"txnCode\": \"01\", \"cusPhone\": \"212-9991234\", \"cusFax\": \"212-9994567\", \"cusStreet1\": \"CC SAMBIL NIVEL 3\", \"cusStreet2\": \"LOCAL 305\", \"cusStreet3\": \"CHACAO CARACAS\", \"cusTaxID1\": \"J-10678901-6\", \"brcCode\": \"0022405501\", \"cusLatitude\": \"10.489700\", \"cusLongitude\": \"-66.879300\", \"prcCodeForSale\": \"A001\", \"prcCodeForReturn\": \"A001\", \"cusContactPerson\": \"DIANA MORENO\", \"cusEmail\": \"deportiva.max@mail.com\" },\n\t\t\"GrupoCliente\": { \"tp1Code\": \"120\", \"tp1Name\": \"Tiendas Deportivas\" },\n\t\t\"ramoCliente\": { \"tp2Code\": \"TC00000053\", \"tp2Name\": \"TIENDA DEPORTIVA\" },\n\t\t\"regionCliente\": { \"citCode\": \"16\", \"citName\": \"Caracas\", \"staCode\": \"DC\" },\n\t\t\"frecuenciaTb\": { \"freCode\": \"02\", \"freName\": \"Quincenal\", \"freWeek1\": \"1\", \"freWeek2\": \"0\", \"freWeek3\": \"1\", \"freWeek4\": \"0\", \"freCustomer\": \"1\" },\n\t\t\"frecuenciaCliente\": { \"rotCode\": \"01760\", \"cusCode\": \"0000055052\", \"freCode\": \"02\", \"ctrMonday\": \"0\", \"ctrTuesday\": \"1\", \"ctrWednesday\": \"0\", \"ctrThursday\": \"1\", \"ctrFriday\": \"0\" },\n\t\t\"licenciaTb\": { \"iftCode\": \"10\", \"iftName\": \"Patente Municipal\", \"iftCharType\": \"10\" }\n\t}\n]"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/mastercustomer",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mastercustomer"
+                            ]
+                        },
+                        "description": "Carga masiva: enviar un JSON Array con 1 a N bloques de cliente. Cada bloque contiene: Clientes, GrupoCliente, ramoCliente, regionCliente, frecuenciaTb, frecuenciaCliente, licenciaTb. Todo se procesa en UNA sola transaccion."
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

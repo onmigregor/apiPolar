@@ -10,6 +10,7 @@ use Modules\Customer\Actions\CustomerDeleteAction;
 use Modules\Customer\Actions\CustomerListAction;
 use Modules\Customer\Actions\CustomerStoreAction;
 use Modules\Customer\Actions\CustomerUpdateAction;
+use Modules\Customer\Actions\MasterCustomerAction;
 use Modules\Customer\DataTransferObjects\CustomerData;
 use Modules\Customer\Http\Requests\CustomerRequest;
 use Modules\Customer\Http\Resources\CustomerResource;
@@ -23,7 +24,8 @@ class CustomerController extends Controller
         private readonly CustomerListAction $listAction,
         private readonly CustomerStoreAction $storeAction,
         private readonly CustomerUpdateAction $updateAction,
-        private readonly CustomerDeleteAction $deleteAction
+        private readonly CustomerDeleteAction $deleteAction,
+        private readonly MasterCustomerAction $masterCustomerAction
     ) {}
 
     public function index(Request $request): JsonResponse
@@ -55,5 +57,29 @@ class CustomerController extends Controller
     {
         $this->deleteAction->execute($customer);
         return $this->success(null, 'Customer deleted successfully');
+    }
+
+    /**
+     * Carga masiva de datos maestros de cliente.
+     * Recibe un JSON con un ARRAY de bloques, cada uno con secciones:
+     * Clientes, GrupoCliente, ramoCliente, regionCliente, frecuenciaTb,
+     * frecuenciaCliente, licenciaTb.
+     * Soporta 1 a N clientes en una sola transacción.
+     */
+    public function masterCustomer(Request $request): JsonResponse
+    {
+        try {
+            $items = $request->all();
+
+            // Si envían un solo objeto (no array), lo envolvemos en array
+            if (isset($items['Clientes']) || isset($items['GrupoCliente'])) {
+                $items = [$items];
+            }
+
+            $results = $this->masterCustomerAction->execute($items);
+            return $this->success($results, 'Master Customer: ' . count($results) . ' registro(s) creado(s) exitosamente', 201);
+        } catch (\Exception $e) {
+            return $this->error('Error al procesar la carga masiva: ' . $e->getMessage(), 500);
+        }
     }
 }
