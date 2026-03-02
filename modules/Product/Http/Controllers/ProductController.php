@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\Product\Actions\MasterProductAction;
 use Modules\Product\Actions\ProductDeleteAction;
 use Modules\Product\Actions\ProductListAction;
 use Modules\Product\Actions\ProductStoreAction;
@@ -23,7 +24,8 @@ class ProductController extends Controller
         private readonly ProductListAction $listAction,
         private readonly ProductStoreAction $storeAction,
         private readonly ProductUpdateAction $updateAction,
-        private readonly ProductDeleteAction $deleteAction
+        private readonly ProductDeleteAction $deleteAction,
+        private readonly MasterProductAction $masterProductAction
     ) {}
 
     public function index(Request $request): JsonResponse
@@ -55,5 +57,28 @@ class ProductController extends Controller
     {
         $this->deleteAction->execute($product);
         return $this->success(null, 'Product deleted successfully');
+    }
+
+    /**
+     * Carga masiva de datos maestros de producto.
+     * Recibe un JSON con un ARRAY de bloques, cada uno con secciones:
+     * Producto, unidadProducto.
+     * Soporta 1 a N productos en una sola transacción.
+     */
+    public function masterProduct(Request $request): JsonResponse
+    {
+        try {
+            $items = $request->all();
+
+            // Si envían un solo objeto (no array), lo envolvemos en array
+            if (isset($items['Producto']) || isset($items['unidadProducto'])) {
+                $items = [$items];
+            }
+
+            $results = $this->masterProductAction->execute($items);
+            return $this->success($results, 'Master Product: ' . count($results) . ' registro(s) creado(s) exitosamente', 201);
+        } catch (\Exception $e) {
+            return $this->error('Error al procesar la carga masiva: ' . $e->getMessage(), 500);
+        }
     }
 }

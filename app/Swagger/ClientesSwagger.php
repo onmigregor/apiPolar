@@ -6,15 +6,17 @@ use OpenApi\Attributes as OA;
 
 class ClientesSwagger
 {
-    // --- CUSTOMERS ---
-    #[OA\Get(path: '/customers', summary: 'Listar clientes (paginado)', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMERS
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customers', summary: 'Listar clientes (paginado)', tags: ['Clientes - Customer'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista de clientes')]
     )]
     public function listCustomers() {}
 
-    #[OA\Post(path: '/customers', summary: 'Crear cliente', tags: ['Clientes'],
+    #[OA\Post(path: '/customers', summary: 'Crear cliente', tags: ['Clientes - Customer'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['cus_code', 'cus_name', 'tp1_code', 'tp2_code', 'cit_code', 'txn_code'],
@@ -35,35 +37,35 @@ class ClientesSwagger
     )]
     public function storeCustomer() {}
 
-    #[OA\Get(path: '/customers/{id}', summary: 'Obtener cliente', tags: ['Clientes'],
+    #[OA\Get(path: '/customers/{id}', summary: 'Obtener cliente', tags: ['Clientes - Customer'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle del cliente')]
     )]
     public function showCustomer() {}
 
-    #[OA\Put(path: '/customers/{id}', summary: 'Actualizar cliente', tags: ['Clientes'],
+    #[OA\Put(path: '/customers/{id}', summary: 'Actualizar cliente', tags: ['Clientes - Customer'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
-        requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
-            properties: [
-                new OA\Property(property: 'cus_code', type: 'string', maxLength: 10),
-                new OA\Property(property: 'cus_name', type: 'string', maxLength: 35),
-            ]
-        )),
+        requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
+            new OA\Property(property: 'cus_code', type: 'string', maxLength: 10),
+            new OA\Property(property: 'cus_name', type: 'string', maxLength: 35),
+        ])),
         responses: [new OA\Response(response: 200, description: 'Cliente actualizado')]
     )]
     public function updateCustomer() {}
 
-    #[OA\Delete(path: '/customers/{id}', summary: 'Eliminar cliente', tags: ['Clientes'],
+    #[OA\Delete(path: '/customers/{id}', summary: 'Eliminar cliente', tags: ['Clientes - Customer'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Cliente eliminado')]
     )]
     public function deleteCustomer() {}
 
-    // --- MASTER CUSTOMER (bulk) ---
-    #[OA\Post(path: '/mastercustomer', summary: 'Carga masiva de datos maestros de cliente', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  MASTER CUSTOMER (bulk)
+    // ═══════════════════════════════════════════════
+    #[OA\Post(path: '/mastercustomer', summary: 'Carga masiva de datos maestros de cliente', tags: ['Clientes - MasterCustomer'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             type: 'array',
@@ -81,15 +83,17 @@ class ClientesSwagger
     )]
     public function masterCustomer() {}
 
-    // --- CITIES ---
-    #[OA\Get(path: '/cities', summary: 'Listar ciudades', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CITIES
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/cities', summary: 'Listar ciudades', tags: ['Clientes - City'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista de ciudades')]
     )]
     public function listCities() {}
 
-    #[OA\Post(path: '/cities', summary: 'Crear ciudad', tags: ['Clientes'],
+    #[OA\Post(path: '/cities', summary: 'Crear ciudad', tags: ['Clientes - City'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['cit_code', 'cit_name', 'sta_code'],
@@ -103,14 +107,14 @@ class ClientesSwagger
     )]
     public function storeCity() {}
 
-    #[OA\Get(path: '/cities/{id}', summary: 'Obtener ciudad', tags: ['Clientes'],
+    #[OA\Get(path: '/cities/{id}', summary: 'Obtener ciudad', tags: ['Clientes - City'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle de ciudad')]
     )]
     public function showCity() {}
 
-    #[OA\Put(path: '/cities/{id}', summary: 'Actualizar ciudad', tags: ['Clientes'],
+    #[OA\Put(path: '/cities/{id}', summary: 'Actualizar ciudad', tags: ['Clientes - City'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -122,22 +126,24 @@ class ClientesSwagger
     )]
     public function updateCity() {}
 
-    #[OA\Delete(path: '/cities/{id}', summary: 'Eliminar ciudad', tags: ['Clientes'],
+    #[OA\Delete(path: '/cities/{id}', summary: 'Eliminar ciudad', tags: ['Clientes - City'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Ciudad eliminada')]
     )]
     public function deleteCity() {}
 
-    // --- CUSTOMER GROUPS ---
-    #[OA\Get(path: '/customer_groups', summary: 'Listar grupos de clientes', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMER GROUPS
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customer_groups', summary: 'Listar grupos de clientes', tags: ['Clientes - CustomerGroup'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista de grupos')]
     )]
     public function listCustomerGroups() {}
 
-    #[OA\Post(path: '/customer_groups', summary: 'Crear grupo de clientes', tags: ['Clientes'],
+    #[OA\Post(path: '/customer_groups', summary: 'Crear grupo de clientes', tags: ['Clientes - CustomerGroup'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['tp1_code', 'tp1_name'],
@@ -150,14 +156,14 @@ class ClientesSwagger
     )]
     public function storeCustomerGroup() {}
 
-    #[OA\Get(path: '/customer_groups/{id}', summary: 'Obtener grupo', tags: ['Clientes'],
+    #[OA\Get(path: '/customer_groups/{id}', summary: 'Obtener grupo', tags: ['Clientes - CustomerGroup'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showCustomerGroup() {}
 
-    #[OA\Put(path: '/customer_groups/{id}', summary: 'Actualizar grupo', tags: ['Clientes'],
+    #[OA\Put(path: '/customer_groups/{id}', summary: 'Actualizar grupo', tags: ['Clientes - CustomerGroup'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -168,22 +174,24 @@ class ClientesSwagger
     )]
     public function updateCustomerGroup() {}
 
-    #[OA\Delete(path: '/customer_groups/{id}', summary: 'Eliminar grupo', tags: ['Clientes'],
+    #[OA\Delete(path: '/customer_groups/{id}', summary: 'Eliminar grupo', tags: ['Clientes - CustomerGroup'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Grupo eliminado')]
     )]
     public function deleteCustomerGroup() {}
 
-    // --- CUSTOMER BRANCHES ---
-    #[OA\Get(path: '/customer_branches', summary: 'Listar ramos de clientes', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMER BRANCHES
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customer_branches', summary: 'Listar ramos', tags: ['Clientes - CustomerBranch'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
-        responses: [new OA\Response(response: 200, description: 'Lista de ramos')]
+        responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listCustomerBranches() {}
 
-    #[OA\Post(path: '/customer_branches', summary: 'Crear ramo', tags: ['Clientes'],
+    #[OA\Post(path: '/customer_branches', summary: 'Crear ramo', tags: ['Clientes - CustomerBranch'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['tp2_code', 'tp2_name'],
@@ -196,14 +204,14 @@ class ClientesSwagger
     )]
     public function storeCustomerBranch() {}
 
-    #[OA\Get(path: '/customer_branches/{id}', summary: 'Obtener ramo', tags: ['Clientes'],
+    #[OA\Get(path: '/customer_branches/{id}', summary: 'Obtener ramo', tags: ['Clientes - CustomerBranch'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showCustomerBranch() {}
 
-    #[OA\Put(path: '/customer_branches/{id}', summary: 'Actualizar ramo', tags: ['Clientes'],
+    #[OA\Put(path: '/customer_branches/{id}', summary: 'Actualizar ramo', tags: ['Clientes - CustomerBranch'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -214,22 +222,24 @@ class ClientesSwagger
     )]
     public function updateCustomerBranch() {}
 
-    #[OA\Delete(path: '/customer_branches/{id}', summary: 'Eliminar ramo', tags: ['Clientes'],
+    #[OA\Delete(path: '/customer_branches/{id}', summary: 'Eliminar ramo', tags: ['Clientes - CustomerBranch'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Ramo eliminado')]
     )]
     public function deleteCustomerBranch() {}
 
-    // --- CUSTOMER REGIONS ---
-    #[OA\Get(path: '/customer_regions', summary: 'Listar regiones de clientes', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMER REGIONS
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customer_regions', summary: 'Listar regiones', tags: ['Clientes - CustomerRegion'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
-        responses: [new OA\Response(response: 200, description: 'Lista de regiones')]
+        responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listCustomerRegions() {}
 
-    #[OA\Post(path: '/customer_regions', summary: 'Crear región', tags: ['Clientes'],
+    #[OA\Post(path: '/customer_regions', summary: 'Crear región', tags: ['Clientes - CustomerRegion'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['cit_code', 'cit_name', 'sta_code'],
@@ -243,14 +253,14 @@ class ClientesSwagger
     )]
     public function storeCustomerRegion() {}
 
-    #[OA\Get(path: '/customer_regions/{id}', summary: 'Obtener región', tags: ['Clientes'],
+    #[OA\Get(path: '/customer_regions/{id}', summary: 'Obtener región', tags: ['Clientes - CustomerRegion'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showCustomerRegion() {}
 
-    #[OA\Put(path: '/customer_regions/{id}', summary: 'Actualizar región', tags: ['Clientes'],
+    #[OA\Put(path: '/customer_regions/{id}', summary: 'Actualizar región', tags: ['Clientes - CustomerRegion'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -262,22 +272,24 @@ class ClientesSwagger
     )]
     public function updateCustomerRegion() {}
 
-    #[OA\Delete(path: '/customer_regions/{id}', summary: 'Eliminar región', tags: ['Clientes'],
+    #[OA\Delete(path: '/customer_regions/{id}', summary: 'Eliminar región', tags: ['Clientes - CustomerRegion'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Región eliminada')]
     )]
     public function deleteCustomerRegion() {}
 
-    // --- CUSTOMER FREQUENCIES ---
-    #[OA\Get(path: '/customer_frequencies', summary: 'Listar frecuencias', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMER FREQUENCIES
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customer_frequencies', summary: 'Listar frecuencias', tags: ['Clientes - CustomerFrequency'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
-        responses: [new OA\Response(response: 200, description: 'Lista de frecuencias')]
+        responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listFrequencies() {}
 
-    #[OA\Post(path: '/customer_frequencies', summary: 'Crear frecuencia', tags: ['Clientes'],
+    #[OA\Post(path: '/customer_frequencies', summary: 'Crear frecuencia', tags: ['Clientes - CustomerFrequency'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['fre_code', 'fre_name'],
@@ -295,14 +307,14 @@ class ClientesSwagger
     )]
     public function storeFrequency() {}
 
-    #[OA\Get(path: '/customer_frequencies/{id}', summary: 'Obtener frecuencia', tags: ['Clientes'],
+    #[OA\Get(path: '/customer_frequencies/{id}', summary: 'Obtener frecuencia', tags: ['Clientes - CustomerFrequency'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showFrequency() {}
 
-    #[OA\Put(path: '/customer_frequencies/{id}', summary: 'Actualizar frecuencia', tags: ['Clientes'],
+    #[OA\Put(path: '/customer_frequencies/{id}', summary: 'Actualizar frecuencia', tags: ['Clientes - CustomerFrequency'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -313,22 +325,24 @@ class ClientesSwagger
     )]
     public function updateFrequency() {}
 
-    #[OA\Delete(path: '/customer_frequencies/{id}', summary: 'Eliminar frecuencia', tags: ['Clientes'],
+    #[OA\Delete(path: '/customer_frequencies/{id}', summary: 'Eliminar frecuencia', tags: ['Clientes - CustomerFrequency'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Frecuencia eliminada')]
     )]
     public function deleteFrequency() {}
 
-    // --- CUSTOMER ROUTES ---
-    #[OA\Get(path: '/customer_routes', summary: 'Listar rutas de clientes', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMER ROUTES
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customer_routes', summary: 'Listar rutas de clientes', tags: ['Clientes - CustomerRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listCustomerRoutes() {}
 
-    #[OA\Post(path: '/customer_routes', summary: 'Crear ruta de cliente', tags: ['Clientes'],
+    #[OA\Post(path: '/customer_routes', summary: 'Crear ruta de cliente', tags: ['Clientes - CustomerRoute'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['rot_code', 'cus_code', 'fre_code'],
@@ -347,14 +361,14 @@ class ClientesSwagger
     )]
     public function storeCustomerRoute() {}
 
-    #[OA\Get(path: '/customer_routes/{id}', summary: 'Obtener ruta de cliente', tags: ['Clientes'],
+    #[OA\Get(path: '/customer_routes/{id}', summary: 'Obtener ruta de cliente', tags: ['Clientes - CustomerRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showCustomerRoute() {}
 
-    #[OA\Put(path: '/customer_routes/{id}', summary: 'Actualizar ruta de cliente', tags: ['Clientes'],
+    #[OA\Put(path: '/customer_routes/{id}', summary: 'Actualizar ruta de cliente', tags: ['Clientes - CustomerRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -366,22 +380,24 @@ class ClientesSwagger
     )]
     public function updateCustomerRoute() {}
 
-    #[OA\Delete(path: '/customer_routes/{id}', summary: 'Eliminar ruta de cliente', tags: ['Clientes'],
+    #[OA\Delete(path: '/customer_routes/{id}', summary: 'Eliminar ruta de cliente', tags: ['Clientes - CustomerRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Ruta eliminada')]
     )]
     public function deleteCustomerRoute() {}
 
-    // --- CUSTOMER INFOS ---
-    #[OA\Get(path: '/customer_infos', summary: 'Listar info de clientes', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMER INFOS
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customer_infos', summary: 'Listar info de clientes', tags: ['Clientes - CustomerInfo'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listCustomerInfos() {}
 
-    #[OA\Post(path: '/customer_infos', summary: 'Crear info de cliente', tags: ['Clientes'],
+    #[OA\Post(path: '/customer_infos', summary: 'Crear info de cliente', tags: ['Clientes - CustomerInfo'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['cus_code', 'ift_code', 'ctn_char_value'],
@@ -395,14 +411,14 @@ class ClientesSwagger
     )]
     public function storeCustomerInfo() {}
 
-    #[OA\Get(path: '/customer_infos/{id}', summary: 'Obtener info', tags: ['Clientes'],
+    #[OA\Get(path: '/customer_infos/{id}', summary: 'Obtener info', tags: ['Clientes - CustomerInfo'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showCustomerInfo() {}
 
-    #[OA\Put(path: '/customer_infos/{id}', summary: 'Actualizar info', tags: ['Clientes'],
+    #[OA\Put(path: '/customer_infos/{id}', summary: 'Actualizar info', tags: ['Clientes - CustomerInfo'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -414,22 +430,24 @@ class ClientesSwagger
     )]
     public function updateCustomerInfo() {}
 
-    #[OA\Delete(path: '/customer_infos/{id}', summary: 'Eliminar info', tags: ['Clientes'],
+    #[OA\Delete(path: '/customer_infos/{id}', summary: 'Eliminar info', tags: ['Clientes - CustomerInfo'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Info eliminada')]
     )]
     public function deleteCustomerInfo() {}
 
-    // --- CUSTOMER PRICES ---
-    #[OA\Get(path: '/customer_prices', summary: 'Listar precios de cliente', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  CUSTOMER PRICES
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/customer_prices', summary: 'Listar precios de cliente', tags: ['Clientes - CustomerPrice'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listCustomerPrices() {}
 
-    #[OA\Post(path: '/customer_prices', summary: 'Crear precio de cliente', tags: ['Clientes'],
+    #[OA\Post(path: '/customer_prices', summary: 'Crear precio de cliente', tags: ['Clientes - CustomerPrice'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['rot_code', 'cus_code', 'prc_code'],
@@ -443,14 +461,14 @@ class ClientesSwagger
     )]
     public function storeCustomerPrice() {}
 
-    #[OA\Get(path: '/customer_prices/{id}', summary: 'Obtener precio de cliente', tags: ['Clientes'],
+    #[OA\Get(path: '/customer_prices/{id}', summary: 'Obtener precio de cliente', tags: ['Clientes - CustomerPrice'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showCustomerPrice() {}
 
-    #[OA\Put(path: '/customer_prices/{id}', summary: 'Actualizar precio de cliente', tags: ['Clientes'],
+    #[OA\Put(path: '/customer_prices/{id}', summary: 'Actualizar precio de cliente', tags: ['Clientes - CustomerPrice'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -462,22 +480,24 @@ class ClientesSwagger
     )]
     public function updateCustomerPrice() {}
 
-    #[OA\Delete(path: '/customer_prices/{id}', summary: 'Eliminar precio de cliente', tags: ['Clientes'],
+    #[OA\Delete(path: '/customer_prices/{id}', summary: 'Eliminar precio de cliente', tags: ['Clientes - CustomerPrice'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Precio eliminado')]
     )]
     public function deleteCustomerPrice() {}
 
-    // --- INFO TYPES ---
-    #[OA\Get(path: '/info_types', summary: 'Listar tipos de info (licencias)', tags: ['Clientes'],
+    // ═══════════════════════════════════════════════
+    //  INFO TYPES
+    // ═══════════════════════════════════════════════
+    #[OA\Get(path: '/info_types', summary: 'Listar tipos de info', tags: ['Clientes - InfoType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listInfoTypes() {}
 
-    #[OA\Post(path: '/info_types', summary: 'Crear tipo de info', tags: ['Clientes'],
+    #[OA\Post(path: '/info_types', summary: 'Crear tipo de info', tags: ['Clientes - InfoType'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['ift_code', 'ift_name', 'ift_char_type'],
@@ -491,14 +511,14 @@ class ClientesSwagger
     )]
     public function storeInfoType() {}
 
-    #[OA\Get(path: '/info_types/{id}', summary: 'Obtener tipo de info', tags: ['Clientes'],
+    #[OA\Get(path: '/info_types/{id}', summary: 'Obtener tipo de info', tags: ['Clientes - InfoType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showInfoType() {}
 
-    #[OA\Put(path: '/info_types/{id}', summary: 'Actualizar tipo de info', tags: ['Clientes'],
+    #[OA\Put(path: '/info_types/{id}', summary: 'Actualizar tipo de info', tags: ['Clientes - InfoType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -510,7 +530,7 @@ class ClientesSwagger
     )]
     public function updateInfoType() {}
 
-    #[OA\Delete(path: '/info_types/{id}', summary: 'Eliminar tipo de info', tags: ['Clientes'],
+    #[OA\Delete(path: '/info_types/{id}', summary: 'Eliminar tipo de info', tags: ['Clientes - InfoType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Tipo eliminado')]

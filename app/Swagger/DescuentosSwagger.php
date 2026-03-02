@@ -7,14 +7,14 @@ use OpenApi\Attributes as OA;
 class DescuentosSwagger
 {
     // --- DISCOUNTS ---
-    #[OA\Get(path: '/discounts', summary: 'Listar descuentos (paginado)', tags: ['Descuentos'],
+    #[OA\Get(path: '/discounts', summary: 'Listar descuentos (paginado)', tags: ['Descuentos - Discount'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista de descuentos')]
     )]
     public function listDiscounts() {}
 
-    #[OA\Post(path: '/discounts', summary: 'Crear descuento', tags: ['Descuentos'],
+    #[OA\Post(path: '/discounts', summary: 'Crear descuento', tags: ['Descuentos - Discount'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['dis_code', 'dis_name'],
@@ -27,14 +27,14 @@ class DescuentosSwagger
     )]
     public function storeDiscount() {}
 
-    #[OA\Get(path: '/discounts/{id}', summary: 'Obtener descuento', tags: ['Descuentos'],
+    #[OA\Get(path: '/discounts/{id}', summary: 'Obtener descuento', tags: ['Descuentos - Discount'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showDiscount() {}
 
-    #[OA\Put(path: '/discounts/{id}', summary: 'Actualizar descuento', tags: ['Descuentos'],
+    #[OA\Put(path: '/discounts/{id}', summary: 'Actualizar descuento', tags: ['Descuentos - Discount'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -45,7 +45,7 @@ class DescuentosSwagger
     )]
     public function updateDiscount() {}
 
-    #[OA\Delete(path: '/discounts/{id}', summary: 'Eliminar descuento', tags: ['Descuentos'],
+    #[OA\Delete(path: '/discounts/{id}', summary: 'Eliminar descuento', tags: ['Descuentos - Discount'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Descuento eliminado')]
@@ -53,14 +53,14 @@ class DescuentosSwagger
     public function deleteDiscount() {}
 
     // --- DISCOUNT DETAILS ---
-    #[OA\Get(path: '/discount_details', summary: 'Listar detalles de descuento', tags: ['Descuentos'],
+    #[OA\Get(path: '/discount_details', summary: 'Listar detalles de descuento', tags: ['Descuentos - DiscountDetail'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listDiscountDetails() {}
 
-    #[OA\Post(path: '/discount_details', summary: 'Crear detalle de descuento', tags: ['Descuentos'],
+    #[OA\Post(path: '/discount_details', summary: 'Crear detalle de descuento', tags: ['Descuentos - DiscountDetail'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['dis_code', 'did_code', 'did_name'],
@@ -78,14 +78,14 @@ class DescuentosSwagger
     )]
     public function storeDiscountDetail() {}
 
-    #[OA\Get(path: '/discount_details/{id}', summary: 'Obtener detalle', tags: ['Descuentos'],
+    #[OA\Get(path: '/discount_details/{id}', summary: 'Obtener detalle', tags: ['Descuentos - DiscountDetail'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showDiscountDetail() {}
 
-    #[OA\Put(path: '/discount_details/{id}', summary: 'Actualizar detalle', tags: ['Descuentos'],
+    #[OA\Put(path: '/discount_details/{id}', summary: 'Actualizar detalle', tags: ['Descuentos - DiscountDetail'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -97,7 +97,7 @@ class DescuentosSwagger
     )]
     public function updateDiscountDetail() {}
 
-    #[OA\Delete(path: '/discount_details/{id}', summary: 'Eliminar detalle', tags: ['Descuentos'],
+    #[OA\Delete(path: '/discount_details/{id}', summary: 'Eliminar detalle', tags: ['Descuentos - DiscountDetail'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle eliminado')]
@@ -105,14 +105,14 @@ class DescuentosSwagger
     public function deleteDiscountDetail() {}
 
     // --- DISCOUNT DETAIL PRODUCTS ---
-    #[OA\Get(path: '/discount_detail_products', summary: 'Listar productos de detalle de descuento', tags: ['Descuentos'],
+    #[OA\Get(path: '/discount_detail_products', summary: 'Listar productos de detalle de descuento', tags: ['Descuentos - DiscountDetailProduct'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listDiscountDetailProducts() {}
 
-    #[OA\Post(path: '/discount_detail_products', summary: 'Crear producto de detalle', tags: ['Descuentos'],
+    #[OA\Post(path: '/discount_detail_products', summary: 'Crear producto de detalle', tags: ['Descuentos - DiscountDetailProduct'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['dlp_code', 'dis_code', 'did_code', 'pro_code', 'unt_code'],
@@ -129,14 +129,14 @@ class DescuentosSwagger
     )]
     public function storeDiscountDetailProduct() {}
 
-    #[OA\Get(path: '/discount_detail_products/{id}', summary: 'Obtener producto de detalle', tags: ['Descuentos'],
+    #[OA\Get(path: '/discount_detail_products/{id}', summary: 'Obtener producto de detalle', tags: ['Descuentos - DiscountDetailProduct'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showDiscountDetailProduct() {}
 
-    #[OA\Put(path: '/discount_detail_products/{id}', summary: 'Actualizar producto de detalle', tags: ['Descuentos'],
+    #[OA\Put(path: '/discount_detail_products/{id}', summary: 'Actualizar producto de detalle', tags: ['Descuentos - DiscountDetailProduct'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -148,7 +148,7 @@ class DescuentosSwagger
     )]
     public function updateDiscountDetailProduct() {}
 
-    #[OA\Delete(path: '/discount_detail_products/{id}', summary: 'Eliminar producto de detalle', tags: ['Descuentos'],
+    #[OA\Delete(path: '/discount_detail_products/{id}', summary: 'Eliminar producto de detalle', tags: ['Descuentos - DiscountDetailProduct'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Producto eliminado')]
@@ -156,14 +156,14 @@ class DescuentosSwagger
     public function deleteDiscountDetailProduct() {}
 
     // --- DISCOUNT DETAIL ROUTES ---
-    #[OA\Get(path: '/discount_detail_routes', summary: 'Listar rutas de detalle de descuento', tags: ['Descuentos'],
+    #[OA\Get(path: '/discount_detail_routes', summary: 'Listar rutas de detalle de descuento', tags: ['Descuentos - DiscountDetailRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listDiscountDetailRoutes() {}
 
-    #[OA\Post(path: '/discount_detail_routes', summary: 'Crear ruta de detalle', tags: ['Descuentos'],
+    #[OA\Post(path: '/discount_detail_routes', summary: 'Crear ruta de detalle', tags: ['Descuentos - DiscountDetailRoute'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['rot_code', 'dis_code'],
@@ -176,14 +176,14 @@ class DescuentosSwagger
     )]
     public function storeDiscountDetailRoute() {}
 
-    #[OA\Get(path: '/discount_detail_routes/{id}', summary: 'Obtener ruta de detalle', tags: ['Descuentos'],
+    #[OA\Get(path: '/discount_detail_routes/{id}', summary: 'Obtener ruta de detalle', tags: ['Descuentos - DiscountDetailRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showDiscountDetailRoute() {}
 
-    #[OA\Put(path: '/discount_detail_routes/{id}', summary: 'Actualizar ruta de detalle', tags: ['Descuentos'],
+    #[OA\Put(path: '/discount_detail_routes/{id}', summary: 'Actualizar ruta de detalle', tags: ['Descuentos - DiscountDetailRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -194,7 +194,7 @@ class DescuentosSwagger
     )]
     public function updateDiscountDetailRoute() {}
 
-    #[OA\Delete(path: '/discount_detail_routes/{id}', summary: 'Eliminar ruta de detalle', tags: ['Descuentos'],
+    #[OA\Delete(path: '/discount_detail_routes/{id}', summary: 'Eliminar ruta de detalle', tags: ['Descuentos - DiscountDetailRoute'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Ruta eliminada')]

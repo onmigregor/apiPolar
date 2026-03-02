@@ -18,13 +18,43 @@ use OpenApi\Attributes as OA;
     name: 'Authorization',
     description: 'Ingresa el token con el prefijo Bearer. Ejemplo: Bearer {token}'
 )]
+// --- Auth & Usuarios ---
 #[OA\Tag(name: 'Auth', description: 'Autenticación (Login, Logout, Perfil)')]
 #[OA\Tag(name: 'Usuarios', description: 'Gestión de usuarios y roles')]
-#[OA\Tag(name: 'Clientes', description: 'Clientes y datos relacionados')]
-#[OA\Tag(name: 'Productos', description: 'Productos, unidades de producto y unidades de medida')]
-#[OA\Tag(name: 'Rutas', description: 'Rutas, logins, datos generales, tipos de activo y jornadas')]
-#[OA\Tag(name: 'Precios', description: 'Precios, productos de precio, impuestos y clasificaciones fiscales')]
-#[OA\Tag(name: 'Descuentos', description: 'Descuentos, detalles y rutas de descuento')]
+// --- Clientes ---
+#[OA\Tag(name: 'Clientes - Customer', description: 'CRUD de clientes')]
+#[OA\Tag(name: 'Clientes - MasterCustomer', description: 'Carga masiva de datos maestros')]
+#[OA\Tag(name: 'Clientes - City', description: 'Ciudades')]
+#[OA\Tag(name: 'Clientes - CustomerGroup', description: 'Grupos de clientes')]
+#[OA\Tag(name: 'Clientes - CustomerBranch', description: 'Ramos de clientes')]
+#[OA\Tag(name: 'Clientes - CustomerRegion', description: 'Regiones de clientes')]
+#[OA\Tag(name: 'Clientes - CustomerFrequency', description: 'Frecuencias de visita')]
+#[OA\Tag(name: 'Clientes - CustomerRoute', description: 'Rutas de clientes')]
+#[OA\Tag(name: 'Clientes - CustomerInfo', description: 'Información adicional de clientes')]
+#[OA\Tag(name: 'Clientes - CustomerPrice', description: 'Precios de clientes')]
+#[OA\Tag(name: 'Clientes - InfoType', description: 'Tipos de información (licencias)')]
+// --- Productos ---
+#[OA\Tag(name: 'Productos - Product', description: 'Productos')]
+#[OA\Tag(name: 'Productos - MasterProduct', description: 'Carga masiva de productos')]
+#[OA\Tag(name: 'Productos - ProductUnit', description: 'Unidades de producto')]
+#[OA\Tag(name: 'Productos - Unit', description: 'Unidades de medida')]
+// --- Rutas ---
+#[OA\Tag(name: 'Rutas - Route', description: 'Rutas')]
+#[OA\Tag(name: 'Rutas - RouteLogin', description: 'Logins de ruta')]
+#[OA\Tag(name: 'Rutas - RouteGeneral', description: 'Datos generales de ruta')]
+#[OA\Tag(name: 'Rutas - RouteAssetType', description: 'Tipos de activo')]
+#[OA\Tag(name: 'Rutas - Journey', description: 'Jornadas')]
+// --- Precios ---
+#[OA\Tag(name: 'Precios - Price', description: 'Listas de precios')]
+#[OA\Tag(name: 'Precios - PriceProduct', description: 'Productos de precio')]
+#[OA\Tag(name: 'Precios - Tax', description: 'Impuestos')]
+#[OA\Tag(name: 'Precios - Taxation', description: 'Clasificaciones fiscales')]
+#[OA\Tag(name: 'Precios - TaxationTax', description: 'Impuestos por clasificación')]
+// --- Descuentos ---
+#[OA\Tag(name: 'Descuentos - Discount', description: 'Descuentos')]
+#[OA\Tag(name: 'Descuentos - DiscountDetail', description: 'Detalles de descuento')]
+#[OA\Tag(name: 'Descuentos - DiscountDetailProduct', description: 'Productos de detalle')]
+#[OA\Tag(name: 'Descuentos - DiscountDetailRoute', description: 'Rutas de detalle')]
 abstract class Controller
 {
     //

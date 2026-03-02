@@ -7,14 +7,14 @@ use OpenApi\Attributes as OA;
 class RutasSwagger
 {
     // --- ROUTES ---
-    #[OA\Get(path: '/routes', summary: 'Listar rutas (paginado)', tags: ['Rutas'],
+    #[OA\Get(path: '/routes', summary: 'Listar rutas (paginado)', tags: ['Rutas - Route'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista de rutas')]
     )]
     public function listRoutes() {}
 
-    #[OA\Post(path: '/routes', summary: 'Crear ruta', tags: ['Rutas'],
+    #[OA\Post(path: '/routes', summary: 'Crear ruta', tags: ['Rutas - Route'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['rot_code', 'rot_name', 'lgn_code', 'try_code'],
@@ -29,14 +29,14 @@ class RutasSwagger
     )]
     public function storeRoute() {}
 
-    #[OA\Get(path: '/routes/{id}', summary: 'Obtener ruta', tags: ['Rutas'],
+    #[OA\Get(path: '/routes/{id}', summary: 'Obtener ruta', tags: ['Rutas - Route'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showRoute() {}
 
-    #[OA\Put(path: '/routes/{id}', summary: 'Actualizar ruta', tags: ['Rutas'],
+    #[OA\Put(path: '/routes/{id}', summary: 'Actualizar ruta', tags: ['Rutas - Route'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -47,7 +47,7 @@ class RutasSwagger
     )]
     public function updateRoute() {}
 
-    #[OA\Delete(path: '/routes/{id}', summary: 'Eliminar ruta', tags: ['Rutas'],
+    #[OA\Delete(path: '/routes/{id}', summary: 'Eliminar ruta', tags: ['Rutas - Route'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Ruta eliminada')]
@@ -55,14 +55,14 @@ class RutasSwagger
     public function deleteRoute() {}
 
     // --- ROUTE LOGINS ---
-    #[OA\Get(path: '/route_logins', summary: 'Listar logins de ruta', tags: ['Rutas'],
+    #[OA\Get(path: '/route_logins', summary: 'Listar logins de ruta', tags: ['Rutas - RouteLogin'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listRouteLogins() {}
 
-    #[OA\Post(path: '/route_logins', summary: 'Crear login de ruta', tags: ['Rutas'],
+    #[OA\Post(path: '/route_logins', summary: 'Crear login de ruta', tags: ['Rutas - RouteLogin'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['rot_code', 'lgn_code'],
@@ -75,14 +75,14 @@ class RutasSwagger
     )]
     public function storeRouteLogin() {}
 
-    #[OA\Get(path: '/route_logins/{id}', summary: 'Obtener login de ruta', tags: ['Rutas'],
+    #[OA\Get(path: '/route_logins/{id}', summary: 'Obtener login de ruta', tags: ['Rutas - RouteLogin'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showRouteLogin() {}
 
-    #[OA\Put(path: '/route_logins/{id}', summary: 'Actualizar login de ruta', tags: ['Rutas'],
+    #[OA\Put(path: '/route_logins/{id}', summary: 'Actualizar login de ruta', tags: ['Rutas - RouteLogin'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -93,7 +93,7 @@ class RutasSwagger
     )]
     public function updateRouteLogin() {}
 
-    #[OA\Delete(path: '/route_logins/{id}', summary: 'Eliminar login de ruta', tags: ['Rutas'],
+    #[OA\Delete(path: '/route_logins/{id}', summary: 'Eliminar login de ruta', tags: ['Rutas - RouteLogin'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Login eliminado')]
@@ -101,14 +101,14 @@ class RutasSwagger
     public function deleteRouteLogin() {}
 
     // --- ROUTE GENERALS ---
-    #[OA\Get(path: '/route_generals', summary: 'Listar datos generales de ruta', tags: ['Rutas'],
+    #[OA\Get(path: '/route_generals', summary: 'Listar datos generales de ruta', tags: ['Rutas - RouteGeneral'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listRouteGenerals() {}
 
-    #[OA\Post(path: '/route_generals', summary: 'Crear dato general de ruta', tags: ['Rutas'],
+    #[OA\Post(path: '/route_generals', summary: 'Crear dato general de ruta', tags: ['Rutas - RouteGeneral'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['rot_code'],
@@ -118,14 +118,14 @@ class RutasSwagger
     )]
     public function storeRouteGeneral() {}
 
-    #[OA\Get(path: '/route_generals/{id}', summary: 'Obtener dato general', tags: ['Rutas'],
+    #[OA\Get(path: '/route_generals/{id}', summary: 'Obtener dato general', tags: ['Rutas - RouteGeneral'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showRouteGeneral() {}
 
-    #[OA\Put(path: '/route_generals/{id}', summary: 'Actualizar dato general', tags: ['Rutas'],
+    #[OA\Put(path: '/route_generals/{id}', summary: 'Actualizar dato general', tags: ['Rutas - RouteGeneral'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -135,7 +135,7 @@ class RutasSwagger
     )]
     public function updateRouteGeneral() {}
 
-    #[OA\Delete(path: '/route_generals/{id}', summary: 'Eliminar dato general', tags: ['Rutas'],
+    #[OA\Delete(path: '/route_generals/{id}', summary: 'Eliminar dato general', tags: ['Rutas - RouteGeneral'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Dato eliminado')]
@@ -143,14 +143,14 @@ class RutasSwagger
     public function deleteRouteGeneral() {}
 
     // --- ROUTE ASSET TYPES ---
-    #[OA\Get(path: '/route_asset_types', summary: 'Listar tipos de activo', tags: ['Rutas'],
+    #[OA\Get(path: '/route_asset_types', summary: 'Listar tipos de activo', tags: ['Rutas - RouteAssetType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listRouteAssetTypes() {}
 
-    #[OA\Post(path: '/route_asset_types', summary: 'Crear tipo de activo', tags: ['Rutas'],
+    #[OA\Post(path: '/route_asset_types', summary: 'Crear tipo de activo', tags: ['Rutas - RouteAssetType'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['rot_code', 'att_code'],
@@ -163,14 +163,14 @@ class RutasSwagger
     )]
     public function storeRouteAssetType() {}
 
-    #[OA\Get(path: '/route_asset_types/{id}', summary: 'Obtener tipo de activo', tags: ['Rutas'],
+    #[OA\Get(path: '/route_asset_types/{id}', summary: 'Obtener tipo de activo', tags: ['Rutas - RouteAssetType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showRouteAssetType() {}
 
-    #[OA\Put(path: '/route_asset_types/{id}', summary: 'Actualizar tipo de activo', tags: ['Rutas'],
+    #[OA\Put(path: '/route_asset_types/{id}', summary: 'Actualizar tipo de activo', tags: ['Rutas - RouteAssetType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -181,7 +181,7 @@ class RutasSwagger
     )]
     public function updateRouteAssetType() {}
 
-    #[OA\Delete(path: '/route_asset_types/{id}', summary: 'Eliminar tipo de activo', tags: ['Rutas'],
+    #[OA\Delete(path: '/route_asset_types/{id}', summary: 'Eliminar tipo de activo', tags: ['Rutas - RouteAssetType'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Tipo eliminado')]
@@ -189,14 +189,14 @@ class RutasSwagger
     public function deleteRouteAssetType() {}
 
     // --- JOURNEYS ---
-    #[OA\Get(path: '/journeys', summary: 'Listar jornadas', tags: ['Rutas'],
+    #[OA\Get(path: '/journeys', summary: 'Listar jornadas', tags: ['Rutas - Journey'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
         responses: [new OA\Response(response: 200, description: 'Lista')]
     )]
     public function listJourneys() {}
 
-    #[OA\Post(path: '/journeys', summary: 'Crear jornada', tags: ['Rutas'],
+    #[OA\Post(path: '/journeys', summary: 'Crear jornada', tags: ['Rutas - Journey'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             required: ['jrn_code', 'rot_code'],
@@ -209,14 +209,14 @@ class RutasSwagger
     )]
     public function storeJourney() {}
 
-    #[OA\Get(path: '/journeys/{id}', summary: 'Obtener jornada', tags: ['Rutas'],
+    #[OA\Get(path: '/journeys/{id}', summary: 'Obtener jornada', tags: ['Rutas - Journey'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Detalle')]
     )]
     public function showJourney() {}
 
-    #[OA\Put(path: '/journeys/{id}', summary: 'Actualizar jornada', tags: ['Rutas'],
+    #[OA\Put(path: '/journeys/{id}', summary: 'Actualizar jornada', tags: ['Rutas - Journey'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
@@ -227,7 +227,7 @@ class RutasSwagger
     )]
     public function updateJourney() {}
 
-    #[OA\Delete(path: '/journeys/{id}', summary: 'Eliminar jornada', tags: ['Rutas'],
+    #[OA\Delete(path: '/journeys/{id}', summary: 'Eliminar jornada', tags: ['Rutas - Journey'],
         security: [['sanctum' => []]],
         parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
         responses: [new OA\Response(response: 200, description: 'Jornada eliminada')]

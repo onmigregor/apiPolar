@@ -18,7 +18,7 @@
         "/customers": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - Customer"
                 ],
                 "summary": "Listar clientes (paginado)",
                 "operationId": "64a7bd7772376bd193f2bba26c75399d",
@@ -46,7 +46,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - Customer"
                 ],
                 "summary": "Crear cliente",
                 "operationId": "20b059087aaec8c2526e11793e95cb74",
@@ -128,7 +128,7 @@
         "/customers/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - Customer"
                 ],
                 "summary": "Obtener cliente",
                 "operationId": "eba7840b3ea1708029a3547e300c2ce0",
@@ -155,7 +155,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - Customer"
                 ],
                 "summary": "Actualizar cliente",
                 "operationId": "d47bdac680ec24c6b2bbd5e55fbe061e",
@@ -202,7 +202,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - Customer"
                 ],
                 "summary": "Eliminar cliente",
                 "operationId": "45b0cfed28bb41c86d71d6f8e751c77f",
@@ -231,7 +231,7 @@
         "/mastercustomer": {
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - MasterCustomer"
                 ],
                 "summary": "Carga masiva de datos maestros de cliente",
                 "operationId": "0e39aa66f4e23a3465a67232695b7002",
@@ -286,7 +286,7 @@
         "/cities": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - City"
                 ],
                 "summary": "Listar ciudades",
                 "operationId": "a8308f0470a1e924630f4313be154604",
@@ -314,7 +314,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - City"
                 ],
                 "summary": "Crear ciudad",
                 "operationId": "02ae39e502a2f0c5f1085538b8150ed5",
@@ -362,7 +362,7 @@
         "/cities/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - City"
                 ],
                 "summary": "Obtener ciudad",
                 "operationId": "38815528daee1aed1c12915f2c9d433f",
@@ -389,7 +389,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - City"
                 ],
                 "summary": "Actualizar ciudad",
                 "operationId": "c3da6264dac6a6de8f12062951312e0f",
@@ -440,7 +440,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - City"
                 ],
                 "summary": "Eliminar ciudad",
                 "operationId": "d6c3f65ecf34a73297ee18a7089cdf7d",
@@ -469,7 +469,7 @@
         "/customer_groups": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerGroup"
                 ],
                 "summary": "Listar grupos de clientes",
                 "operationId": "3c29e2ac9a3a7ecd50cf1543238843f9",
@@ -497,7 +497,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerGroup"
                 ],
                 "summary": "Crear grupo de clientes",
                 "operationId": "6a9bab1916ad3a281ac167c4657a7596",
@@ -540,7 +540,7 @@
         "/customer_groups/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerGroup"
                 ],
                 "summary": "Obtener grupo",
                 "operationId": "8f56993eaf7dfd955a652280989b6841",
@@ -567,7 +567,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerGroup"
                 ],
                 "summary": "Actualizar grupo",
                 "operationId": "e5208c27ba47b979a6a16e7519ae9a80",
@@ -614,7 +614,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerGroup"
                 ],
                 "summary": "Eliminar grupo",
                 "operationId": "4f6e4bf69cf801180c5f251e58fab58d",
@@ -643,9 +643,9 @@
         "/customer_branches": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerBranch"
                 ],
-                "summary": "Listar ramos de clientes",
+                "summary": "Listar ramos",
                 "operationId": "0cd321f16d4f99b3d57916debbf56300",
                 "parameters": [
                     {
@@ -660,7 +660,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Lista de ramos"
+                        "description": "Lista"
                     }
                 },
                 "security": [
@@ -671,7 +671,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerBranch"
                 ],
                 "summary": "Crear ramo",
                 "operationId": "3e0897722554cfad6a8990dde4fb3c12",
@@ -714,7 +714,7 @@
         "/customer_branches/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerBranch"
                 ],
                 "summary": "Obtener ramo",
                 "operationId": "9a2c8f2fa5430b083a0b0cd15eb99c57",
@@ -741,7 +741,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerBranch"
                 ],
                 "summary": "Actualizar ramo",
                 "operationId": "3f4d8594bdc715e8f48af2dc74873edc",
@@ -788,7 +788,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerBranch"
                 ],
                 "summary": "Eliminar ramo",
                 "operationId": "fa935de99936d2545f5ad942e4aad8cb",
@@ -817,9 +817,9 @@
         "/customer_regions": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRegion"
                 ],
-                "summary": "Listar regiones de clientes",
+                "summary": "Listar regiones",
                 "operationId": "3cb73087bde8db916d4a113353b4ea01",
                 "parameters": [
                     {
@@ -834,7 +834,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Lista de regiones"
+                        "description": "Lista"
                     }
                 },
                 "security": [
@@ -845,7 +845,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRegion"
                 ],
                 "summary": "Crear región",
                 "operationId": "fee6104417ce4d8619c0399b1012af96",
@@ -893,7 +893,7 @@
         "/customer_regions/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRegion"
                 ],
                 "summary": "Obtener región",
                 "operationId": "c36ffdb9e22de5b83d5c8c5218b025bb",
@@ -920,7 +920,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRegion"
                 ],
                 "summary": "Actualizar región",
                 "operationId": "6233679a9f99001d22c4938cc1628f70",
@@ -971,7 +971,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRegion"
                 ],
                 "summary": "Eliminar región",
                 "operationId": "84c68728ff1feaadafde318dd106f8a9",
@@ -1000,7 +1000,7 @@
         "/customer_frequencies": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerFrequency"
                 ],
                 "summary": "Listar frecuencias",
                 "operationId": "8a22eef12d82c59b2966b908e41d772c",
@@ -1017,7 +1017,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Lista de frecuencias"
+                        "description": "Lista"
                     }
                 },
                 "security": [
@@ -1028,7 +1028,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerFrequency"
                 ],
                 "summary": "Crear frecuencia",
                 "operationId": "3de9cf0abae553e66344e3f4ef38ab36",
@@ -1091,7 +1091,7 @@
         "/customer_frequencies/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerFrequency"
                 ],
                 "summary": "Obtener frecuencia",
                 "operationId": "0244c8654cbc645317d25c2529e61de3",
@@ -1118,7 +1118,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerFrequency"
                 ],
                 "summary": "Actualizar frecuencia",
                 "operationId": "1355f7e4dcfa7d9470bf009db108873b",
@@ -1165,7 +1165,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerFrequency"
                 ],
                 "summary": "Eliminar frecuencia",
                 "operationId": "c713eeb37847bcee7399c9648e0d2520",
@@ -1194,7 +1194,7 @@
         "/customer_routes": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRoute"
                 ],
                 "summary": "Listar rutas de clientes",
                 "operationId": "8ee809a2bdbf295d894a1291686b2e43",
@@ -1222,7 +1222,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRoute"
                 ],
                 "summary": "Crear ruta de cliente",
                 "operationId": "8e8dab85fb7d9a3c39221f4247f81f04",
@@ -1290,7 +1290,7 @@
         "/customer_routes/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRoute"
                 ],
                 "summary": "Obtener ruta de cliente",
                 "operationId": "1260cb53732afd3ecb4bc9118ba0429f",
@@ -1317,7 +1317,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRoute"
                 ],
                 "summary": "Actualizar ruta de cliente",
                 "operationId": "1142d209d1ef3f133cb58cf0948ea2bb",
@@ -1368,7 +1368,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerRoute"
                 ],
                 "summary": "Eliminar ruta de cliente",
                 "operationId": "d6e500e614093dd25af399cc0802a88a",
@@ -1397,7 +1397,7 @@
         "/customer_infos": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerInfo"
                 ],
                 "summary": "Listar info de clientes",
                 "operationId": "6c71586641e5758a9fd102d8de95ae47",
@@ -1425,7 +1425,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerInfo"
                 ],
                 "summary": "Crear info de cliente",
                 "operationId": "a86cd302b98b7bdd87804c8c60b89af0",
@@ -1473,7 +1473,7 @@
         "/customer_infos/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerInfo"
                 ],
                 "summary": "Obtener info",
                 "operationId": "e64bc2eaa894e258658e826365b21b64",
@@ -1500,7 +1500,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerInfo"
                 ],
                 "summary": "Actualizar info",
                 "operationId": "75197172e35e7536af8563798f95cc39",
@@ -1551,7 +1551,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerInfo"
                 ],
                 "summary": "Eliminar info",
                 "operationId": "f652f067ad3058af2bdcd9dfee03f411",
@@ -1580,7 +1580,7 @@
         "/customer_prices": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerPrice"
                 ],
                 "summary": "Listar precios de cliente",
                 "operationId": "8f855295062a02497af75028fe1ddb47",
@@ -1608,7 +1608,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerPrice"
                 ],
                 "summary": "Crear precio de cliente",
                 "operationId": "d58534048b793d3d298234d20d3266ff",
@@ -1656,7 +1656,7 @@
         "/customer_prices/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerPrice"
                 ],
                 "summary": "Obtener precio de cliente",
                 "operationId": "d4ce49314aa20f3b89e72da6b11c9f24",
@@ -1683,7 +1683,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerPrice"
                 ],
                 "summary": "Actualizar precio de cliente",
                 "operationId": "d44e7b68d0478be68c037810ad255f13",
@@ -1734,7 +1734,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - CustomerPrice"
                 ],
                 "summary": "Eliminar precio de cliente",
                 "operationId": "314e4b9e2bff1596d08a5b0d8d6e2174",
@@ -1763,9 +1763,9 @@
         "/info_types": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - InfoType"
                 ],
-                "summary": "Listar tipos de info (licencias)",
+                "summary": "Listar tipos de info",
                 "operationId": "e1477c7b303848bd308aaec5e9b2d35c",
                 "parameters": [
                     {
@@ -1791,7 +1791,7 @@
             },
             "post": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - InfoType"
                 ],
                 "summary": "Crear tipo de info",
                 "operationId": "d4c470a69bb45d901541c720e9ef60aa",
@@ -1839,7 +1839,7 @@
         "/info_types/{id}": {
             "get": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - InfoType"
                 ],
                 "summary": "Obtener tipo de info",
                 "operationId": "4d6bf28b6de5f3e18ccc2414e7828572",
@@ -1866,7 +1866,7 @@
             },
             "put": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - InfoType"
                 ],
                 "summary": "Actualizar tipo de info",
                 "operationId": "92fbe1e2dbc2631b4425071dbdd5bcdd",
@@ -1917,7 +1917,7 @@
             },
             "delete": {
                 "tags": [
-                    "Clientes"
+                    "Clientes - InfoType"
                 ],
                 "summary": "Eliminar tipo de info",
                 "operationId": "346596c7069695b428610a2aed774bd1",
@@ -1946,7 +1946,7 @@
         "/discounts": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - Discount"
                 ],
                 "summary": "Listar descuentos (paginado)",
                 "operationId": "90ac0ac2350b962a2bb439ed7470c611",
@@ -1974,7 +1974,7 @@
             },
             "post": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - Discount"
                 ],
                 "summary": "Crear descuento",
                 "operationId": "eebb0fc0cf1cf80ecb9cbe8bd03b6d85",
@@ -2017,7 +2017,7 @@
         "/discounts/{id}": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - Discount"
                 ],
                 "summary": "Obtener descuento",
                 "operationId": "bc26ab80fa8f38f0caa5601575f3ffb3",
@@ -2044,7 +2044,7 @@
             },
             "put": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - Discount"
                 ],
                 "summary": "Actualizar descuento",
                 "operationId": "d1a3cc12f814edd45ad04b8a49a36aef",
@@ -2091,7 +2091,7 @@
             },
             "delete": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - Discount"
                 ],
                 "summary": "Eliminar descuento",
                 "operationId": "c1b5fe9e97c01623753224c8fb6b44d1",
@@ -2120,7 +2120,7 @@
         "/discount_details": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetail"
                 ],
                 "summary": "Listar detalles de descuento",
                 "operationId": "ad29fd29067764382f32bb21e544aec7",
@@ -2148,7 +2148,7 @@
             },
             "post": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetail"
                 ],
                 "summary": "Crear detalle de descuento",
                 "operationId": "a812e9ca4e3c5f7d740fb920e8567ce1",
@@ -2212,7 +2212,7 @@
         "/discount_details/{id}": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetail"
                 ],
                 "summary": "Obtener detalle",
                 "operationId": "5abf2633fea00b1ff7b5ff17a8afe905",
@@ -2239,7 +2239,7 @@
             },
             "put": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetail"
                 ],
                 "summary": "Actualizar detalle",
                 "operationId": "c149d4cdd9acf3ecb627af34e16e683e",
@@ -2290,7 +2290,7 @@
             },
             "delete": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetail"
                 ],
                 "summary": "Eliminar detalle",
                 "operationId": "8d5fd65ee844eee70f2b0e8aff21c5ca",
@@ -2319,7 +2319,7 @@
         "/discount_detail_products": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailProduct"
                 ],
                 "summary": "Listar productos de detalle de descuento",
                 "operationId": "9099d381cc57b3fb8d3857477dbcbdc9",
@@ -2347,7 +2347,7 @@
             },
             "post": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailProduct"
                 ],
                 "summary": "Crear producto de detalle",
                 "operationId": "2d00795aade69b973f0ec3a414cb926b",
@@ -2409,7 +2409,7 @@
         "/discount_detail_products/{id}": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailProduct"
                 ],
                 "summary": "Obtener producto de detalle",
                 "operationId": "d572c844dce5e0ff9b27dc6d260932ee",
@@ -2436,7 +2436,7 @@
             },
             "put": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailProduct"
                 ],
                 "summary": "Actualizar producto de detalle",
                 "operationId": "ab9878063f031d4fb77cc3c3e19192a2",
@@ -2487,7 +2487,7 @@
             },
             "delete": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailProduct"
                 ],
                 "summary": "Eliminar producto de detalle",
                 "operationId": "a30bc780f00f980b033280949969aac8",
@@ -2516,7 +2516,7 @@
         "/discount_detail_routes": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailRoute"
                 ],
                 "summary": "Listar rutas de detalle de descuento",
                 "operationId": "486f45724e5808997c67a1b1acf03d23",
@@ -2544,7 +2544,7 @@
             },
             "post": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailRoute"
                 ],
                 "summary": "Crear ruta de detalle",
                 "operationId": "6a0a7ed868346fad35aa7a551059e57f",
@@ -2587,7 +2587,7 @@
         "/discount_detail_routes/{id}": {
             "get": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailRoute"
                 ],
                 "summary": "Obtener ruta de detalle",
                 "operationId": "344c7a35fac6e3721289cb970738f683",
@@ -2614,7 +2614,7 @@
             },
             "put": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailRoute"
                 ],
                 "summary": "Actualizar ruta de detalle",
                 "operationId": "b1c41f60ccefabfddc35672bfae50603",
@@ -2661,7 +2661,7 @@
             },
             "delete": {
                 "tags": [
-                    "Descuentos"
+                    "Descuentos - DiscountDetailRoute"
                 ],
                 "summary": "Eliminar ruta de detalle",
                 "operationId": "a69256a14b77506ead7aee8acfb7e708",
@@ -2690,7 +2690,7 @@
         "/prices": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - Price"
                 ],
                 "summary": "Listar precios (paginado)",
                 "operationId": "2b19983ebc891ea2f8d2afc627e91366",
@@ -2718,7 +2718,7 @@
             },
             "post": {
                 "tags": [
-                    "Precios"
+                    "Precios - Price"
                 ],
                 "summary": "Crear precio",
                 "operationId": "1a1aa2187eeb925786375551404810a3",
@@ -2761,7 +2761,7 @@
         "/prices/{id}": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - Price"
                 ],
                 "summary": "Obtener precio",
                 "operationId": "3656813fa8c2d10afce1b3a7db6c7aeb",
@@ -2788,7 +2788,7 @@
             },
             "put": {
                 "tags": [
-                    "Precios"
+                    "Precios - Price"
                 ],
                 "summary": "Actualizar precio",
                 "operationId": "7836621037b9217c1842a01a2b0b7a49",
@@ -2835,7 +2835,7 @@
             },
             "delete": {
                 "tags": [
-                    "Precios"
+                    "Precios - Price"
                 ],
                 "summary": "Eliminar precio",
                 "operationId": "3a6e65d502d0895bfc1a3c3331d15455",
@@ -2864,7 +2864,7 @@
         "/price_products": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - PriceProduct"
                 ],
                 "summary": "Listar productos de precio",
                 "operationId": "750b6826762f6adfab951cef2668d5d0",
@@ -2892,7 +2892,7 @@
             },
             "post": {
                 "tags": [
-                    "Precios"
+                    "Precios - PriceProduct"
                 ],
                 "summary": "Crear producto de precio",
                 "operationId": "14fcff7cb1987f58fbd2943412739e2c",
@@ -2950,7 +2950,7 @@
         "/price_products/{id}": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - PriceProduct"
                 ],
                 "summary": "Obtener producto de precio",
                 "operationId": "685cffa7189a6da693125019cafbcec6",
@@ -2977,7 +2977,7 @@
             },
             "put": {
                 "tags": [
-                    "Precios"
+                    "Precios - PriceProduct"
                 ],
                 "summary": "Actualizar producto de precio",
                 "operationId": "ea67ab497d0de3f37096658ee8c29be2",
@@ -3028,7 +3028,7 @@
             },
             "delete": {
                 "tags": [
-                    "Precios"
+                    "Precios - PriceProduct"
                 ],
                 "summary": "Eliminar producto de precio",
                 "operationId": "fedd908e3405a82ae71e3ccb6fdc32a8",
@@ -3057,7 +3057,7 @@
         "/taxes": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - Tax"
                 ],
                 "summary": "Listar impuestos",
                 "operationId": "fcae03a484c2670e30d69039283f7cbd",
@@ -3085,7 +3085,7 @@
             },
             "post": {
                 "tags": [
-                    "Precios"
+                    "Precios - Tax"
                 ],
                 "summary": "Crear impuesto",
                 "operationId": "1319c9a46ea888e44c9968e9c97c597e",
@@ -3128,7 +3128,7 @@
         "/taxes/{id}": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - Tax"
                 ],
                 "summary": "Obtener impuesto",
                 "operationId": "694c43d54321b50f9060f574762f513c",
@@ -3155,7 +3155,7 @@
             },
             "put": {
                 "tags": [
-                    "Precios"
+                    "Precios - Tax"
                 ],
                 "summary": "Actualizar impuesto",
                 "operationId": "f7f63f439be1761dadb0f036ba6cc41c",
@@ -3202,7 +3202,7 @@
             },
             "delete": {
                 "tags": [
-                    "Precios"
+                    "Precios - Tax"
                 ],
                 "summary": "Eliminar impuesto",
                 "operationId": "efe04fb8ec94b27cf1ba1a52092951c1",
@@ -3231,7 +3231,7 @@
         "/taxations": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - Taxation"
                 ],
                 "summary": "Listar clasificaciones fiscales",
                 "operationId": "580c3da9279483a485e24293e7006fdd",
@@ -3259,7 +3259,7 @@
             },
             "post": {
                 "tags": [
-                    "Precios"
+                    "Precios - Taxation"
                 ],
                 "summary": "Crear clasificación fiscal",
                 "operationId": "2d72b16e94368862e2a411cbd0040cee",
@@ -3302,7 +3302,7 @@
         "/taxations/{id}": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - Taxation"
                 ],
                 "summary": "Obtener clasificación fiscal",
                 "operationId": "03e21c7ab944c7e3a6bdbf50ba28a961",
@@ -3329,7 +3329,7 @@
             },
             "put": {
                 "tags": [
-                    "Precios"
+                    "Precios - Taxation"
                 ],
                 "summary": "Actualizar clasificación",
                 "operationId": "167d0ab9a8de40a67ed528aba90ecde8",
@@ -3376,7 +3376,7 @@
             },
             "delete": {
                 "tags": [
-                    "Precios"
+                    "Precios - Taxation"
                 ],
                 "summary": "Eliminar clasificación",
                 "operationId": "5404f2638e5faaa9ed25b7c5090a8103",
@@ -3405,7 +3405,7 @@
         "/taxation_taxes": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - TaxationTax"
                 ],
                 "summary": "Listar impuestos por clasificación",
                 "operationId": "4425b3dbba0eb53ca94c8772e857b3bb",
@@ -3433,7 +3433,7 @@
             },
             "post": {
                 "tags": [
-                    "Precios"
+                    "Precios - TaxationTax"
                 ],
                 "summary": "Crear impuesto por clasificación",
                 "operationId": "48efb7b148c79b40812a5ae3baf2fb7a",
@@ -3501,7 +3501,7 @@
         "/taxation_taxes/{id}": {
             "get": {
                 "tags": [
-                    "Precios"
+                    "Precios - TaxationTax"
                 ],
                 "summary": "Obtener impuesto por clasificación",
                 "operationId": "2ce657e5ac352d1347b758e46c963d3d",
@@ -3528,7 +3528,7 @@
             },
             "put": {
                 "tags": [
-                    "Precios"
+                    "Precios - TaxationTax"
                 ],
                 "summary": "Actualizar impuesto por clasificación",
                 "operationId": "20b2d5875424631b7b1852c9f9128718",
@@ -3579,7 +3579,7 @@
             },
             "delete": {
                 "tags": [
-                    "Precios"
+                    "Precios - TaxationTax"
                 ],
                 "summary": "Eliminar impuesto por clasificación",
                 "operationId": "6acad80733b9e5e8824bd6147c8b6a41",
@@ -3608,7 +3608,7 @@
         "/products": {
             "get": {
                 "tags": [
-                    "Productos"
+                    "Productos - Product"
                 ],
                 "summary": "Listar productos (paginado)",
                 "operationId": "1d03256cf2343248c37184a1c961f8d0",
@@ -3636,7 +3636,7 @@
             },
             "post": {
                 "tags": [
-                    "Productos"
+                    "Productos - Product"
                 ],
                 "summary": "Crear producto",
                 "operationId": "c2972546b5bed14bb8ad751d9aa93f90",
@@ -3707,7 +3707,7 @@
         "/products/{id}": {
             "get": {
                 "tags": [
-                    "Productos"
+                    "Productos - Product"
                 ],
                 "summary": "Obtener producto",
                 "operationId": "4a493f96c11ccb14075cb54baf67b648",
@@ -3734,7 +3734,7 @@
             },
             "put": {
                 "tags": [
-                    "Productos"
+                    "Productos - Product"
                 ],
                 "summary": "Actualizar producto",
                 "operationId": "4646cbc34790aaa4279f5c45b2003779",
@@ -3781,7 +3781,7 @@
             },
             "delete": {
                 "tags": [
-                    "Productos"
+                    "Productos - Product"
                 ],
                 "summary": "Eliminar producto",
                 "operationId": "a2915532508f8971fdbabb88c10ef064",
@@ -3807,10 +3807,101 @@
                 ]
             }
         },
+        "/masterproduct": {
+            "post": {
+                "tags": [
+                    "Productos - MasterProduct"
+                ],
+                "summary": "Carga masiva de datos maestros de producto",
+                "operationId": "865d99e36ea3e889f7a487683f13b351",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "Producto": {
+                                            "properties": {
+                                                "proCode": {
+                                                    "type": "string",
+                                                    "maxLength": 18
+                                                },
+                                                "proName": {
+                                                    "type": "string",
+                                                    "maxLength": 40
+                                                },
+                                                "proShortName": {
+                                                    "type": "string",
+                                                    "maxLength": 40
+                                                },
+                                                "proOrganization": {
+                                                    "type": "string",
+                                                    "maxLength": 4
+                                                },
+                                                "untCode": {
+                                                    "type": "string",
+                                                    "maxLength": 3
+                                                },
+                                                "proBomCode": {
+                                                    "type": "string",
+                                                    "maxLength": 18
+                                                },
+                                                "cl2Code": {
+                                                    "type": "string",
+                                                    "maxLength": 18
+                                                },
+                                                "proWeight": {
+                                                    "type": "number",
+                                                    "format": "float"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "unidadProducto": {
+                                            "properties": {
+                                                "proCode": {
+                                                    "type": "string",
+                                                    "maxLength": 18
+                                                },
+                                                "untCode": {
+                                                    "type": "string",
+                                                    "maxLength": 3
+                                                },
+                                                "pruDivideBy": {
+                                                    "type": "string",
+                                                    "maxLength": 13
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registros creados exitosamente"
+                    },
+                    "500": {
+                        "description": "Error en la carga masiva"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/product_units": {
             "get": {
                 "tags": [
-                    "Productos"
+                    "Productos - ProductUnit"
                 ],
                 "summary": "Listar unidades de producto",
                 "operationId": "64dcedf03e969c26af534229e4e0379d",
@@ -3838,7 +3929,7 @@
             },
             "post": {
                 "tags": [
-                    "Productos"
+                    "Productos - ProductUnit"
                 ],
                 "summary": "Crear unidad de producto",
                 "operationId": "d46574a82c40e6a46ef05cb482f6dfde",
@@ -3886,7 +3977,7 @@
         "/product_units/{id}": {
             "get": {
                 "tags": [
-                    "Productos"
+                    "Productos - ProductUnit"
                 ],
                 "summary": "Obtener unidad de producto",
                 "operationId": "cfc4216220c003cfdb6aa8c7845efda7",
@@ -3913,7 +4004,7 @@
             },
             "put": {
                 "tags": [
-                    "Productos"
+                    "Productos - ProductUnit"
                 ],
                 "summary": "Actualizar unidad de producto",
                 "operationId": "06d322c98a5b0ee76cc46353fe7bda0f",
@@ -3964,7 +4055,7 @@
             },
             "delete": {
                 "tags": [
-                    "Productos"
+                    "Productos - ProductUnit"
                 ],
                 "summary": "Eliminar unidad de producto",
                 "operationId": "887a8c7b6bc9976c0714c233c0363107",
@@ -3993,7 +4084,7 @@
         "/units": {
             "get": {
                 "tags": [
-                    "Productos"
+                    "Productos - Unit"
                 ],
                 "summary": "Listar unidades de medida",
                 "operationId": "27f42d69f386baf0959a07b808666aee",
@@ -4021,7 +4112,7 @@
             },
             "post": {
                 "tags": [
-                    "Productos"
+                    "Productos - Unit"
                 ],
                 "summary": "Crear unidad de medida",
                 "operationId": "b04f655e2235ffbaa7e4d9a9b1785552",
@@ -4069,7 +4160,7 @@
         "/units/{id}": {
             "get": {
                 "tags": [
-                    "Productos"
+                    "Productos - Unit"
                 ],
                 "summary": "Obtener unidad de medida",
                 "operationId": "7609e8a6d8e6cfcf4340e3accf3a2052",
@@ -4096,7 +4187,7 @@
             },
             "put": {
                 "tags": [
-                    "Productos"
+                    "Productos - Unit"
                 ],
                 "summary": "Actualizar unidad de medida",
                 "operationId": "4c881b3f032141dc0f116c9222069d1d",
@@ -4147,7 +4238,7 @@
             },
             "delete": {
                 "tags": [
-                    "Productos"
+                    "Productos - Unit"
                 ],
                 "summary": "Eliminar unidad de medida",
                 "operationId": "c7bcb0e9dd424eb4b97c39e265850adb",
@@ -4176,7 +4267,7 @@
         "/routes": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Route"
                 ],
                 "summary": "Listar rutas (paginado)",
                 "operationId": "41a6f9105bdabd7e8a06f230ce67373c",
@@ -4204,7 +4295,7 @@
             },
             "post": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Route"
                 ],
                 "summary": "Crear ruta",
                 "operationId": "047172d35f1ef54ab33a3eea0f282973",
@@ -4257,7 +4348,7 @@
         "/routes/{id}": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Route"
                 ],
                 "summary": "Obtener ruta",
                 "operationId": "d5dd0f9124744aef89cef2344ff62319",
@@ -4284,7 +4375,7 @@
             },
             "put": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Route"
                 ],
                 "summary": "Actualizar ruta",
                 "operationId": "2153a19c677792a7c2a245deb482b499",
@@ -4331,7 +4422,7 @@
             },
             "delete": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Route"
                 ],
                 "summary": "Eliminar ruta",
                 "operationId": "693eeb77e0a476dbef4821f492b1892e",
@@ -4360,7 +4451,7 @@
         "/route_logins": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteLogin"
                 ],
                 "summary": "Listar logins de ruta",
                 "operationId": "d4b608959f91160ee28639bc29ab34dd",
@@ -4388,7 +4479,7 @@
             },
             "post": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteLogin"
                 ],
                 "summary": "Crear login de ruta",
                 "operationId": "6194d94c3a553d79002cf4d2eb693bde",
@@ -4431,7 +4522,7 @@
         "/route_logins/{id}": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteLogin"
                 ],
                 "summary": "Obtener login de ruta",
                 "operationId": "0e5c38befc8ecbaf242b9eea7f330430",
@@ -4458,7 +4549,7 @@
             },
             "put": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteLogin"
                 ],
                 "summary": "Actualizar login de ruta",
                 "operationId": "68c9db4009ea8c4f06b2e34d6c059a93",
@@ -4505,7 +4596,7 @@
             },
             "delete": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteLogin"
                 ],
                 "summary": "Eliminar login de ruta",
                 "operationId": "f4e32d89b9fa66f25b0b38064798760b",
@@ -4534,7 +4625,7 @@
         "/route_generals": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteGeneral"
                 ],
                 "summary": "Listar datos generales de ruta",
                 "operationId": "ae0d7f22545ccc9adb51e68f02675290",
@@ -4562,7 +4653,7 @@
             },
             "post": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteGeneral"
                 ],
                 "summary": "Crear dato general de ruta",
                 "operationId": "a8d91f9f673ee44e7fb71b03973c1c34",
@@ -4600,7 +4691,7 @@
         "/route_generals/{id}": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteGeneral"
                 ],
                 "summary": "Obtener dato general",
                 "operationId": "7bd95b86d9ecb3852c6c291a7cd86da8",
@@ -4627,7 +4718,7 @@
             },
             "put": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteGeneral"
                 ],
                 "summary": "Actualizar dato general",
                 "operationId": "0fb14bc3a543fb24726a6a8ee2f699d4",
@@ -4670,7 +4761,7 @@
             },
             "delete": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteGeneral"
                 ],
                 "summary": "Eliminar dato general",
                 "operationId": "bc8d53f85d0dbaaec876fbde3bb3e62e",
@@ -4699,7 +4790,7 @@
         "/route_asset_types": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteAssetType"
                 ],
                 "summary": "Listar tipos de activo",
                 "operationId": "40a24367b908993304fb55adc34ae7fa",
@@ -4727,7 +4818,7 @@
             },
             "post": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteAssetType"
                 ],
                 "summary": "Crear tipo de activo",
                 "operationId": "bbeee982e4db166efd753a5dd30d4069",
@@ -4770,7 +4861,7 @@
         "/route_asset_types/{id}": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteAssetType"
                 ],
                 "summary": "Obtener tipo de activo",
                 "operationId": "ee8116022d0a7d1f4635aea55182cb31",
@@ -4797,7 +4888,7 @@
             },
             "put": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteAssetType"
                 ],
                 "summary": "Actualizar tipo de activo",
                 "operationId": "08291a7d55991fc7856096c8379a3774",
@@ -4844,7 +4935,7 @@
             },
             "delete": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - RouteAssetType"
                 ],
                 "summary": "Eliminar tipo de activo",
                 "operationId": "a2b9ff5eef3c00d440553895fcdb244d",
@@ -4873,7 +4964,7 @@
         "/journeys": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Journey"
                 ],
                 "summary": "Listar jornadas",
                 "operationId": "6b252446704ac227d4c4b778d105e339",
@@ -4901,7 +4992,7 @@
             },
             "post": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Journey"
                 ],
                 "summary": "Crear jornada",
                 "operationId": "5d4c96cf6de2e9ae1f03906782ab6e00",
@@ -4944,7 +5035,7 @@
         "/journeys/{id}": {
             "get": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Journey"
                 ],
                 "summary": "Obtener jornada",
                 "operationId": "1ce28b57457d96d3974a684a7c2a7f8b",
@@ -4971,7 +5062,7 @@
             },
             "put": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Journey"
                 ],
                 "summary": "Actualizar jornada",
                 "operationId": "036859b5b15e7acab2f4eb72b60f4ec2",
@@ -5018,7 +5109,7 @@
             },
             "delete": {
                 "tags": [
-                    "Rutas"
+                    "Rutas - Journey"
                 ],
                 "summary": "Eliminar jornada",
                 "operationId": "ab1aea0bcb1ddc7116118752224b2dab",
@@ -5576,24 +5667,120 @@
             "description": "Gestión de usuarios y roles"
         },
         {
-            "name": "Clientes",
-            "description": "Clientes y datos relacionados"
+            "name": "Clientes - Customer",
+            "description": "CRUD de clientes"
         },
         {
-            "name": "Productos",
-            "description": "Productos, unidades de producto y unidades de medida"
+            "name": "Clientes - MasterCustomer",
+            "description": "Carga masiva de datos maestros"
         },
         {
-            "name": "Rutas",
-            "description": "Rutas, logins, datos generales, tipos de activo y jornadas"
+            "name": "Clientes - City",
+            "description": "Ciudades"
         },
         {
-            "name": "Precios",
-            "description": "Precios, productos de precio, impuestos y clasificaciones fiscales"
+            "name": "Clientes - CustomerGroup",
+            "description": "Grupos de clientes"
         },
         {
-            "name": "Descuentos",
-            "description": "Descuentos, detalles y rutas de descuento"
+            "name": "Clientes - CustomerBranch",
+            "description": "Ramos de clientes"
+        },
+        {
+            "name": "Clientes - CustomerRegion",
+            "description": "Regiones de clientes"
+        },
+        {
+            "name": "Clientes - CustomerFrequency",
+            "description": "Frecuencias de visita"
+        },
+        {
+            "name": "Clientes - CustomerRoute",
+            "description": "Rutas de clientes"
+        },
+        {
+            "name": "Clientes - CustomerInfo",
+            "description": "Información adicional de clientes"
+        },
+        {
+            "name": "Clientes - CustomerPrice",
+            "description": "Precios de clientes"
+        },
+        {
+            "name": "Clientes - InfoType",
+            "description": "Tipos de información (licencias)"
+        },
+        {
+            "name": "Productos - Product",
+            "description": "Productos"
+        },
+        {
+            "name": "Productos - MasterProduct",
+            "description": "Carga masiva de productos"
+        },
+        {
+            "name": "Productos - ProductUnit",
+            "description": "Unidades de producto"
+        },
+        {
+            "name": "Productos - Unit",
+            "description": "Unidades de medida"
+        },
+        {
+            "name": "Rutas - Route",
+            "description": "Rutas"
+        },
+        {
+            "name": "Rutas - RouteLogin",
+            "description": "Logins de ruta"
+        },
+        {
+            "name": "Rutas - RouteGeneral",
+            "description": "Datos generales de ruta"
+        },
+        {
+            "name": "Rutas - RouteAssetType",
+            "description": "Tipos de activo"
+        },
+        {
+            "name": "Rutas - Journey",
+            "description": "Jornadas"
+        },
+        {
+            "name": "Precios - Price",
+            "description": "Listas de precios"
+        },
+        {
+            "name": "Precios - PriceProduct",
+            "description": "Productos de precio"
+        },
+        {
+            "name": "Precios - Tax",
+            "description": "Impuestos"
+        },
+        {
+            "name": "Precios - Taxation",
+            "description": "Clasificaciones fiscales"
+        },
+        {
+            "name": "Precios - TaxationTax",
+            "description": "Impuestos por clasificación"
+        },
+        {
+            "name": "Descuentos - Discount",
+            "description": "Descuentos"
+        },
+        {
+            "name": "Descuentos - DiscountDetail",
+            "description": "Detalles de descuento"
+        },
+        {
+            "name": "Descuentos - DiscountDetailProduct",
+            "description": "Productos de detalle"
+        },
+        {
+            "name": "Descuentos - DiscountDetailRoute",
+            "description": "Rutas de detalle"
         }
     ]
 }
