@@ -231,7 +231,7 @@
         "/mastercustomer": {
             "post": {
                 "tags": [
-                    "Clientes - MasterCustomer"
+                    "Cargas Masivas - MasterCustomer"
                 ],
                 "summary": "Carga masiva de datos maestros de cliente",
                 "operationId": "0e39aa66f4e23a3465a67232695b7002",
@@ -2687,6 +2687,139 @@
                 ]
             }
         },
+        "/masterdiscount": {
+            "post": {
+                "tags": [
+                    "Cargas Masivas - MasterDiscount"
+                ],
+                "summary": "Carga masiva de datos maestros de descuento",
+                "operationId": "76dbd1a62f99a173f60eff59cd18148d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "Descuento": {
+                                            "properties": {
+                                                "disCode": {
+                                                    "type": "string",
+                                                    "maxLength": 4
+                                                },
+                                                "disName": {
+                                                    "type": "string",
+                                                    "maxLength": 20
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "detalleDescuento": {
+                                            "properties": {
+                                                "disCode": {
+                                                    "type": "string",
+                                                    "maxLength": 4
+                                                },
+                                                "didCode": {
+                                                    "type": "string",
+                                                    "maxLength": 10
+                                                },
+                                                "didName": {
+                                                    "type": "string",
+                                                    "maxLength": 20
+                                                },
+                                                "rotCodeCustomer": {
+                                                    "type": "string",
+                                                    "maxLength": 6
+                                                },
+                                                "cusCode": {
+                                                    "type": "string",
+                                                    "maxLength": 10
+                                                },
+                                                "didSince": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                },
+                                                "didUntil": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "productoDescuento": {
+                                            "properties": {
+                                                "dlpCode": {
+                                                    "type": "string",
+                                                    "maxLength": 10
+                                                },
+                                                "disCode": {
+                                                    "type": "string",
+                                                    "maxLength": 4
+                                                },
+                                                "didCode": {
+                                                    "type": "string",
+                                                    "maxLength": 10
+                                                },
+                                                "proCode": {
+                                                    "type": "string",
+                                                    "maxLength": 18
+                                                },
+                                                "untCode": {
+                                                    "type": "string",
+                                                    "maxLength": 3
+                                                },
+                                                "dlpDiscount": {
+                                                    "type": "number",
+                                                    "format": "float"
+                                                },
+                                                "dlpDiscountPercentage": {
+                                                    "type": "number",
+                                                    "format": "float"
+                                                },
+                                                "dlpDiscountAmount": {
+                                                    "type": "number",
+                                                    "format": "float"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "rutaDescuento": {
+                                            "properties": {
+                                                "rotCode": {
+                                                    "type": "string",
+                                                    "maxLength": 6
+                                                },
+                                                "disCode": {
+                                                    "type": "string",
+                                                    "maxLength": 4
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registros creados exitosamente"
+                    },
+                    "500": {
+                        "description": "Error en la carga masiva"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/prices": {
             "get": {
                 "tags": [
@@ -3810,7 +3943,7 @@
         "/masterproduct": {
             "post": {
                 "tags": [
-                    "Productos - MasterProduct"
+                    "Cargas Masivas - MasterProduct"
                 ],
                 "summary": "Carga masiva de datos maestros de producto",
                 "operationId": "865d99e36ea3e889f7a487683f13b351",
@@ -5671,10 +5804,6 @@
             "description": "CRUD de clientes"
         },
         {
-            "name": "Clientes - MasterCustomer",
-            "description": "Carga masiva de datos maestros"
-        },
-        {
             "name": "Clientes - City",
             "description": "Ciudades"
         },
@@ -5713,10 +5842,6 @@
         {
             "name": "Productos - Product",
             "description": "Productos"
-        },
-        {
-            "name": "Productos - MasterProduct",
-            "description": "Carga masiva de productos"
         },
         {
             "name": "Productos - ProductUnit",
@@ -5781,6 +5906,18 @@
         {
             "name": "Descuentos - DiscountDetailRoute",
             "description": "Rutas de detalle"
+        },
+        {
+            "name": "Cargas Masivas - MasterCustomer",
+            "description": "Carga masiva de datos maestros de clientes"
+        },
+        {
+            "name": "Cargas Masivas - MasterProduct",
+            "description": "Carga masiva de datos maestros de productos"
+        },
+        {
+            "name": "Cargas Masivas - MasterDiscount",
+            "description": "Carga masiva de datos maestros de descuentos"
         }
     ]
 }

@@ -200,4 +200,48 @@ class DescuentosSwagger
         responses: [new OA\Response(response: 200, description: 'Ruta eliminada')]
     )]
     public function deleteDiscountDetailRoute() {}
+
+    // ═══════════════════════════════════════════════
+    //  MASTER DISCOUNT (bulk)
+    // ═══════════════════════════════════════════════
+    #[OA\Post(path: '/masterdiscount', summary: 'Carga masiva de datos maestros de descuento', tags: ['Cargas Masivas - MasterDiscount'],
+        security: [['sanctum' => []]],
+        requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(type: 'object', properties: [
+                new OA\Property(property: 'Descuento', type: 'object', properties: [
+                    new OA\Property(property: 'disCode', type: 'string', maxLength: 4),
+                    new OA\Property(property: 'disName', type: 'string', maxLength: 20),
+                ]),
+                new OA\Property(property: 'detalleDescuento', type: 'object', properties: [
+                    new OA\Property(property: 'disCode', type: 'string', maxLength: 4),
+                    new OA\Property(property: 'didCode', type: 'string', maxLength: 10),
+                    new OA\Property(property: 'didName', type: 'string', maxLength: 20),
+                    new OA\Property(property: 'rotCodeCustomer', type: 'string', maxLength: 6),
+                    new OA\Property(property: 'cusCode', type: 'string', maxLength: 10),
+                    new OA\Property(property: 'didSince', type: 'string', format: 'date'),
+                    new OA\Property(property: 'didUntil', type: 'string', format: 'date'),
+                ]),
+                new OA\Property(property: 'productoDescuento', type: 'object', properties: [
+                    new OA\Property(property: 'dlpCode', type: 'string', maxLength: 10),
+                    new OA\Property(property: 'disCode', type: 'string', maxLength: 4),
+                    new OA\Property(property: 'didCode', type: 'string', maxLength: 10),
+                    new OA\Property(property: 'proCode', type: 'string', maxLength: 18),
+                    new OA\Property(property: 'untCode', type: 'string', maxLength: 3),
+                    new OA\Property(property: 'dlpDiscount', type: 'number', format: 'float'),
+                    new OA\Property(property: 'dlpDiscountPercentage', type: 'number', format: 'float'),
+                    new OA\Property(property: 'dlpDiscountAmount', type: 'number', format: 'float'),
+                ]),
+                new OA\Property(property: 'rutaDescuento', type: 'object', properties: [
+                    new OA\Property(property: 'rotCode', type: 'string', maxLength: 6),
+                    new OA\Property(property: 'disCode', type: 'string', maxLength: 4),
+                ]),
+            ])
+        )),
+        responses: [
+            new OA\Response(response: 201, description: 'Registros creados exitosamente'),
+            new OA\Response(response: 500, description: 'Error en la carga masiva'),
+        ]
+    )]
+    public function masterDiscount() {}
 }

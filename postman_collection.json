@@ -434,6 +434,42 @@
                     "response": []
                 }
             ]
+        },
+        {
+            "name": "MasterDiscount",
+            "item": [
+                {
+                    "name": "Carga Masiva - 5 Descuentos en 1 Transaccion",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n\t{\n\t\t\"Descuento\": { \"disCode\": \"D001\", \"disName\": \"Descuento Navidad\" },\n\t\t\"detalleDescuento\": { \"disCode\": \"D001\", \"didCode\": \"DD001\", \"didName\": \"Detalle Nav 01\", \"rotCodeCustomer\": \"01751\", \"cusCode\": \"0000055043\", \"didSince\": \"2026-12-01\", \"didUntil\": \"2026-12-31\" },\n\t\t\"productoDescuento\": { \"dlpCode\": \"DLP001\", \"disCode\": \"D001\", \"didCode\": \"DD001\", \"proCode\": \"000000000000000001\", \"untCode\": \"CA\", \"dlpDiscount\": 10.5, \"dlpDiscountPercentage\": 10.0, \"dlpDiscountAmount\": 500.00 },\n\t\t\"rutaDescuento\": { \"rotCode\": \"01751\", \"disCode\": \"D001\" }\n\t},\n\t{\n\t\t\"Descuento\": { \"disCode\": \"D002\", \"disName\": \"Promo Verano\" },\n\t\t\"detalleDescuento\": { \"disCode\": \"D002\", \"didCode\": \"DD002\", \"didName\": \"Detalle Ver 01\", \"rotCodeCustomer\": \"01752\", \"cusCode\": \"0000055044\", \"didSince\": \"2026-06-01\", \"didUntil\": \"2026-08-31\" },\n\t\t\"productoDescuento\": { \"dlpCode\": \"DLP002\", \"disCode\": \"D002\", \"didCode\": \"DD002\", \"proCode\": \"000000000000000002\", \"untCode\": \"CA\", \"dlpDiscount\": 15.0, \"dlpDiscountPercentage\": 15.0, \"dlpDiscountAmount\": 750.00 },\n\t\t\"rutaDescuento\": { \"rotCode\": \"01752\", \"disCode\": \"D002\" }\n\t},\n\t{\n\t\t\"Descuento\": { \"disCode\": \"D003\", \"disName\": \"Desc Mayorista\" },\n\t\t\"detalleDescuento\": { \"disCode\": \"D003\", \"didCode\": \"DD003\", \"didName\": \"Detalle May 01\", \"rotCodeCustomer\": \"01753\", \"cusCode\": \"0000055045\", \"didSince\": \"2026-01-01\", \"didUntil\": \"2026-12-31\" },\n\t\t\"productoDescuento\": { \"dlpCode\": \"DLP003\", \"disCode\": \"D003\", \"didCode\": \"DD003\", \"proCode\": \"000000000000000003\", \"untCode\": \"CA\", \"dlpDiscount\": 20.0, \"dlpDiscountPercentage\": 20.0, \"dlpDiscountAmount\": 1000.00 },\n\t\t\"rutaDescuento\": { \"rotCode\": \"01753\", \"disCode\": \"D003\" }\n\t},\n\t{\n\t\t\"Descuento\": { \"disCode\": \"D004\", \"disName\": \"Promo Semana Santa\" },\n\t\t\"detalleDescuento\": { \"disCode\": \"D004\", \"didCode\": \"DD004\", \"didName\": \"Detalle SS 01\", \"rotCodeCustomer\": \"01754\", \"cusCode\": \"0000055046\", \"didSince\": \"2026-04-01\", \"didUntil\": \"2026-04-15\" },\n\t\t\"productoDescuento\": { \"dlpCode\": \"DLP004\", \"disCode\": \"D004\", \"didCode\": \"DD004\", \"proCode\": \"000000000000000004\", \"untCode\": \"CA\", \"dlpDiscount\": 5.0, \"dlpDiscountPercentage\": 5.0, \"dlpDiscountAmount\": 250.00 },\n\t\t\"rutaDescuento\": { \"rotCode\": \"01754\", \"disCode\": \"D004\" }\n\t},\n\t{\n\t\t\"Descuento\": { \"disCode\": \"D005\", \"disName\": \"Desc Aniversario\" },\n\t\t\"detalleDescuento\": { \"disCode\": \"D005\", \"didCode\": \"DD005\", \"didName\": \"Detalle Aniv 01\", \"rotCodeCustomer\": \"01755\", \"cusCode\": \"0000055047\", \"didSince\": \"2026-03-01\", \"didUntil\": \"2026-03-31\" },\n\t\t\"productoDescuento\": { \"dlpCode\": \"DLP005\", \"disCode\": \"D005\", \"didCode\": \"DD005\", \"proCode\": \"000000000000000005\", \"untCode\": \"PK\", \"dlpDiscount\": 12.0, \"dlpDiscountPercentage\": 12.0, \"dlpDiscountAmount\": 600.00 },\n\t\t\"rutaDescuento\": { \"rotCode\": \"01755\", \"disCode\": \"D005\" }\n\t}\n]"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/masterdiscount",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "masterdiscount"
+                            ]
+                        },
+                        "description": "Carga masiva: enviar un JSON Array con 1 a N bloques de descuento. Cada bloque contiene: Descuento, detalleDescuento, productoDescuento, rutaDescuento. Todo se procesa en UNA sola transaccion."
+                    },
+                    "response": []
+                }
+            ]
         }
     ]
 }

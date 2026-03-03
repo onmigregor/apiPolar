@@ -61,7 +61,7 @@ class ProductosSwagger
     // ═══════════════════════════════════════════════
     //  MASTER PRODUCT (bulk)
     // ═══════════════════════════════════════════════
-    #[OA\Post(path: '/masterproduct', summary: 'Carga masiva de datos maestros de producto', tags: ['Productos - MasterProduct'],
+    #[OA\Post(path: '/masterproduct', summary: 'Carga masiva de datos maestros de producto', tags: ['Cargas Masivas - MasterProduct'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             type: 'array',

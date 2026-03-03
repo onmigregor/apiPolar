@@ -65,7 +65,7 @@ class ClientesSwagger
     // ═══════════════════════════════════════════════
     //  MASTER CUSTOMER (bulk)
     // ═══════════════════════════════════════════════
-    #[OA\Post(path: '/mastercustomer', summary: 'Carga masiva de datos maestros de cliente', tags: ['Clientes - MasterCustomer'],
+    #[OA\Post(path: '/mastercustomer', summary: 'Carga masiva de datos maestros de cliente', tags: ['Cargas Masivas - MasterCustomer'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             type: 'array',

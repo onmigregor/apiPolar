@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\Discount\Actions\MasterDiscountAction;
 use Modules\Discount\Actions\DiscountDeleteAction;
 use Modules\Discount\Actions\DiscountListAction;
 use Modules\Discount\Actions\DiscountStoreAction;
@@ -23,7 +24,8 @@ class DiscountController extends Controller
         private readonly DiscountListAction $listAction,
         private readonly DiscountStoreAction $storeAction,
         private readonly DiscountUpdateAction $updateAction,
-        private readonly DiscountDeleteAction $deleteAction
+        private readonly DiscountDeleteAction $deleteAction,
+        private readonly MasterDiscountAction $masterDiscountAction
     ) {}
 
     public function index(Request $request): JsonResponse
@@ -55,5 +57,28 @@ class DiscountController extends Controller
     {
         $this->deleteAction->execute($discount);
         return $this->success(null, 'Discount deleted successfully');
+    }
+
+    /**
+     * Carga masiva de datos maestros de descuento.
+     * Recibe un JSON con un ARRAY de bloques, cada uno con secciones:
+     * Descuento, detalleDescuento, productoDescuento, rutaDescuento.
+     * Soporta 1 a N descuentos en una sola transacción.
+     */
+    public function masterDiscount(Request $request): JsonResponse
+    {
+        try {
+            $items = $request->all();
+
+            // Si envían un solo objeto (no array), lo envolvemos en array
+            if (isset($items['Descuento']) || isset($items['detalleDescuento'])) {
+                $items = [$items];
+            }
+
+            $results = $this->masterDiscountAction->execute($items);
+            return $this->success($results, 'Master Discount: ' . count($results) . ' registro(s) creado(s) exitosamente', 201);
+        } catch (\Exception $e) {
+            return $this->error('Error al procesar la carga masiva: ' . $e->getMessage(), 500);
+        }
     }
 }
