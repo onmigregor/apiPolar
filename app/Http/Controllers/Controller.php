@@ -36,6 +36,8 @@ use OpenApi\Attributes as OA;
 #[OA\Tag(name: 'Productos - Product', description: 'Productos')]
 #[OA\Tag(name: 'Productos - ProductUnit', description: 'Unidades de producto')]
 #[OA\Tag(name: 'Productos - Unit', description: 'Unidades de medida')]
+#[OA\Tag(name: 'Productos - ProductFamily', description: 'Familias de producto - Clasificación Nivel 1')]
+#[OA\Tag(name: 'Productos - ProductCategory', description: 'Categorías de producto - Clasificación Nivel 2')]
 // --- Rutas ---
 #[OA\Tag(name: 'Rutas - Route', description: 'Rutas')]
 #[OA\Tag(name: 'Rutas - RouteLogin', description: 'Logins de ruta')]

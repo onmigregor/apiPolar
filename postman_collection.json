@@ -400,10 +400,10 @@
             ]
         },
         {
-            "name": "MasterProduct",
+            "name": "ProductFamily",
             "item": [
                 {
-                    "name": "Carga Masiva - 10 Productos en 1 Transaccion",
+                    "name": "Create ProductFamily",
                     "request": {
                         "method": "POST",
                         "header": [
@@ -418,7 +418,77 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "[\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000001\", \"proName\": \"CERVEZA POLAR PILSEN 222ML\", \"proShortName\": \"PLR PLSN 222ML\", \"proOrganization\": \"0010\", \"untCode\": \"CA\", \"proBomCode\": \"000000000000000001\", \"cl2Code\": \"CERV01\", \"proWeight\": 5.5 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000001\", \"untCode\": \"CA\", \"pruDivideBy\": \"24\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000002\", \"proName\": \"CERVEZA POLAR ICE 250ML\", \"proShortName\": \"PLR ICE 250ML\", \"proOrganization\": \"0010\", \"untCode\": \"CA\", \"proBomCode\": \"000000000000000002\", \"cl2Code\": \"CERV01\", \"proWeight\": 6.0 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000002\", \"untCode\": \"CA\", \"pruDivideBy\": \"24\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000003\", \"proName\": \"MALTA POLAR 350ML\", \"proShortName\": \"MLT PLR 350ML\", \"proOrganization\": \"0020\", \"untCode\": \"CA\", \"proBomCode\": \"000000000000000003\", \"cl2Code\": \"MALT01\", \"proWeight\": 8.4 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000003\", \"untCode\": \"CA\", \"pruDivideBy\": \"24\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000004\", \"proName\": \"REFRESCO GOLDEN 500ML\", \"proShortName\": \"GLDN 500ML\", \"proOrganization\": \"0030\", \"untCode\": \"CA\", \"proBomCode\": \"000000000000000004\", \"cl2Code\": \"REFR01\", \"proWeight\": 12.0 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000004\", \"untCode\": \"CA\", \"pruDivideBy\": \"12\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000005\", \"proName\": \"AGUA MINALBA 600ML\", \"proShortName\": \"MNLB 600ML\", \"proOrganization\": \"0040\", \"untCode\": \"PK\", \"proBomCode\": \"000000000000000005\", \"cl2Code\": \"AGUA01\", \"proWeight\": 3.6 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000005\", \"untCode\": \"PK\", \"pruDivideBy\": \"6\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000006\", \"proName\": \"CERVEZA SOLERA 330ML\", \"proShortName\": \"SLRA 330ML\", \"proOrganization\": \"0010\", \"untCode\": \"CA\", \"proBomCode\": \"000000000000000006\", \"cl2Code\": \"CERV02\", \"proWeight\": 7.9 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000006\", \"untCode\": \"CA\", \"pruDivideBy\": \"24\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000007\", \"proName\": \"CERVEZA POLAR LIGHT 355ML\", \"proShortName\": \"PLR LGT 355ML\", \"proOrganization\": \"0010\", \"untCode\": \"CA\", \"proBomCode\": \"000000000000000007\", \"cl2Code\": \"CERV03\", \"proWeight\": 8.5 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000007\", \"untCode\": \"CA\", \"pruDivideBy\": \"24\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000008\", \"proName\": \"MALTA REGIONAL 355ML\", \"proShortName\": \"MLT RGN 355ML\", \"proOrganization\": \"0020\", \"untCode\": \"CA\", \"proBomCode\": \"000000000000000008\", \"cl2Code\": \"MALT02\", \"proWeight\": 8.5 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000008\", \"untCode\": \"CA\", \"pruDivideBy\": \"24\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000009\", \"proName\": \"REFRESCO HIT NARANJA 1.5L\", \"proShortName\": \"HIT NRJ 1.5L\", \"proOrganization\": \"0030\", \"untCode\": \"PK\", \"proBomCode\": \"000000000000000009\", \"cl2Code\": \"REFR02\", \"proWeight\": 9.0 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000009\", \"untCode\": \"PK\", \"pruDivideBy\": \"6\" }\n\t},\n\t{\n\t\t\"Producto\": { \"proCode\": \"000000000000000010\", \"proName\": \"AGUA MINALBA 1.5L\", \"proShortName\": \"MNLB 1.5L\", \"proOrganization\": \"0040\", \"untCode\": \"PK\", \"proBomCode\": \"000000000000000010\", \"cl2Code\": \"AGUA02\", \"proWeight\": 9.0 },\n\t\t\"unidadProducto\": { \"proCode\": \"000000000000000010\", \"untCode\": \"PK\", \"pruDivideBy\": \"6\" }\n\t}\n]"
+                            "raw": "{\n\t\"cl1Code\": \"VECCER\",\n\t\"cl1Name\": \"CERVEZAS\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/product_families",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "product_families"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "ProductCategory",
+            "item": [
+                {
+                    "name": "Create ProductCategory",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"cl2Code\": \"VECCERTRADPILS\",\n\t\"cl1Code\": \"VECCER\",\n\t\"cl2Name\": \"TRADICIONAL PILSEN\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/product_categories",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "product_categories"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "MasterProduct",
+            "item": [
+                {
+                    "name": "Carga Masiva - Formato Polar (PRODUCTS)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n\t{\n\t\t\"name\": \"PRODUCTS\",\n\t\t\"value\": {\n\t\t\t\"unit\": [\n\t\t\t\t{ \"untCode\": \"CJ\", \"untName\": \"CAJA\", \"untNick\": \"CJ\" }\n\t\t\t],\n\t\t\t\"class1\": [\n\t\t\t\t{ \"cl1code\": \"VECCER\", \"cl1name\": \"CERVEZAS\" }\n\t\t\t],\n\t\t\t\"class2\": [\n\t\t\t\t{ \"cl2code\": \"VECCERTRADPILS\", \"cl1code\": \"VECCER\", \"cl2name\": \"TRADICIONAL PILSEN\" }\n\t\t\t],\n\t\t\t\"product\": [\n\t\t\t\t{ \"proCode\": \"F01001\", \"proName\": \"POLAR PILSEN RET 222MLx36UN\", \"proShortName\": \"POLAR PILSEN RET 222MLX36U\", \"untCode\": \"CJ\", \"cl2code\": \"VECCERTRADPILS\" }\n\t\t\t],\n\t\t\t\"productUnit\": [\n\t\t\t\t{ \"proCode\": \"F01001\", \"untCode\": \"CJ\", \"pruDivideBy\": \"36\" }\n\t\t\t]\n\t\t}\n\t}\n]"
                         },
                         "url": {
                             "raw": "{{base_url}}/masterproduct",
@@ -429,7 +499,7 @@
                                 "masterproduct"
                             ]
                         },
-                        "description": "Carga masiva: enviar un JSON Array con 1 a N bloques de producto. Cada bloque contiene: Producto, unidadProducto. Todo se procesa en UNA sola transaccion."
+                        "description": "Carga masiva con el formato real de Polar (Nodo PRODUCTS con sub-listas de unidades, familias, categorías, productos y unidades de producto)."
                     },
                     "response": []
                 }

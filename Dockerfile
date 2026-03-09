@@ -17,6 +17,11 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
+# Increase PHP limits for large payloads (Polar MasterProduct)
+RUN echo "post_max_size = 128M" > /usr/local/etc/php/conf.d/docker-php-limits.ini && \
+    echo "upload_max_filesize = 128M" >> /usr/local/etc/php/conf.d/docker-php-limits.ini && \
+    echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/docker-php-limits.ini
+
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 

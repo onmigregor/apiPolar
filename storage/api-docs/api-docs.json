@@ -3945,7 +3945,7 @@
                 "tags": [
                     "Cargas Masivas - MasterProduct"
                 ],
-                "summary": "Carga masiva de datos maestros de producto",
+                "summary": "Carga masiva de datos maestros de producto (formato Polar)",
                 "operationId": "865d99e36ea3e889f7a487683f13b351",
                 "requestBody": {
                     "required": true,
@@ -3955,56 +3955,99 @@
                                 "type": "array",
                                 "items": {
                                     "properties": {
-                                        "Producto": {
-                                            "properties": {
-                                                "proCode": {
-                                                    "type": "string",
-                                                    "maxLength": 18
-                                                },
-                                                "proName": {
-                                                    "type": "string",
-                                                    "maxLength": 40
-                                                },
-                                                "proShortName": {
-                                                    "type": "string",
-                                                    "maxLength": 40
-                                                },
-                                                "proOrganization": {
-                                                    "type": "string",
-                                                    "maxLength": 4
-                                                },
-                                                "untCode": {
-                                                    "type": "string",
-                                                    "maxLength": 3
-                                                },
-                                                "proBomCode": {
-                                                    "type": "string",
-                                                    "maxLength": 18
-                                                },
-                                                "cl2Code": {
-                                                    "type": "string",
-                                                    "maxLength": 18
-                                                },
-                                                "proWeight": {
-                                                    "type": "number",
-                                                    "format": "float"
-                                                }
-                                            },
-                                            "type": "object"
+                                        "name": {
+                                            "type": "string",
+                                            "example": "PRODUCTS"
                                         },
-                                        "unidadProducto": {
+                                        "value": {
                                             "properties": {
-                                                "proCode": {
-                                                    "type": "string",
-                                                    "maxLength": 18
+                                                "unit": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "untCode": {
+                                                                "type": "string"
+                                                            },
+                                                            "untName": {
+                                                                "type": "string"
+                                                            },
+                                                            "untNick": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
                                                 },
-                                                "untCode": {
-                                                    "type": "string",
-                                                    "maxLength": 3
+                                                "class1": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "cl1code": {
+                                                                "type": "string"
+                                                            },
+                                                            "cl1name": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
                                                 },
-                                                "pruDivideBy": {
-                                                    "type": "string",
-                                                    "maxLength": 13
+                                                "class2": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "cl2code": {
+                                                                "type": "string"
+                                                            },
+                                                            "cl1code": {
+                                                                "type": "string"
+                                                            },
+                                                            "cl2name": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "product": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "proCode": {
+                                                                "type": "string"
+                                                            },
+                                                            "proName": {
+                                                                "type": "string"
+                                                            },
+                                                            "proShortName": {
+                                                                "type": "string"
+                                                            },
+                                                            "untCode": {
+                                                                "type": "string"
+                                                            },
+                                                            "cl2code": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "productUnit": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "proCode": {
+                                                                "type": "string"
+                                                            },
+                                                            "untCode": {
+                                                                "type": "string"
+                                                            },
+                                                            "pruDivideBy": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
                                                 }
                                             },
                                             "type": "object"
@@ -4018,7 +4061,10 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Registros creados exitosamente"
+                        "description": "Registros procesados exitosamente"
+                    },
+                    "422": {
+                        "description": "Formato no reconocido"
                     },
                     "500": {
                         "description": "Error en la carga masiva"
@@ -4388,6 +4434,363 @@
                 "responses": {
                     "200": {
                         "description": "Unidad eliminada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/product_families": {
+            "get": {
+                "tags": [
+                    "Productos - ProductFamily"
+                ],
+                "summary": "Listar familias de producto",
+                "operationId": "8e7cc1da6b64fe467e5c104920166f31",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Productos - ProductFamily"
+                ],
+                "summary": "Crear familia de producto",
+                "operationId": "2e84551aaa26ad600fe13c4fe42f2c60",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cl1_code",
+                                    "cl1_name"
+                                ],
+                                "properties": {
+                                    "cl1_code": {
+                                        "type": "string",
+                                        "maxLength": 18
+                                    },
+                                    "cl1_name": {
+                                        "type": "string",
+                                        "maxLength": 40
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Familia creada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/product_families/{id}": {
+            "get": {
+                "tags": [
+                    "Productos - ProductFamily"
+                ],
+                "summary": "Obtener familia de producto",
+                "operationId": "c490a98f7f2e66fd6ce8eff86cce3712",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Productos - ProductFamily"
+                ],
+                "summary": "Actualizar familia de producto",
+                "operationId": "af0629e01ee172a9365facaf32e8d217",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cl1_code": {
+                                        "type": "string",
+                                        "maxLength": 18
+                                    },
+                                    "cl1_name": {
+                                        "type": "string",
+                                        "maxLength": 40
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Familia actualizada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Productos - ProductFamily"
+                ],
+                "summary": "Eliminar familia de producto",
+                "operationId": "247e0ad50a02026fc17fbcb2595a668d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Familia eliminada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/product_categories": {
+            "get": {
+                "tags": [
+                    "Productos - ProductCategory"
+                ],
+                "summary": "Listar categorías de producto",
+                "operationId": "07bbcef15d8f6e5b4dd60cfdd4b713b6",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 15
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Productos - ProductCategory"
+                ],
+                "summary": "Crear categoría de producto",
+                "operationId": "745c6adc69caaf24d5ed889436103364",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cl2_code",
+                                    "cl1_code",
+                                    "cl2_name"
+                                ],
+                                "properties": {
+                                    "cl2_code": {
+                                        "type": "string",
+                                        "maxLength": 18
+                                    },
+                                    "cl1_code": {
+                                        "type": "string",
+                                        "maxLength": 18
+                                    },
+                                    "cl2_name": {
+                                        "type": "string",
+                                        "maxLength": 40
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoría creada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/product_categories/{id}": {
+            "get": {
+                "tags": [
+                    "Productos - ProductCategory"
+                ],
+                "summary": "Obtener categoría de producto",
+                "operationId": "14cbfa7d29893f9aef23615f8c5fcf09",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalle"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Productos - ProductCategory"
+                ],
+                "summary": "Actualizar categoría de producto",
+                "operationId": "2fc6b5d004fe6fda00c9459b1fc5d709",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cl2_code": {
+                                        "type": "string",
+                                        "maxLength": 18
+                                    },
+                                    "cl1_code": {
+                                        "type": "string",
+                                        "maxLength": 18
+                                    },
+                                    "cl2_name": {
+                                        "type": "string",
+                                        "maxLength": 40
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría actualizada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Productos - ProductCategory"
+                ],
+                "summary": "Eliminar categoría de producto",
+                "operationId": "068e505856069121b7c597daf01c05b5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoría eliminada"
                     }
                 },
                 "security": [
@@ -5850,6 +6253,14 @@
         {
             "name": "Productos - Unit",
             "description": "Unidades de medida"
+        },
+        {
+            "name": "Productos - ProductFamily",
+            "description": "Familias de producto - Clasificación Nivel 1"
+        },
+        {
+            "name": "Productos - ProductCategory",
+            "description": "Categorías de producto - Clasificación Nivel 2"
         },
         {
             "name": "Rutas - Route",

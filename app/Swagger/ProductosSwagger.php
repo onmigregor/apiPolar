@@ -59,32 +59,47 @@ class ProductosSwagger
     public function deleteProduct() {}
 
     // ═══════════════════════════════════════════════
-    //  MASTER PRODUCT (bulk)
+    //  MASTER PRODUCT (bulk) — Formato Polar
     // ═══════════════════════════════════════════════
-    #[OA\Post(path: '/masterproduct', summary: 'Carga masiva de datos maestros de producto', tags: ['Cargas Masivas - MasterProduct'],
+    #[OA\Post(path: '/masterproduct', summary: 'Carga masiva de datos maestros de producto (formato Polar)', tags: ['Cargas Masivas - MasterProduct'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             type: 'array',
             items: new OA\Items(type: 'object', properties: [
-                new OA\Property(property: 'Producto', type: 'object', properties: [
-                    new OA\Property(property: 'proCode', type: 'string', maxLength: 18),
-                    new OA\Property(property: 'proName', type: 'string', maxLength: 40),
-                    new OA\Property(property: 'proShortName', type: 'string', maxLength: 40),
-                    new OA\Property(property: 'proOrganization', type: 'string', maxLength: 4),
-                    new OA\Property(property: 'untCode', type: 'string', maxLength: 3),
-                    new OA\Property(property: 'proBomCode', type: 'string', maxLength: 18),
-                    new OA\Property(property: 'cl2Code', type: 'string', maxLength: 18),
-                    new OA\Property(property: 'proWeight', type: 'number', format: 'float'),
-                ]),
-                new OA\Property(property: 'unidadProducto', type: 'object', properties: [
-                    new OA\Property(property: 'proCode', type: 'string', maxLength: 18),
-                    new OA\Property(property: 'untCode', type: 'string', maxLength: 3),
-                    new OA\Property(property: 'pruDivideBy', type: 'string', maxLength: 13),
+                new OA\Property(property: 'name', type: 'string', example: 'PRODUCTS'),
+                new OA\Property(property: 'value', type: 'object', properties: [
+                    new OA\Property(property: 'unit', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'untCode', type: 'string'),
+                        new OA\Property(property: 'untName', type: 'string'),
+                        new OA\Property(property: 'untNick', type: 'string'),
+                    ])),
+                    new OA\Property(property: 'class1', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'cl1code', type: 'string'),
+                        new OA\Property(property: 'cl1name', type: 'string'),
+                    ])),
+                    new OA\Property(property: 'class2', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'cl2code', type: 'string'),
+                        new OA\Property(property: 'cl1code', type: 'string'),
+                        new OA\Property(property: 'cl2name', type: 'string'),
+                    ])),
+                    new OA\Property(property: 'product', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'proCode', type: 'string'),
+                        new OA\Property(property: 'proName', type: 'string'),
+                        new OA\Property(property: 'proShortName', type: 'string'),
+                        new OA\Property(property: 'untCode', type: 'string'),
+                        new OA\Property(property: 'cl2code', type: 'string'),
+                    ])),
+                    new OA\Property(property: 'productUnit', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'proCode', type: 'string'),
+                        new OA\Property(property: 'untCode', type: 'string'),
+                        new OA\Property(property: 'pruDivideBy', type: 'string'),
+                    ])),
                 ]),
             ])
         )),
         responses: [
-            new OA\Response(response: 201, description: 'Registros creados exitosamente'),
+            new OA\Response(response: 201, description: 'Registros procesados exitosamente'),
+            new OA\Response(response: 422, description: 'Formato no reconocido'),
             new OA\Response(response: 500, description: 'Error en la carga masiva'),
         ]
     )]
@@ -185,4 +200,98 @@ class ProductosSwagger
         responses: [new OA\Response(response: 200, description: 'Unidad eliminada')]
     )]
     public function deleteUnit() {}
+
+    // --- PRODUCT FAMILIES (class1) ---
+    #[OA\Get(path: '/product_families', summary: 'Listar familias de producto', tags: ['Productos - ProductFamily'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
+        responses: [new OA\Response(response: 200, description: 'Lista')]
+    )]
+    public function listProductFamilies() {}
+
+    #[OA\Post(path: '/product_families', summary: 'Crear familia de producto', tags: ['Productos - ProductFamily'],
+        security: [['sanctum' => []]],
+        requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
+            required: ['cl1_code', 'cl1_name'],
+            properties: [
+                new OA\Property(property: 'cl1_code', type: 'string', maxLength: 18),
+                new OA\Property(property: 'cl1_name', type: 'string', maxLength: 40),
+            ]
+        )),
+        responses: [new OA\Response(response: 201, description: 'Familia creada')]
+    )]
+    public function storeProductFamily() {}
+
+    #[OA\Get(path: '/product_families/{id}', summary: 'Obtener familia de producto', tags: ['Productos - ProductFamily'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
+        responses: [new OA\Response(response: 200, description: 'Detalle')]
+    )]
+    public function showProductFamily() {}
+
+    #[OA\Put(path: '/product_families/{id}', summary: 'Actualizar familia de producto', tags: ['Productos - ProductFamily'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
+        requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
+            new OA\Property(property: 'cl1_code', type: 'string', maxLength: 18),
+            new OA\Property(property: 'cl1_name', type: 'string', maxLength: 40),
+        ])),
+        responses: [new OA\Response(response: 200, description: 'Familia actualizada')]
+    )]
+    public function updateProductFamily() {}
+
+    #[OA\Delete(path: '/product_families/{id}', summary: 'Eliminar familia de producto', tags: ['Productos - ProductFamily'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
+        responses: [new OA\Response(response: 200, description: 'Familia eliminada')]
+    )]
+    public function deleteProductFamily() {}
+
+    // --- PRODUCT CATEGORIES (class2) ---
+    #[OA\Get(path: '/product_categories', summary: 'Listar categorías de producto', tags: ['Productos - ProductCategory'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'per_page', in: 'query', required: false, schema: new OA\Schema(type: 'integer', default: 15))],
+        responses: [new OA\Response(response: 200, description: 'Lista')]
+    )]
+    public function listProductCategories() {}
+
+    #[OA\Post(path: '/product_categories', summary: 'Crear categoría de producto', tags: ['Productos - ProductCategory'],
+        security: [['sanctum' => []]],
+        requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
+            required: ['cl2_code', 'cl1_code', 'cl2_name'],
+            properties: [
+                new OA\Property(property: 'cl2_code', type: 'string', maxLength: 18),
+                new OA\Property(property: 'cl1_code', type: 'string', maxLength: 18),
+                new OA\Property(property: 'cl2_name', type: 'string', maxLength: 40),
+            ]
+        )),
+        responses: [new OA\Response(response: 201, description: 'Categoría creada')]
+    )]
+    public function storeProductCategory() {}
+
+    #[OA\Get(path: '/product_categories/{id}', summary: 'Obtener categoría de producto', tags: ['Productos - ProductCategory'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
+        responses: [new OA\Response(response: 200, description: 'Detalle')]
+    )]
+    public function showProductCategory() {}
+
+    #[OA\Put(path: '/product_categories/{id}', summary: 'Actualizar categoría de producto', tags: ['Productos - ProductCategory'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
+        requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(properties: [
+            new OA\Property(property: 'cl2_code', type: 'string', maxLength: 18),
+            new OA\Property(property: 'cl1_code', type: 'string', maxLength: 18),
+            new OA\Property(property: 'cl2_name', type: 'string', maxLength: 40),
+        ])),
+        responses: [new OA\Response(response: 200, description: 'Categoría actualizada')]
+    )]
+    public function updateProductCategory() {}
+
+    #[OA\Delete(path: '/product_categories/{id}', summary: 'Eliminar categoría de producto', tags: ['Productos - ProductCategory'],
+        security: [['sanctum' => []]],
+        parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))],
+        responses: [new OA\Response(response: 200, description: 'Categoría eliminada')]
+    )]
+    public function deleteProductCategory() {}
 }

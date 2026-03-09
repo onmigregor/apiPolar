@@ -61,22 +61,32 @@ class ProductController extends Controller
 
     /**
      * Carga masiva de datos maestros de producto.
-     * Recibe un JSON con un ARRAY de bloques, cada uno con secciones:
-     * Producto, unidadProducto.
-     * Soporta 1 a N productos en una sola transacción.
+     * Recibe el JSON de Polar en formato:
+     * [{ "name": "PRODUCTS", "value": { "unit": [...], "class1": [...], "class2": [...], "product": [...], "productUnit": [...] } }]
+     *
+     * Procesa las 5 secciones en orden de dependencias dentro de UNA transacción.
      */
     public function masterProduct(Request $request): JsonResponse
     {
         try {
-            $items = $request->all();
+            $payload = $request->all();
 
-            // Si envían un solo objeto (no array), lo envolvemos en array
-            if (isset($items['Producto']) || isset($items['unidadProducto'])) {
-                $items = [$items];
+            // Si el payload es un array indexado con wrapper de Polar, pasarlo directo
+            // Si viene sin wrapper (acceso directo al "value"), envolverlo
+            if (isset($payload[0]['name']) && isset($payload[0]['value'])) {
+                // Formato Polar: [{ "name": "PRODUCTS", "value": {...} }]
+                $items = $payload;
+            } elseif (isset($payload['unit']) || isset($payload['class1']) || isset($payload['product'])) {
+                // Formato directo: { "unit": [...], "class1": [...], ... }
+                $items = [['name' => 'PRODUCTS', 'value' => $payload]];
+            } else {
+                return $this->error('Formato de payload no reconocido. Se esperaba el formato Polar PRODUCTS.', 422);
             }
 
             $results = $this->masterProductAction->execute($items);
-            return $this->success($results, 'Master Product: ' . count($results) . ' registro(s) creado(s) exitosamente', 201);
+
+            $totalRecords = array_sum($results);
+            return $this->success($results, "Master Product: {$totalRecords} registro(s) procesado(s) exitosamente", 201);
         } catch (\Exception $e) {
             return $this->error('Error al procesar la carga masiva: ' . $e->getMessage(), 500);
         }

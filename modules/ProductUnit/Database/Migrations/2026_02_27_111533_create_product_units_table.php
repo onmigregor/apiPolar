@@ -12,7 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('pro_code', 18)->comment('Número de material');
             $table->string('unt_code', 3)->comment('Unidad de medida base - FK to Unit');
-            $table->string('pru_divide_by', 13)->comment('Cantidad de componente (botellas)');
+            $table->string('pru_divide_by', 13)->nullable()->comment('Cantidad de componente (botellas)');
+            $table->string('pru_bar_code', 20)->nullable()->comment('Código de barras de unidad');
 
 
             $table->timestamps();

@@ -30,4 +30,6 @@ return [
     Modules\DiscountDetailProduct\Providers\DiscountDetailProductServiceProvider::class,
     Modules\DiscountDetailRoute\Providers\DiscountDetailRouteServiceProvider::class,
     Modules\City\Providers\CityServiceProvider::class,
+    Modules\ProductFamily\Providers\ProductFamilyServiceProvider::class,
+    Modules\ProductCategory\Providers\ProductCategoryServiceProvider::class,
 ];
