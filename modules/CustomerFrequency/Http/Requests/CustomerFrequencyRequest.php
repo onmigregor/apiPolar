@@ -2,21 +2,19 @@
 
 namespace Modules\CustomerFrequency\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\CustomerFrequency\Mappers\CustomerFrequencyMapper;
 
 class CustomerFrequencyRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = CustomerFrequencyMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            CustomerFrequencyMapper::transform($this->all())
-        );
     }
 
     public function rules()

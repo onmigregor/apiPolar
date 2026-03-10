@@ -2,21 +2,19 @@
 
 namespace Modules\RouteAssetType\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\RouteAssetType\Mappers\RouteAssetTypeMapper;
 
 class RouteAssetTypeRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = RouteAssetTypeMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            RouteAssetTypeMapper::transform($this->all())
-        );
     }
 
     public function rules()

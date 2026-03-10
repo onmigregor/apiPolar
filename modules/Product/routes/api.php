@@ -5,3 +5,4 @@ use Modules\Product\Http\Controllers\ProductController;
 
 Route::apiResource('products', ProductController::class);
 Route::post('masterproduct', [ProductController::class, 'masterProduct']);
+Route::delete('truncate-products', [ProductController::class, 'truncateProducts']);

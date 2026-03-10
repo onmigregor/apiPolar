@@ -2,24 +2,19 @@
 
 namespace Modules\CustomerGroup\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\CustomerGroup\Mappers\CustomerGroupMapper;
 
 class CustomerGroupRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = CustomerGroupMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    /**
-     * Transforma las llaves camelCase a snake_case antes de validar.
-     */
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            CustomerGroupMapper::transform($this->all())
-        );
     }
 
     public function rules()

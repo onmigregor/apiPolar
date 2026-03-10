@@ -2,21 +2,19 @@
 
 namespace Modules\CustomerBranch\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\CustomerBranch\Mappers\CustomerBranchMapper;
 
 class CustomerBranchRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = CustomerBranchMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            CustomerBranchMapper::transform($this->all())
-        );
     }
 
     public function rules()

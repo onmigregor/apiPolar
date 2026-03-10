@@ -2,21 +2,19 @@
 
 namespace Modules\RouteLogin\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\RouteLogin\Mappers\RouteLoginMapper;
 
 class RouteLoginRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = RouteLoginMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            RouteLoginMapper::transform($this->all())
-        );
     }
 
     public function rules()

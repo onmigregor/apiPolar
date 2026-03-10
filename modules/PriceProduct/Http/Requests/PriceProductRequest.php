@@ -2,21 +2,19 @@
 
 namespace Modules\PriceProduct\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\PriceProduct\Mappers\PriceProductMapper;
 
 class PriceProductRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = PriceProductMapper::class;
+
     public function authorize(): bool
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            PriceProductMapper::transform($this->all())
-        );
     }
 
     public function rules(): array

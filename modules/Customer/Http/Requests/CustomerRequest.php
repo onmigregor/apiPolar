@@ -2,21 +2,19 @@
 
 namespace Modules\Customer\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Customer\Mappers\CustomerMapper;
 
 class CustomerRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = CustomerMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            CustomerMapper::transform($this->all())
-        );
     }
 
     public function rules()

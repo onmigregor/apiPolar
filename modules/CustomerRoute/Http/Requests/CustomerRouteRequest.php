@@ -2,21 +2,19 @@
 
 namespace Modules\CustomerRoute\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\CustomerRoute\Mappers\CustomerRouteMapper;
 
 class CustomerRouteRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = CustomerRouteMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            CustomerRouteMapper::transform($this->all())
-        );
     }
 
     public function rules()

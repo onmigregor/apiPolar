@@ -2,21 +2,19 @@
 
 namespace Modules\ProductFamily\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\ProductFamily\Mappers\ProductFamilyMapper;
 
 class ProductFamilyRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = ProductFamilyMapper::class;
+
     public function authorize(): bool
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            ProductFamilyMapper::transform($this->all())
-        );
     }
 
     public function rules(): array

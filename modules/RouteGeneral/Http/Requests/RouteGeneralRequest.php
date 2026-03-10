@@ -2,21 +2,19 @@
 
 namespace Modules\RouteGeneral\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\RouteGeneral\Mappers\RouteGeneralMapper;
 
 class RouteGeneralRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = RouteGeneralMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            RouteGeneralMapper::transform($this->all())
-        );
     }
 
     public function rules()

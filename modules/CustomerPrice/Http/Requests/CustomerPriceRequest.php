@@ -2,21 +2,19 @@
 
 namespace Modules\CustomerPrice\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\CustomerPrice\Mappers\CustomerPriceMapper;
 
 class CustomerPriceRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = CustomerPriceMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            CustomerPriceMapper::transform($this->all())
-        );
     }
 
     public function rules()

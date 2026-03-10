@@ -2,21 +2,19 @@
 
 namespace Modules\InfoType\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\InfoType\Mappers\InfoTypeMapper;
 
 class InfoTypeRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = InfoTypeMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            InfoTypeMapper::transform($this->all())
-        );
     }
 
     public function rules()

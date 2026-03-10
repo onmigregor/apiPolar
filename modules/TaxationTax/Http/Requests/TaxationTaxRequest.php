@@ -2,21 +2,19 @@
 
 namespace Modules\TaxationTax\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\TaxationTax\Mappers\TaxationTaxMapper;
 
 class TaxationTaxRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = TaxationTaxMapper::class;
+
     public function authorize(): bool
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            TaxationTaxMapper::transform($this->all())
-        );
     }
 
     public function rules(): array

@@ -7,6 +7,7 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Product\Actions\MasterProductAction;
+use Modules\Product\Actions\TruncateProductAction;
 use Modules\Product\Actions\ProductDeleteAction;
 use Modules\Product\Actions\ProductListAction;
 use Modules\Product\Actions\ProductStoreAction;
@@ -25,7 +26,8 @@ class ProductController extends Controller
         private readonly ProductStoreAction $storeAction,
         private readonly ProductUpdateAction $updateAction,
         private readonly ProductDeleteAction $deleteAction,
-        private readonly MasterProductAction $masterProductAction
+        private readonly MasterProductAction $masterProductAction,
+        private readonly TruncateProductAction $truncateProductAction
     ) {}
 
     public function index(Request $request): JsonResponse
@@ -124,4 +126,43 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * Truncar todas las tablas de datos maestros de producto.
+     *
+     * Vacía las 5 tablas en orden inverso de dependencias:
+     * product_units → products → product_categories → product_families → units
+     *
+     * @OA\Delete(
+     *     path="/api/truncate-products",
+     *     summary="Truncar tablas de productos",
+     *     description="Vacía todas las tablas relacionadas con datos maestros de producto (units, product_families, product_categories, products, product_units) respetando el orden de dependencias.",
+     *     tags={"Cargas Masivas - MasterProduct"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Tablas truncadas exitosamente",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Truncate completado: 4553 registro(s) eliminado(s)"),
+     *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="product_units", type="integer", example=3554),
+     *                 @OA\Property(property="products", type="integer", example=497),
+     *                 @OA\Property(property="product_categories", type="integer", example=32),
+     *                 @OA\Property(property="product_families", type="integer", example=5),
+     *                 @OA\Property(property="units", type="integer", example=44)
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=500, description="Error interno")
+     * )
+     */
+    public function truncateProducts(): JsonResponse
+    {
+        try {
+            $counts = $this->truncateProductAction->execute();
+            $totalDeleted = array_sum($counts);
+            return $this->success($counts, "Truncate completado: {$totalDeleted} registro(s) eliminado(s)");
+        } catch (\Exception $e) {
+            return $this->error('Error al truncar tablas: ' . $e->getMessage(), 500);
+        }
+    }
 }

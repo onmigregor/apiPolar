@@ -540,6 +540,67 @@
                     "response": []
                 }
             ]
+        },
+        {
+            "name": "Cargas Masivas - Productos",
+            "item": [
+                {
+                    "name": "MasterProduct - Carga Masiva",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "file",
+                            "file": {
+                                "src": ""
+                            }
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/masterproduct",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "masterproduct"
+                            ]
+                        },
+                        "description": "Carga masiva de datos maestros de productos. Enviar el archivo PRODUCT.json de Polar."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Truncate Products - Vaciar Tablas",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/truncate-products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "truncate-products"
+                            ]
+                        },
+                        "description": "Vacía las 5 tablas de productos: product_units, products, product_categories, product_families, units."
+                    },
+                    "response": []
+                }
+            ]
         }
     ]
 }

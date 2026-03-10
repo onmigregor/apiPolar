@@ -2,21 +2,19 @@
 
 namespace Modules\Discount\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Discount\Mappers\DiscountMapper;
 
 class DiscountRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = DiscountMapper::class;
+
     public function authorize(): bool
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            DiscountMapper::transform($this->all())
-        );
     }
 
     public function rules(): array

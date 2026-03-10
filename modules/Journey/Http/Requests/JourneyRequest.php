@@ -2,21 +2,19 @@
 
 namespace Modules\Journey\Http\Requests;
 
+use App\Traits\HasMapperRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Modules\Journey\Mappers\JourneyMapper;
 
 class JourneyRequest extends FormRequest
 {
+    use HasMapperRequest;
+
+    protected static string $mapperClass = JourneyMapper::class;
+
     public function authorize()
     {
         return true;
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(
-            JourneyMapper::transform($this->all())
-        );
     }
 
     public function rules()
