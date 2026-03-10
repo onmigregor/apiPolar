@@ -3,6 +3,7 @@
 namespace Modules\Product\Actions;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Modules\Unit\Mappers\UnitMapper;
 use Modules\ProductFamily\Mappers\ProductFamilyMapper;
 use Modules\ProductCategory\Mappers\ProductCategoryMapper;
@@ -17,6 +18,9 @@ use Modules\ProductUnit\Models\ProductUnit;
 
 class MasterProductAction
 {
+    /** Cache estático de $fillable por modelo para evitar re-instanciación */
+    private static array $fillableCache = [];
+
     /**
      * Ejecuta la carga masiva de datos maestros de producto.
      *
@@ -26,7 +30,7 @@ class MasterProductAction
      * Procesa cada sección en orden de dependencias dentro de una transacción.
      *
      * @param array $payload El payload completo del JSON de Polar
-     * @return array Conteo de registros procesados por sección
+     * @return array Conteo de registros procesados y omitidos por sección
      */
     public function execute(array $payload): array
     {
@@ -34,11 +38,11 @@ class MasterProductAction
         $value = $payload[0]['value'] ?? $payload;
 
         return DB::transaction(function () use ($value) {
-            $counts = [];
+            $results = [];
 
             // 1. Unidades de medida (no depende de nadie)
             if (!empty($value['unit'])) {
-                $counts['unit'] = $this->processCollection(
+                $results['unit'] = $this->processCollection(
                     $value['unit'],
                     Unit::class,
                     UnitMapper::class,
@@ -48,7 +52,7 @@ class MasterProductAction
 
             // 2. Familias de producto — class1 (no depende de nadie)
             if (!empty($value['class1'])) {
-                $counts['class1_productFamily'] = $this->processCollection(
+                $results['class1_productFamily'] = $this->processCollection(
                     $value['class1'],
                     ProductFamily::class,
                     ProductFamilyMapper::class,
@@ -58,7 +62,7 @@ class MasterProductAction
 
             // 3. Categorías de producto — class2 (depende de class1)
             if (!empty($value['class2'])) {
-                $counts['class2_productCategory'] = $this->processCollection(
+                $results['class2_productCategory'] = $this->processCollection(
                     $value['class2'],
                     ProductCategory::class,
                     ProductCategoryMapper::class,
@@ -68,7 +72,7 @@ class MasterProductAction
 
             // 4. Productos (depende de unit, class2)
             if (!empty($value['product'])) {
-                $counts['product'] = $this->processCollection(
+                $results['product'] = $this->processCollection(
                     $value['product'],
                     Product::class,
                     ProductMapper::class,
@@ -78,7 +82,7 @@ class MasterProductAction
 
             // 5. Unidades de producto (depende de product y unit)
             if (!empty($value['productUnit'])) {
-                $counts['productUnit'] = $this->processCollection(
+                $results['productUnit'] = $this->processCollection(
                     $value['productUnit'],
                     ProductUnit::class,
                     ProductUnitMapper::class,
@@ -86,24 +90,29 @@ class MasterProductAction
                 );
             }
 
-            return $counts;
+            return $results;
         });
     }
 
     /**
-     * Procesa una colección de registros: mapea campos y hace upsert.
+     * Procesa una colección de registros: mapea, filtra, deduplica y hace upsert.
      *
      * @param array $records Registros crudos del JSON
      * @param string $modelClass Clase del modelo Eloquent
      * @param string $mapperClass Clase del Mapper
      * @param string|array $uniqueKey Campo(s) único(s) para upsert
-     * @return int Cantidad de registros procesados
+     * @return array ['processed' => int, 'skipped' => int, 'duplicates_removed' => int]
      */
-    private function processCollection(array $records, string $modelClass, string $mapperClass, string|array $uniqueKey): int
+    private function processCollection(array $records, string $modelClass, string $mapperClass, string|array $uniqueKey): array
     {
-        $mapped = [];
-        $fillable = (new $modelClass)->getFillable();
+        if (!isset(self::$fillableCache[$modelClass])) {
+            self::$fillableCache[$modelClass] = (new $modelClass)->getFillable();
+        }
+        $fillable = self::$fillableCache[$modelClass];
         $uniqueKeys = is_array($uniqueKey) ? $uniqueKey : [$uniqueKey];
+        $now = now();
+        $skipped = 0;
+        $deduplicated = [];
 
         foreach ($records as $record) {
             // Remover metadatos de Polar
@@ -120,10 +129,16 @@ class MasterProductAction
                     break;
                 }
             }
-            if ($isInvalid) continue;
+            if ($isInvalid) {
+                $skipped++;
+                Log::warning('MasterProduct: Registro omitido por clave inválida', [
+                    'model'  => class_basename($modelClass),
+                    'keys'   => array_intersect_key($transformed, array_flip($uniqueKeys)),
+                ]);
+                continue;
+            }
 
-            // 2. Homologación de llaves: cada fila debe tener exactamente los mismos campos para upsert()
-            // Inicializamos con null y sobreescribimos con lo que traiga el Mapper
+            // 2. Homologación de llaves: cada fila debe tener exactamente los mismos campos
             $row = array_fill_keys($fillable, null);
             foreach ($transformed as $key => $val) {
                 if (in_array($key, $fillable)) {
@@ -131,17 +146,20 @@ class MasterProductAction
                 }
             }
 
-            // Aseguramos timestamps si no vienen
-            $row['updated_at'] = now();
-            if (!in_array('created_at', array_keys($row))) {
-                 $row['created_at'] = now();
-            }
+            // Timestamps uniformes para todo el lote
+            $row['updated_at'] = $now;
+            $row['created_at'] = $now;
 
-            $mapped[] = $row;
+            // 3. Deduplicación: usar la clave compuesta como key del array para quedarnos solo con el último
+            $compositeKey = implode('|', array_map(fn($k) => $row[$k] ?? '', $uniqueKeys));
+            $deduplicated[$compositeKey] = $row;
         }
 
+        $mapped = array_values($deduplicated);
+        $duplicatesRemoved = count($records) - $skipped - count($mapped);
+
         if (empty($mapped)) {
-            return 0;
+            return ['processed' => 0, 'skipped' => $skipped, 'duplicates_removed' => $duplicatesRemoved];
         }
 
         // Definir columnas a actualizar (todas menos las claves únicas)
@@ -154,6 +172,10 @@ class MasterProductAction
             $modelClass::upsert($chunk, $uniqueKeys, array_values($updateColumns));
         }
 
-        return count($mapped);
+        return [
+            'processed'          => count($mapped),
+            'skipped'            => $skipped,
+            'duplicates_removed' => $duplicatesRemoved,
+        ];
     }
 }

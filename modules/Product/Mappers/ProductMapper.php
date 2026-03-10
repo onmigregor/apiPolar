@@ -2,8 +2,12 @@
 
 namespace Modules\Product\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class ProductMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -20,24 +24,5 @@ class ProductMapper
         'pro_weight'        => ['proWeight', 'PRO_WEIGHT', 'pro_weight'],
         'pro_unit_code_bom' => ['proUnitCodeBom', 'PRO_UNIT_CODE_BOM', 'pro_unit_code_bom'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }
+

@@ -2,8 +2,12 @@
 
 namespace Modules\Customer\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class CustomerMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -31,24 +35,4 @@ class CustomerMapper
         'cus_contact_person'  => ['cusContactPerson', 'CUS_CONTACT_PERSON', 'cus_contact_person'],
         'cus_email'           => ['cusEmail', 'CUS_EMAIL', 'cus_email'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

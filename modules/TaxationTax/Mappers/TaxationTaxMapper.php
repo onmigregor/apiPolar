@@ -2,8 +2,12 @@
 
 namespace Modules\TaxationTax\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class TaxationTaxMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -16,24 +20,4 @@ class TaxationTaxMapper
         'ttx_percent_date1' => ['ttxPercentDate1', 'TTX_PERCENT_DATE1', 'ttx_percent_date1'],
         'unt_code'          => ['untCode', 'UNT_CODE', 'unt_code'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

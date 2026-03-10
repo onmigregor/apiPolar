@@ -2,8 +2,12 @@
 
 namespace Modules\CustomerRoute\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class CustomerRouteMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -17,24 +21,4 @@ class CustomerRouteMapper
         'ctr_thursday'  => ['ctrThursday'],
         'ctr_friday'    => ['ctrFriday'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

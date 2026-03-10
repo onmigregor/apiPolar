@@ -2,8 +2,12 @@
 
 namespace Modules\DiscountDetail\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class DiscountDetailMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -16,24 +20,4 @@ class DiscountDetailMapper
         'did_since'         => ['didSince', 'DID_SINCE', 'did_since'],
         'did_until'         => ['didUntil', 'DID_UNTIL', 'did_until'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

@@ -2,8 +2,12 @@
 
 namespace Modules\City\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class CityMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -12,24 +16,4 @@ class CityMapper
         'cit_name' => ['citName', 'CIT_NAME', 'cit_name'],
         'sta_code' => ['staCode', 'STA_CODE', 'sta_code'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

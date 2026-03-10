@@ -2,8 +2,12 @@
 
 namespace Modules\PriceProduct\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class PriceProductMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -14,24 +18,4 @@ class PriceProductMapper
         'ppr_date1'        => ['pprDate1', 'PPR_DATE1', 'ppr_date1'],
         'ppr_price1_date1' => ['pprPrice1Date1', 'PPR_PRICE1_DATE1', 'ppr_price1_date1'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

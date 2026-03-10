@@ -2,8 +2,12 @@
 
 namespace Modules\CustomerGroup\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class CustomerGroupMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -11,24 +15,4 @@ class CustomerGroupMapper
         'tp1_code' => ['tp1Code'],
         'tp1_name' => ['tp1Name'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

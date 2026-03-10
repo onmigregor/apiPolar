@@ -2,8 +2,12 @@
 
 namespace Modules\Journey\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class JourneyMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -14,24 +18,4 @@ class JourneyMapper
         'jrn_dummy'  => ['jrnDummy', 'JRN_DUMMY', 'jrn_dummy'],
         'jrn_status' => ['jrnStatus', 'JRN_STATUS', 'jrn_status'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

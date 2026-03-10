@@ -2,8 +2,12 @@
 
 namespace Modules\RouteGeneral\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class RouteGeneralMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -17,24 +21,4 @@ class RouteGeneralMapper
         'gnl_status'             => ['gnlStatus', 'GNL_STATUS', 'gnl_status'],
         'gnl_status_date'        => ['gnlStatusDate', 'GNL_STATUS_DATE', 'gnl_status_date'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

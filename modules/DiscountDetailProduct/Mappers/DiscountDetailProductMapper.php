@@ -2,8 +2,12 @@
 
 namespace Modules\DiscountDetailProduct\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class DiscountDetailProductMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -46,24 +50,4 @@ class DiscountDetailProductMapper
 
         'dlp_global_discount_amount'     => ['dlpGlobalDiscountAmount', 'DLP_GLOBAL_DISCOUNT_AMOUNT', 'dlp_global_discount_amount'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }

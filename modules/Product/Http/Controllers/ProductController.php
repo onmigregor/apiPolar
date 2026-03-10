@@ -69,7 +69,17 @@ class ProductController extends Controller
     public function masterProduct(Request $request): JsonResponse
     {
         try {
-            $payload = $request->all();
+            // Validación de encoding: normalizar ISO-8859-1 a UTF-8 si es necesario
+            $rawContent = $request->getContent();
+            if (!mb_check_encoding($rawContent, 'UTF-8')) {
+                $rawContent = mb_convert_encoding($rawContent, 'UTF-8', 'ISO-8859-1');
+                $payload = json_decode($rawContent, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    return $this->error('Error de encoding en el payload: ' . json_last_error_msg(), 422);
+                }
+            } else {
+                $payload = $request->all();
+            }
 
             // Si el payload es un array indexado con wrapper de Polar, pasarlo directo
             // Si viene sin wrapper (acceso directo al "value"), envolverlo
@@ -85,10 +95,33 @@ class ProductController extends Controller
 
             $results = $this->masterProductAction->execute($items);
 
-            $totalRecords = array_sum($results);
-            return $this->success($results, "Master Product: {$totalRecords} registro(s) procesado(s) exitosamente", 201);
+            // Calcular totales globales
+            $totalProcessed = 0;
+            $totalSkipped = 0;
+            $totalDuplicates = 0;
+            foreach ($results as $section => $stats) {
+                $totalProcessed += $stats['processed'] ?? 0;
+                $totalSkipped += $stats['skipped'] ?? 0;
+                $totalDuplicates += $stats['duplicates_removed'] ?? 0;
+            }
+
+            $responseData = [
+                'summary' => [
+                    'total_processed'    => $totalProcessed,
+                    'total_skipped'      => $totalSkipped,
+                    'total_duplicates'   => $totalDuplicates,
+                ],
+                'detail' => $results,
+            ];
+
+            return $this->success(
+                $responseData,
+                "Master Product: {$totalProcessed} procesado(s), {$totalSkipped} omitido(s), {$totalDuplicates} duplicado(s) eliminado(s)",
+                201
+            );
         } catch (\Exception $e) {
             return $this->error('Error al procesar la carga masiva: ' . $e->getMessage(), 500);
         }
     }
+
 }

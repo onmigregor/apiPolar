@@ -2,8 +2,12 @@
 
 namespace Modules\Route\Mappers;
 
+use App\Traits\HasMapperTransform;
+
 class RouteMapper
 {
+    use HasMapperTransform;
+
     /**
      * Mapa de campos: snake_case (BD) => [posibles llaves de entrada].
      */
@@ -13,24 +17,4 @@ class RouteMapper
         'lgn_code' => ['lgnCode', 'LGN_CODE', 'lgn_code'],
         'try_code' => ['tryCode', 'TRY_CODE', 'try_code'],
     ];
-
-    public static function transform(array $data): array
-    {
-        $mapped = [];
-
-        foreach ($data as $key => $value) {
-            $resolved = $key;
-
-            foreach (self::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
-                    $resolved = $target;
-                    break;
-                }
-            }
-
-            $mapped[$resolved] = $value;
-        }
-
-        return $mapped;
-    }
 }
