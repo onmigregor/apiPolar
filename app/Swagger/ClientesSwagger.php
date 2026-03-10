@@ -65,23 +65,90 @@ class ClientesSwagger
     // ═══════════════════════════════════════════════
     //  MASTER CUSTOMER (bulk)
     // ═══════════════════════════════════════════════
-    #[OA\Post(path: '/mastercustomer', summary: 'Carga masiva de datos maestros de cliente', tags: ['Cargas Masivas - MasterCustomer'],
+    #[OA\Post(path: '/mastercustomer', summary: 'Carga masiva de datos maestros de cliente (formato Polar)', tags: ['Cargas Masivas - MasterCustomer'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
             type: 'array',
             items: new OA\Items(type: 'object', properties: [
-                new OA\Property(property: 'Clientes', type: 'object'),
-                new OA\Property(property: 'GrupoCliente', type: 'object'),
-                new OA\Property(property: 'ramoCliente', type: 'object'),
-                new OA\Property(property: 'regionCliente', type: 'object'),
-                new OA\Property(property: 'frecuenciaTb', type: 'object'),
-                new OA\Property(property: 'frecuenciaCliente', type: 'object'),
-                new OA\Property(property: 'licenciaTb', type: 'object'),
+                new OA\Property(property: 'name', type: 'string', example: 'CUSTOMERS'),
+                new OA\Property(property: 'value', type: 'object', properties: [
+                    new OA\Property(property: 'GrupoCliente', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'tp1Code', type: 'string', example: '111'),
+                        new OA\Property(property: 'tp1Name', type: 'string', example: 'CS Alta Visibilidad'),
+                    ])),
+                    new OA\Property(property: 'ramoCliente', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'tp2Code', type: 'string', example: 'TC001'),
+                        new OA\Property(property: 'tp2Name', type: 'string', example: 'BODEGA'),
+                    ])),
+                    new OA\Property(property: 'regionCliente', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'citCode', type: 'string', example: '15'),
+                        new OA\Property(property: 'citName', type: 'string', example: 'Miranda'),
+                        new OA\Property(property: 'staCode', type: 'string', example: 'MIR'),
+                    ])),
+                    new OA\Property(property: 'frecuenciaTb', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'freCode', type: 'string', example: '01'),
+                        new OA\Property(property: 'freName', type: 'string', example: 'Semanal'),
+                        new OA\Property(property: 'freWeek1', type: 'string', example: '1'),
+                        new OA\Property(property: 'freWeek2', type: 'string', example: '1'),
+                        new OA\Property(property: 'freWeek3', type: 'string', example: '1'),
+                        new OA\Property(property: 'freWeek4', type: 'string', example: '1'),
+                        new OA\Property(property: 'freCustomer', type: 'string', example: '1'),
+                    ])),
+                    new OA\Property(property: 'licenciaTb', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'iftCode', type: 'string', example: '04'),
+                        new OA\Property(property: 'iftName', type: 'string', example: 'Den. Comercial'),
+                        new OA\Property(property: 'iftCharType', type: 'string', example: '04'),
+                    ])),
+                    new OA\Property(property: 'Clientes', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'cusCode', type: 'string', example: '0001'),
+                        new OA\Property(property: 'cusName', type: 'string', example: 'CLIENTE EJEMPLO'),
+                        new OA\Property(property: 'cusBusinessName', type: 'string', example: 'EMPRESA EJEMPLO CA'),
+                        new OA\Property(property: 'tp1Code', type: 'string', example: '111'),
+                        new OA\Property(property: 'tp2Code', type: 'string', example: 'TC001'),
+                        new OA\Property(property: 'citCode', type: 'string', example: '15'),
+                        new OA\Property(property: 'txnCode', type: 'string', example: '01'),
+                    ])),
+                    new OA\Property(property: 'frecuenciaCliente', type: 'array', items: new OA\Items(type: 'object', properties: [
+                        new OA\Property(property: 'rotCode', type: 'string', example: 'R01'),
+                        new OA\Property(property: 'cusCode', type: 'string', example: '0001'),
+                        new OA\Property(property: 'freCode', type: 'string', example: '01'),
+                    ])),
+                ]),
             ])
         )),
-        responses: [new OA\Response(response: 201, description: 'Registros creados exitosamente')]
+        responses: [
+            new OA\Response(response: 201, description: 'Registros procesados exitosamente'),
+            new OA\Response(response: 422, description: 'Formato no reconocido'),
+            new OA\Response(response: 500, description: 'Error en la carga masiva'),
+        ]
     )]
     public function masterCustomer() {}
+
+    // ═══════════════════════════════════════════════
+    //  TRUNCATE CUSTOMERS (wipe all customer tables)
+    // ═══════════════════════════════════════════════
+    #[OA\Delete(path: '/truncate-customers', summary: 'Truncar tablas de clientes', tags: ['Cargas Masivas - MasterCustomer'],
+        description: 'Vacía todas las tablas relacionadas con datos maestros de cliente (customer_routes, customers, info_types, customer_frequencies, customer_regions, customer_branches, customer_groups) respetando el orden inverso de dependencias.',
+        responses: [
+            new OA\Response(response: 200, description: 'Tablas truncadas exitosamente', content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'status', type: 'string', example: 'success'),
+                    new OA\Property(property: 'message', type: 'string', example: 'Truncate completado: 7854 registro(s) eliminado(s)'),
+                    new OA\Property(property: 'data', type: 'object', properties: [
+                        new OA\Property(property: 'customer_routes', type: 'integer', example: 5200),
+                        new OA\Property(property: 'customers', type: 'integer', example: 2100),
+                        new OA\Property(property: 'info_types', type: 'integer', example: 12),
+                        new OA\Property(property: 'customer_frequencies', type: 'integer', example: 30),
+                        new OA\Property(property: 'customer_regions', type: 'integer', example: 24),
+                        new OA\Property(property: 'customer_branches', type: 'integer', example: 15),
+                        new OA\Property(property: 'customer_groups', type: 'integer', example: 8),
+                    ]),
+                ]
+            )),
+            new OA\Response(response: 500, description: 'Error interno'),
+        ]
+    )]
+    public function truncateCustomers() {}
 
     // ═══════════════════════════════════════════════
     //  CITIES

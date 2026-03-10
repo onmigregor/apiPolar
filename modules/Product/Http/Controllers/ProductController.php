@@ -66,7 +66,8 @@ class ProductController extends Controller
      * Recibe el JSON de Polar en formato:
      * [{ "name": "PRODUCTS", "value": { "unit": [...], "class1": [...], "class2": [...], "product": [...], "productUnit": [...] } }]
      *
-     * Procesa las 5 secciones en orden de dependencias dentro de UNA transacción.
+     * Procesa las 5 secciones en orden de dependencias dentro de UNA transacción e implementa upserts en bloque.
+     * Swagger definido en app/Swagger/ProductosSwagger.php
      */
     public function masterProduct(Request $request): JsonResponse
     {

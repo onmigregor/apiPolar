@@ -69,30 +69,30 @@ class ProductosSwagger
                 new OA\Property(property: 'name', type: 'string', example: 'PRODUCTS'),
                 new OA\Property(property: 'value', type: 'object', properties: [
                     new OA\Property(property: 'unit', type: 'array', items: new OA\Items(type: 'object', properties: [
-                        new OA\Property(property: 'untCode', type: 'string'),
-                        new OA\Property(property: 'untName', type: 'string'),
-                        new OA\Property(property: 'untNick', type: 'string'),
+                        new OA\Property(property: 'untCode', type: 'string', example: 'CJ'),
+                        new OA\Property(property: 'untName', type: 'string', example: 'CAJA'),
+                        new OA\Property(property: 'untNick', type: 'string', example: 'CJ'),
                     ])),
                     new OA\Property(property: 'class1', type: 'array', items: new OA\Items(type: 'object', properties: [
-                        new OA\Property(property: 'cl1code', type: 'string'),
-                        new OA\Property(property: 'cl1name', type: 'string'),
+                        new OA\Property(property: 'cl1code', type: 'string', example: 'FAM01'),
+                        new OA\Property(property: 'cl1name', type: 'string', example: 'CERVEZAS'),
                     ])),
                     new OA\Property(property: 'class2', type: 'array', items: new OA\Items(type: 'object', properties: [
-                        new OA\Property(property: 'cl2code', type: 'string'),
-                        new OA\Property(property: 'cl1code', type: 'string'),
-                        new OA\Property(property: 'cl2name', type: 'string'),
+                        new OA\Property(property: 'cl2code', type: 'string', example: 'CAT01'),
+                        new OA\Property(property: 'cl1code', type: 'string', example: 'FAM01'),
+                        new OA\Property(property: 'cl2name', type: 'string', example: 'PILSEN'),
                     ])),
                     new OA\Property(property: 'product', type: 'array', items: new OA\Items(type: 'object', properties: [
-                        new OA\Property(property: 'proCode', type: 'string'),
-                        new OA\Property(property: 'proName', type: 'string'),
-                        new OA\Property(property: 'proShortName', type: 'string'),
-                        new OA\Property(property: 'untCode', type: 'string'),
-                        new OA\Property(property: 'cl2code', type: 'string'),
+                        new OA\Property(property: 'proCode', type: 'string', example: 'PROD001'),
+                        new OA\Property(property: 'proName', type: 'string', example: 'POLAR PILSEN 222ML'),
+                        new OA\Property(property: 'proShortName', type: 'string', example: 'PILSEN 222'),
+                        new OA\Property(property: 'untCode', type: 'string', example: 'CJ'),
+                        new OA\Property(property: 'cl2code', type: 'string', example: 'CAT01'),
                     ])),
                     new OA\Property(property: 'productUnit', type: 'array', items: new OA\Items(type: 'object', properties: [
-                        new OA\Property(property: 'proCode', type: 'string'),
-                        new OA\Property(property: 'untCode', type: 'string'),
-                        new OA\Property(property: 'pruDivideBy', type: 'string'),
+                        new OA\Property(property: 'proCode', type: 'string', example: 'PROD001'),
+                        new OA\Property(property: 'untCode', type: 'string', example: 'CJ'),
+                        new OA\Property(property: 'pruDivideBy', type: 'number', example: 36),
                     ])),
                 ]),
             ])
@@ -104,6 +104,30 @@ class ProductosSwagger
         ]
     )]
     public function masterProduct() {}
+
+    // ═══════════════════════════════════════════════
+    //  TRUNCATE PRODUCTS (wipe all product tables)
+    // ═══════════════════════════════════════════════
+    #[OA\Delete(path: '/truncate-products', summary: 'Truncar tablas de productos', tags: ['Cargas Masivas - MasterProduct'],
+        description: 'Vacía todas las tablas relacionadas con datos maestros de producto (product_units, products, product_categories, product_families, units) respetando el orden de dependencias.',
+        responses: [
+            new OA\Response(response: 200, description: 'Tablas truncadas exitosamente', content: new OA\JsonContent(
+                properties: [
+                    new OA\Property(property: 'status', type: 'string', example: 'success'),
+                    new OA\Property(property: 'message', type: 'string', example: 'Truncate completado: 4553 registro(s) eliminado(s)'),
+                    new OA\Property(property: 'data', type: 'object', properties: [
+                        new OA\Property(property: 'product_units', type: 'integer', example: 3554),
+                        new OA\Property(property: 'products', type: 'integer', example: 497),
+                        new OA\Property(property: 'product_categories', type: 'integer', example: 32),
+                        new OA\Property(property: 'product_families', type: 'integer', example: 5),
+                        new OA\Property(property: 'units', type: 'integer', example: 44),
+                    ]),
+                ]
+            )),
+            new OA\Response(response: 500, description: 'Error interno'),
+        ]
+    )]
+    public function truncateProducts() {}
 
     // --- PRODUCT UNITS ---
     #[OA\Get(path: '/product_units', summary: 'Listar unidades de producto', tags: ['Productos - ProductUnit'],

@@ -233,7 +233,7 @@
                 "tags": [
                     "Cargas Masivas - MasterCustomer"
                 ],
-                "summary": "Carga masiva de datos maestros de cliente",
+                "summary": "Carga masiva de datos maestros de cliente (formato Polar)",
                 "operationId": "0e39aa66f4e23a3465a67232695b7002",
                 "requestBody": {
                     "required": true,
@@ -243,25 +243,177 @@
                                 "type": "array",
                                 "items": {
                                     "properties": {
-                                        "Clientes": {
-                                            "type": "object"
+                                        "name": {
+                                            "type": "string",
+                                            "example": "CUSTOMERS"
                                         },
-                                        "GrupoCliente": {
-                                            "type": "object"
-                                        },
-                                        "ramoCliente": {
-                                            "type": "object"
-                                        },
-                                        "regionCliente": {
-                                            "type": "object"
-                                        },
-                                        "frecuenciaTb": {
-                                            "type": "object"
-                                        },
-                                        "frecuenciaCliente": {
-                                            "type": "object"
-                                        },
-                                        "licenciaTb": {
+                                        "value": {
+                                            "properties": {
+                                                "GrupoCliente": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "tp1Code": {
+                                                                "type": "string",
+                                                                "example": "111"
+                                                            },
+                                                            "tp1Name": {
+                                                                "type": "string",
+                                                                "example": "CS Alta Visibilidad"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "ramoCliente": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "tp2Code": {
+                                                                "type": "string",
+                                                                "example": "TC001"
+                                                            },
+                                                            "tp2Name": {
+                                                                "type": "string",
+                                                                "example": "BODEGA"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "regionCliente": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "citCode": {
+                                                                "type": "string",
+                                                                "example": "15"
+                                                            },
+                                                            "citName": {
+                                                                "type": "string",
+                                                                "example": "Miranda"
+                                                            },
+                                                            "staCode": {
+                                                                "type": "string",
+                                                                "example": "MIR"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "frecuenciaTb": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "freCode": {
+                                                                "type": "string",
+                                                                "example": "01"
+                                                            },
+                                                            "freName": {
+                                                                "type": "string",
+                                                                "example": "Semanal"
+                                                            },
+                                                            "freWeek1": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "freWeek2": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "freWeek3": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "freWeek4": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "freCustomer": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "licenciaTb": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "iftCode": {
+                                                                "type": "string",
+                                                                "example": "04"
+                                                            },
+                                                            "iftName": {
+                                                                "type": "string",
+                                                                "example": "Den. Comercial"
+                                                            },
+                                                            "iftCharType": {
+                                                                "type": "string",
+                                                                "example": "04"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "Clientes": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "cusCode": {
+                                                                "type": "string",
+                                                                "example": "0001"
+                                                            },
+                                                            "cusName": {
+                                                                "type": "string",
+                                                                "example": "CLIENTE EJEMPLO"
+                                                            },
+                                                            "cusBusinessName": {
+                                                                "type": "string",
+                                                                "example": "EMPRESA EJEMPLO CA"
+                                                            },
+                                                            "tp1Code": {
+                                                                "type": "string",
+                                                                "example": "111"
+                                                            },
+                                                            "tp2Code": {
+                                                                "type": "string",
+                                                                "example": "TC001"
+                                                            },
+                                                            "citCode": {
+                                                                "type": "string",
+                                                                "example": "15"
+                                                            },
+                                                            "txnCode": {
+                                                                "type": "string",
+                                                                "example": "01"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "frecuenciaCliente": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "rotCode": {
+                                                                "type": "string",
+                                                                "example": "R01"
+                                                            },
+                                                            "cusCode": {
+                                                                "type": "string",
+                                                                "example": "0001"
+                                                            },
+                                                            "freCode": {
+                                                                "type": "string",
+                                                                "example": "01"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
                                             "type": "object"
                                         }
                                     },
@@ -273,7 +425,13 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Registros creados exitosamente"
+                        "description": "Registros procesados exitosamente"
+                    },
+                    "422": {
+                        "description": "Formato no reconocido"
+                    },
+                    "500": {
+                        "description": "Error en la carga masiva"
                     }
                 },
                 "security": [
@@ -281,6 +439,74 @@
                         "sanctum": []
                     }
                 ]
+            }
+        },
+        "/truncate-customers": {
+            "delete": {
+                "tags": [
+                    "Cargas Masivas - MasterCustomer"
+                ],
+                "summary": "Truncar tablas de clientes",
+                "description": "Vacía todas las tablas relacionadas con datos maestros de cliente (customer_routes, customers, info_types, customer_frequencies, customer_regions, customer_branches, customer_groups) respetando el orden inverso de dependencias.",
+                "operationId": "cc1f5ccd8b68972af6bc8dc04c0666fb",
+                "responses": {
+                    "200": {
+                        "description": "Tablas truncadas exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Truncate completado: 7854 registro(s) eliminado(s)"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "customer_routes": {
+                                                    "type": "integer",
+                                                    "example": 5200
+                                                },
+                                                "customers": {
+                                                    "type": "integer",
+                                                    "example": 2100
+                                                },
+                                                "info_types": {
+                                                    "type": "integer",
+                                                    "example": 12
+                                                },
+                                                "customer_frequencies": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "customer_regions": {
+                                                    "type": "integer",
+                                                    "example": 24
+                                                },
+                                                "customer_branches": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "customer_groups": {
+                                                    "type": "integer",
+                                                    "example": 8
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno"
+                    }
+                }
             }
         },
         "/cities": {
@@ -3966,13 +4192,16 @@
                                                     "items": {
                                                         "properties": {
                                                             "untCode": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CJ"
                                                             },
                                                             "untName": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CAJA"
                                                             },
                                                             "untNick": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CJ"
                                                             }
                                                         },
                                                         "type": "object"
@@ -3983,10 +4212,12 @@
                                                     "items": {
                                                         "properties": {
                                                             "cl1code": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "FAM01"
                                                             },
                                                             "cl1name": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CERVEZAS"
                                                             }
                                                         },
                                                         "type": "object"
@@ -3997,13 +4228,16 @@
                                                     "items": {
                                                         "properties": {
                                                             "cl2code": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CAT01"
                                                             },
                                                             "cl1code": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "FAM01"
                                                             },
                                                             "cl2name": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "PILSEN"
                                                             }
                                                         },
                                                         "type": "object"
@@ -4014,19 +4248,24 @@
                                                     "items": {
                                                         "properties": {
                                                             "proCode": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "PROD001"
                                                             },
                                                             "proName": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "POLAR PILSEN 222ML"
                                                             },
                                                             "proShortName": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "PILSEN 222"
                                                             },
                                                             "untCode": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CJ"
                                                             },
                                                             "cl2code": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CAT01"
                                                             }
                                                         },
                                                         "type": "object"
@@ -4037,13 +4276,16 @@
                                                     "items": {
                                                         "properties": {
                                                             "proCode": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "PROD001"
                                                             },
                                                             "untCode": {
-                                                                "type": "string"
+                                                                "type": "string",
+                                                                "example": "CJ"
                                                             },
                                                             "pruDivideBy": {
-                                                                "type": "string"
+                                                                "type": "number",
+                                                                "example": 36
                                                             }
                                                         },
                                                         "type": "object"
@@ -4075,6 +4317,66 @@
                         "sanctum": []
                     }
                 ]
+            }
+        },
+        "/truncate-products": {
+            "delete": {
+                "tags": [
+                    "Cargas Masivas - MasterProduct"
+                ],
+                "summary": "Truncar tablas de productos",
+                "description": "Vacía todas las tablas relacionadas con datos maestros de producto (product_units, products, product_categories, product_families, units) respetando el orden de dependencias.",
+                "operationId": "7454018673911261fe7802305869ee47",
+                "responses": {
+                    "200": {
+                        "description": "Tablas truncadas exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Truncate completado: 4553 registro(s) eliminado(s)"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "product_units": {
+                                                    "type": "integer",
+                                                    "example": 3554
+                                                },
+                                                "products": {
+                                                    "type": "integer",
+                                                    "example": 497
+                                                },
+                                                "product_categories": {
+                                                    "type": "integer",
+                                                    "example": 32
+                                                },
+                                                "product_families": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "units": {
+                                                    "type": "integer",
+                                                    "example": 44
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno"
+                    }
+                }
             }
         },
         "/product_units": {
