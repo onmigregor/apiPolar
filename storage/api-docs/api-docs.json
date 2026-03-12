@@ -4024,7 +4024,7 @@
                                     },
                                     "pro_organization": {
                                         "type": "string",
-                                        "maxLength": 4
+                                        "maxLength": 10
                                     },
                                     "unt_code": {
                                         "type": "string",
@@ -4243,6 +4243,26 @@
                                                         "type": "object"
                                                     }
                                                 },
+                                                "class3": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "cl3code": {
+                                                                "type": "string",
+                                                                "example": "FAM01-PILSEN-001"
+                                                            },
+                                                            "cl2code": {
+                                                                "type": "string",
+                                                                "example": "CAT01"
+                                                            },
+                                                            "cl3name": {
+                                                                "type": "string",
+                                                                "example": "PILSEN PREMIUM"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
                                                 "product": {
                                                     "type": "array",
                                                     "items": {
@@ -4266,6 +4286,10 @@
                                                             "cl2code": {
                                                                 "type": "string",
                                                                 "example": "CAT01"
+                                                            },
+                                                            "cl3code": {
+                                                                "type": "string",
+                                                                "example": "FAM01-PILSEN-001"
                                                             }
                                                         },
                                                         "type": "object"
@@ -4355,6 +4379,10 @@
                                                 "product_categories": {
                                                     "type": "integer",
                                                     "example": 32
+                                                },
+                                                "product_class_3": {
+                                                    "type": "integer",
+                                                    "example": 45
                                                 },
                                                 "product_families": {
                                                     "type": "integer",

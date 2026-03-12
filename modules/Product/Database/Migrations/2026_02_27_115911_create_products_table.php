@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('pro_code', 18)->comment('Número de material');
+            $table->string('pro_code', 18)->unique()->comment('Número de material');
             $table->string('pro_name', 40)->comment('Texto de material');
             $table->string('pro_short_name', 40)->nullable()->comment('Texto breve de material');
-            $table->string('pro_organization', 4)->nullable()->comment('Organización de ventas');
+            $table->string('pro_organization', 10)->nullable()->comment('Organización de ventas');
             $table->string('unt_code', 3)->nullable()->comment('Unidad de medida base');
             $table->string('pro_bom_code', 18)->nullable()->comment('Número de material (lista de materiales)');
             $table->string('cl2_code', 18)->nullable()->comment('Jerarquía de productos');

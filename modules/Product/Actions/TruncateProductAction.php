@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Modules\ProductUnit\Models\ProductUnit;
 use Modules\Product\Models\Product;
 use Modules\ProductCategory\Models\ProductCategory;
+use Modules\ProductClass3\Models\ProductClass3;
 use Modules\ProductFamily\Models\ProductFamily;
 use Modules\Unit\Models\Unit;
 
@@ -17,9 +18,10 @@ class TruncateProductAction
      * El orden es inverso al de carga (dependencias primero):
      * 1. product_units  (depende de products + units)
      * 2. products       (depende de product_categories + units)
-     * 3. product_categories (depende de product_families)
-     * 4. product_families   (independiente)
-     * 5. units              (independiente)
+     * 3. product_class_3    (depende de product_categories)
+     * 4. product_categories (depende de product_families)
+     * 5. product_families   (independiente)
+     * 6. units              (independiente)
      *
      * @return array Conteo de registros eliminados por tabla
      */
@@ -33,6 +35,7 @@ class TruncateProductAction
         $tables = [
             'product_units'      => ProductUnit::class,
             'products'           => Product::class,
+            'product_class_3'    => ProductClass3::class,
             'product_categories' => ProductCategory::class,
             'product_families'   => ProductFamily::class,
             'units'              => Unit::class,

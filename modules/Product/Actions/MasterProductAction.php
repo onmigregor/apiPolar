@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Log;
 use Modules\Unit\Mappers\UnitMapper;
 use Modules\ProductFamily\Mappers\ProductFamilyMapper;
 use Modules\ProductCategory\Mappers\ProductCategoryMapper;
+use Modules\ProductClass3\Mappers\ProductClass3Mapper;
 use Modules\Product\Mappers\ProductMapper;
 use Modules\ProductUnit\Mappers\ProductUnitMapper;
 
 use Modules\Unit\Models\Unit;
 use Modules\ProductFamily\Models\ProductFamily;
 use Modules\ProductCategory\Models\ProductCategory;
+use Modules\ProductClass3\Models\ProductClass3;
 use Modules\Product\Models\Product;
 use Modules\ProductUnit\Models\ProductUnit;
 
@@ -25,7 +27,7 @@ class MasterProductAction
      * Ejecuta la carga masiva de datos maestros de producto.
      *
      * Recibe el payload de Polar en formato:
-     * [{ "name": "PRODUCTS", "value": { "unit": [...], "class1": [...], "class2": [...], "product": [...], "productUnit": [...] } }]
+     * [{ "name": "PRODUCTS", "value": { "unit": [...], "class1": [...], "class2": [...], "class3": [...], "product": [...], "productUnit": [...] } }]
      *
      * Procesa cada sección en orden de dependencias dentro de una transacción.
      *
@@ -70,7 +72,17 @@ class MasterProductAction
                 );
             }
 
-            // 4. Productos (depende de unit, class2)
+            // 4. Class 3 de producto (depende de class2)
+            if (!empty($value['class3'])) {
+                $results['class3_productClass3'] = $this->processCollection(
+                    $value['class3'],
+                    ProductClass3::class,
+                    ProductClass3Mapper::class,
+                    'cl3_code'
+                );
+            }
+
+            // 5. Productos (depende de unit, class2, class3)
             if (!empty($value['product'])) {
                 $results['product'] = $this->processCollection(
                     $value['product'],
@@ -80,7 +92,7 @@ class MasterProductAction
                 );
             }
 
-            // 5. Unidades de producto (depende de product y unit)
+            // 6. Unidades de producto (depende de product y unit)
             if (!empty($value['productUnit'])) {
                 $results['productUnit'] = $this->processCollection(
                     $value['productUnit'],

@@ -18,6 +18,7 @@ class Product extends Model
         'unt_code',
         'pro_bom_code',
         'cl2_code',
+        'cl3_code',
         'pro_created_on',
         'pro_modified_on',
         'pro_weight',

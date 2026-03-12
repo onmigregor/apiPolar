@@ -32,4 +32,5 @@ return [
     Modules\City\Providers\CityServiceProvider::class,
     Modules\ProductFamily\Providers\ProductFamilyServiceProvider::class,
     Modules\ProductCategory\Providers\ProductCategoryServiceProvider::class,
+    Modules\ProductClass3\Providers\ProductClass3ServiceProvider::class,
 ];

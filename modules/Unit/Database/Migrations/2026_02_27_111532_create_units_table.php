@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->string('unt_code', 3)->comment('Unidad de medida base');
+            $table->string('unt_code', 3)->unique()->comment('Unidad de medida base');
             $table->string('unt_name', 10)->comment('Texto para la unidad de medida (máx. 10 posiciones)');
             $table->string('unt_nick', 3)->comment('Unidad medida alternativa p.unidad medida almacén');
             $table->timestamps();
