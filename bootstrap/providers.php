@@ -33,4 +33,9 @@ return [
     Modules\ProductFamily\Providers\ProductFamilyServiceProvider::class,
     Modules\ProductCategory\Providers\ProductCategoryServiceProvider::class,
     Modules\ProductClass3\Providers\ProductClass3ServiceProvider::class,
+    Modules\Promotion\Providers\PromotionServiceProvider::class,
+    Modules\PromotionDetail\Providers\PromotionDetailServiceProvider::class,
+    Modules\PromotionDetailProduct\Providers\PromotionDetailProductServiceProvider::class,
+    Modules\PromotionRoute\Providers\PromotionRouteServiceProvider::class,
+    Modules\PromotionTeam\Providers\PromotionTeamServiceProvider::class,
 ];
