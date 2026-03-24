@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libicu-dev \
+    libzip-dev \
     zip \
     unzip \
     default-mysql-client
@@ -16,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl zip
 
 # Increase PHP limits for large payloads (Polar MasterProduct)
 RUN echo "post_max_size = 128M" > /usr/local/etc/php/conf.d/docker-php-limits.ini && \
