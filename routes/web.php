@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/admin');
 
 // Serve Swagger API docs JSON (workaround for l5-swagger route issue in Laravel 12)
 Route::get('/docs/api-docs.json', function () {
