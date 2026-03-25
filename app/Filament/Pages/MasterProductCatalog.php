@@ -11,5 +11,10 @@ class MasterProductCatalog extends Page
     protected static ?string $title = 'Master Productos';
     protected static ?int $navigationSort = 1;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user() && (auth()->user()->hasRole('admin') || auth()->user()->hasRole('analista'));
+    }
+
     protected static string $view = 'filament.pages.master-product-catalog';
 }
