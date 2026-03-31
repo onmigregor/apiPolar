@@ -2,19 +2,18 @@
 
 namespace Modules\PromotionDetailProduct\Mappers;
 
-use Modules\PromotionDetailProduct\DataTransferObjects\PromotionDetailProductData;
+use App\Traits\HasMapperTransform;
 
 class PromotionDetailProductMapper
 {
-    public static function toDatabase(PromotionDetailProductData $dto): array
-    {
-        return [
-            'prp_code' => $dto->prpCode,
-            'pdl_code' => $dto->pdlCode,
-            'prm_code' => $dto->prmCode,
-            'pro_code' => $dto->proCode,
-            'unt_code' => $dto->untCode,
-            'prp_quantity1' => $dto->prpQuantity1,
-        ];
-    }
+    use HasMapperTransform;
+
+    public static array $map = [
+        'prp_code'      => ['prpCode', 'prp_code', 'PRPCODE'],
+        'pdl_code'      => ['pdlCode', 'pdl_code', 'PDLCODE'],
+        'prm_code'      => ['prmCode', 'prm_code', 'PRMCODE'],
+        'pro_code'      => ['proCode', 'pro_code', 'PROCODE'],
+        'unt_code'      => ['untCode', 'unt_code', 'UNTCODE'],
+        'prp_quantity1' => ['prpQuantity1', 'prp_quantity1', 'PRPQUANTITY1'],
+    ];
 }

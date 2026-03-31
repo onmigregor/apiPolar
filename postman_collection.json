@@ -382,7 +382,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "[\n\t{\n\t\t\"name\": \"CUSTOMERS\",\n\t\t\"value\": {\n\t\t\t\"GrupoCliente\": [\n\t\t\t\t{ \"tp1Code\": \"111\", \"tp1Name\": \"CS Alta Visibilidad\" }\n\t\t\t],\n\t\t\t\"ramoCliente\": [\n\t\t\t\t{ \"tp2Code\": \"TC00000044\", \"tp2Name\": \"BODEGON/EXQUISITES\" }\n\t\t\t],\n\t\t\t\"regionCliente\": [\n\t\t\t\t{ \"citCode\": \"15\", \"citName\": \"Miranda\", \"staCode\": \"MIR\" }\n\t\t\t],\n\t\t\t\"frecuenciaTb\": [\n\t\t\t\t{ \"freCode\": \"01\", \"freName\": \"Semanal s/dia del plan\", \"freWeek1\": \"1\", \"freWeek2\": \"1\", \"freWeek3\": \"1\", \"freWeek4\": \"1\", \"freCustomer\": \"1\" }\n\t\t\t],\n\t\t\t\"licenciaTb\": [\n\t\t\t\t{ \"iftCode\": \"04\", \"iftName\": \"Den. Comercial\", \"iftCharType\": \"04\" }\n\t\t\t],\n\t\t\t\"Clientes\": [\n\t\t\t\t{ \"cusCode\": \"0000055043\", \"cusName\": \"BODEGA EL SOL\", \"cusBusinessName\": \"BODEGA EL SOL CA\", \"tp1Code\": \"111\", \"tp2Code\": \"TC00000044\", \"citCode\": \"15\" }\n\t\t\t],\n\t\t\t\"frecuenciaCliente\": [\n\t\t\t\t{ \"rotCode\": \"01751\", \"cusCode\": \"0000055043\", \"freCode\": \"01\" }\n\t\t\t]\n\t\t}\n\t}\n]"
+                            "raw": "[\n    {\n        \"name\": \"CUSTOMERS\",\n        \"value\": {\n            \"type1\": [\n                {\n                    \"tp1Code\": \"111\",\n                    \"tp1Name\": \"CS Alta Visibilidad\"\n                }\n            ],\n            \"type2\": [\n                {\n                    \"tp2Code\": \"TC001\",\n                    \"tp2Name\": \"BODEGA\"\n                }\n            ],\n            \"city\": [\n                {\n                    \"citCode\": \"15\",\n                    \"citName\": \"Miranda\",\n                    \"staCode\": \"MIR\"\n                }\n            ],\n            \"frequency\": [\n                {\n                    \"freCode\": \"01\",\n                    \"freName\": \"Semanal\",\n                    \"freWeek1\": \"1\",\n                    \"freWeek2\": \"1\",\n                    \"freWeek3\": \"1\",\n                    \"freWeek4\": \"1\",\n                    \"freCustomer\": \"1\"\n                }\n            ],\n            \"infoType\": [\n                {\n                    \"iftCode\": \"04\",\n                    \"iftName\": \"Den. Comercial\",\n                    \"iftCharType\": \"04\"\n                }\n            ],\n            \"customer\": [\n                {\n                    \"cusCode\": \"0001\",\n                    \"cusName\": \"CLIENTE EJEMPLO\",\n                    \"tp1Code\": \"111\",\n                    \"tp2Code\": \"TC001\",\n                    \"citCode\": \"15\"\n                }\n            ],\n            \"customerRoute\": [\n                {\n                    \"rotCode\": \"R01\",\n                    \"cusCode\": \"0001\",\n                    \"freCode\": \"01\"\n                }\n            ],\n            \"customerPrice\": [\n                {\n                    \"rotCode\": \"R01\",\n                    \"cusCode\": \"0001\",\n                    \"prcCode\": \"PR01\"\n                }\n            ],\n            \"customerInfo\": [\n                {\n                    \"cusCode\": \"0001\",\n                    \"iftCode\": \"04\",\n                    \"ctnCharValue\": \"VALOR_123\"\n                }\n            ]\n        }\n    }\n]"
                         },
                         "url": {
                             "raw": "{{base_url}}/mastercustomer",
@@ -393,7 +393,7 @@
                                 "mastercustomer"
                             ]
                         },
-                        "description": "Carga masiva con el nuevo formato de Polar (Nodo CUSTOMERS con sub-listas de grupos, ramos, regiones, etc)."
+                        "description": "Carga masiva con el nuevo formato de Polar (Nodo CUSTOMERS con sub-listas de type1, type2, city, frequency, infoType, customer, customerRoute, customerPrice, customerInfo)."
                     },
                     "response": []
                 },
@@ -416,7 +416,7 @@
                                 "truncate-customers"
                             ]
                         },
-                        "description": "Vac\u00eda las 7 tablas de clientes: customer_routes, customers, info_types, customer_frequencies, customer_regions, customer_branches, customer_groups."
+                        "description": "Vacía las 9 tablas de clientes: customer_prices, customer_infos, customer_routes, customers, customer_info_types, customer_frequencies, customer_cities, customer_branches, customer_groups."
                     },
                     "response": []
                 }
@@ -619,7 +619,66 @@
                                 "truncate-products"
                             ]
                         },
-                        "description": "Vac\u00eda las 5 tablas de productos: product_units, products, product_categories, product_families, units."
+                        "description": "Vacía las 5 tablas de productos: product_units, products, product_categories, product_families, units."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cargas Masivas - Promociones",
+            "item": [
+                {
+                    "name": "MasterPromotion - Carga Masiva",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n    {\n        \"name\": \"PROMOTIONS\",\n        \"value\": {\n            \"promotion\": [\n                {\n                    \"prmCode\": \"P001\",\n                    \"prmName\": \"PROMO PRUEBA\"\n                }\n            ],\n            \"promotionDetail\": [\n                {\n                    \"pdlCode\": \"PD001\",\n                    \"prmCode\": \"P001\",\n                    \"pdlName\": \"Detalle 1\"\n                }\n            ],\n            \"promotionDetailProduct\": [\n                {\n                    \"prpCode\": \"PRP001\",\n                    \"pdlCode\": \"PD001\",\n                    \"prmCode\": \"P001\",\n                    \"proCode\": \"PROD01\"\n                }\n            ],\n            \"promotionRoute\": [\n                {\n                    \"rotCode\": \"R01\",\n                    \"prmCode\": \"P001\"\n                }\n            ],\n            \"promotionTeam\": [\n                {\n                    \"teaCode\": \"T01\",\n                    \"prmCode\": \"P001\"\n                }\n            ]\n        }\n    }\n]"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/masterpromotion",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "masterpromotion"
+                            ]
+                        },
+                        "description": "Carga masiva de promociones con el formato de Polar (Nodo PROMOTIONS con sub-listas de promocion, detalles, productos, rutas y equipos)."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Truncate Promotions - Vaciar Tablas",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/truncate-promotions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "truncate-promotions"
+                            ]
+                        },
+                        "description": "Vacía las 5 tablas de promociones: promotion_detail_products, promotion_details, promotion_routes, promotion_teams, promotions."
                     },
                     "response": []
                 }

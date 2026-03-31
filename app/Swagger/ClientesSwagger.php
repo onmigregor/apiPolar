@@ -117,7 +117,35 @@ class ClientesSwagger
             ])
         )),
         responses: [
-            new OA\Response(response: 201, description: 'Registros procesados exitosamente'),
+            new OA\Response(
+                response: 200,
+                description: 'Registros procesados exitosamente',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', type: 'string', example: 'success'),
+                        new OA\Property(property: 'message', type: 'string', example: 'Master Customer: 42 procesado(s), 6 omitido(s), 5 duplicado(s) eliminado(s)'),
+                        new OA\Property(property: 'data', type: 'object', properties: [
+                            new OA\Property(property: 'summary', type: 'object', properties: [
+                                new OA\Property(property: 'total_processed', type: 'integer', example: 42),
+                                new OA\Property(property: 'total_skipped', type: 'integer', example: 6),
+                                new OA\Property(property: 'total_duplicates', type: 'integer', example: 5),
+                            ]),
+                            new OA\Property(property: 'detail', type: 'object', properties: [
+                                new OA\Property(property: 'GrupoCliente', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 2),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 0),
+                                ]),
+                                new OA\Property(property: 'Clientes', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 5),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 1),
+                                ]),
+                            ]),
+                        ]),
+                    ]
+                )
+            ),
             new OA\Response(response: 422, description: 'Formato no reconocido'),
             new OA\Response(response: 500, description: 'Error en la carga masiva'),
         ]

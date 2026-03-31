@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('customer_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('tp1_code', 3)->comment('Grupo de clientes 4 (segmento)');
-            $table->string('tp1_name', 20)->comment('Descripción (segmento)');
+            $table->string('tp1_code', 20)->comment('Grupo de clientes 4 (segmento)');
+            $table->string('tp1_name', 20)->nullable()->comment('Descripción (segmento)');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -48,10 +48,53 @@ class PromotionsSwagger
             ])
         )),
         responses: [
-            new OA\Response(response: 201, description: 'Registros procesados exitosamente'),
+            new OA\Response(
+                response: 200,
+                description: 'Registros procesados exitosamente',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', type: 'string', example: 'success'),
+                        new OA\Property(property: 'message', type: 'string', example: 'Master Promotion: 10 procesado(s), 0 omitido(s), 2 duplicado(s) eliminado(s)'),
+                        new OA\Property(property: 'data', type: 'object', properties: [
+                            new OA\Property(property: 'summary', type: 'object', properties: [
+                                new OA\Property(property: 'total_processed', type: 'integer', example: 10),
+                                new OA\Property(property: 'total_skipped', type: 'integer', example: 0),
+                                new OA\Property(property: 'total_duplicates', type: 'integer', example: 2),
+                            ]),
+                            new OA\Property(property: 'detail', type: 'object', properties: [
+                                new OA\Property(property: 'promotion', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 2),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 0),
+                                ]),
+                                new OA\Property(property: 'promotionDetail', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 2),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 0),
+                                ]),
+                            ]),
+                        ]),
+                    ]
+                )
+            ),
             new OA\Response(response: 422, description: 'Formato no reconocido'),
             new OA\Response(response: 500, description: 'Error en la carga masiva'),
         ]
     )]
     public function masterPromotion() {}
+
+    // ═══════════════════════════════════════════════
+    //  TRUNCATE PROMOTIONS
+    // ═══════════════════════════════════════════════
+    #[OA\Delete(
+        path: '/truncate-promotions',
+        summary: 'Vaciar todas las tablas relacionadas con promociones',
+        tags: ['Cargas Masivas - MasterPromotion'],
+        security: [['sanctum' => []]],
+        responses: [
+            new OA\Response(response: 200, description: 'Tablas vaciadas exitosamente'),
+            new OA\Response(response: 500, description: 'Error al vaciar las tablas')
+        ]
+    )]
+    public function truncatePromotions() {}
 }

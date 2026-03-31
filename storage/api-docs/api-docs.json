@@ -424,8 +424,86 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Registros procesados exitosamente"
+                    "200": {
+                        "description": "Registros procesados exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Master Customer: 42 procesado(s), 6 omitido(s), 5 duplicado(s) eliminado(s)"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "summary": {
+                                                    "properties": {
+                                                        "total_processed": {
+                                                            "type": "integer",
+                                                            "example": 42
+                                                        },
+                                                        "total_skipped": {
+                                                            "type": "integer",
+                                                            "example": 6
+                                                        },
+                                                        "total_duplicates": {
+                                                            "type": "integer",
+                                                            "example": 5
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "detail": {
+                                                    "properties": {
+                                                        "GrupoCliente": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 2
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "Clientes": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 5
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
                         "description": "Formato no reconocido"
@@ -2913,139 +2991,6 @@
                 ]
             }
         },
-        "/masterdiscount": {
-            "post": {
-                "tags": [
-                    "Cargas Masivas - MasterDiscount"
-                ],
-                "summary": "Carga masiva de datos maestros de descuento",
-                "operationId": "76dbd1a62f99a173f60eff59cd18148d",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "array",
-                                "items": {
-                                    "properties": {
-                                        "Descuento": {
-                                            "properties": {
-                                                "disCode": {
-                                                    "type": "string",
-                                                    "maxLength": 4
-                                                },
-                                                "disName": {
-                                                    "type": "string",
-                                                    "maxLength": 20
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "detalleDescuento": {
-                                            "properties": {
-                                                "disCode": {
-                                                    "type": "string",
-                                                    "maxLength": 4
-                                                },
-                                                "didCode": {
-                                                    "type": "string",
-                                                    "maxLength": 10
-                                                },
-                                                "didName": {
-                                                    "type": "string",
-                                                    "maxLength": 20
-                                                },
-                                                "rotCodeCustomer": {
-                                                    "type": "string",
-                                                    "maxLength": 6
-                                                },
-                                                "cusCode": {
-                                                    "type": "string",
-                                                    "maxLength": 10
-                                                },
-                                                "didSince": {
-                                                    "type": "string",
-                                                    "format": "date"
-                                                },
-                                                "didUntil": {
-                                                    "type": "string",
-                                                    "format": "date"
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "productoDescuento": {
-                                            "properties": {
-                                                "dlpCode": {
-                                                    "type": "string",
-                                                    "maxLength": 10
-                                                },
-                                                "disCode": {
-                                                    "type": "string",
-                                                    "maxLength": 4
-                                                },
-                                                "didCode": {
-                                                    "type": "string",
-                                                    "maxLength": 10
-                                                },
-                                                "proCode": {
-                                                    "type": "string",
-                                                    "maxLength": 18
-                                                },
-                                                "untCode": {
-                                                    "type": "string",
-                                                    "maxLength": 3
-                                                },
-                                                "dlpDiscount": {
-                                                    "type": "number",
-                                                    "format": "float"
-                                                },
-                                                "dlpDiscountPercentage": {
-                                                    "type": "number",
-                                                    "format": "float"
-                                                },
-                                                "dlpDiscountAmount": {
-                                                    "type": "number",
-                                                    "format": "float"
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "rutaDescuento": {
-                                            "properties": {
-                                                "rotCode": {
-                                                    "type": "string",
-                                                    "maxLength": 6
-                                                },
-                                                "disCode": {
-                                                    "type": "string",
-                                                    "maxLength": 4
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Registros creados exitosamente"
-                    },
-                    "500": {
-                        "description": "Error en la carga masiva"
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
         "/prices": {
             "get": {
                 "tags": [
@@ -5274,14 +5219,114 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Registros procesados exitosamente"
+                    "200": {
+                        "description": "Registros procesados exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Master Promotion: 10 procesado(s), 0 omitido(s), 2 duplicado(s) eliminado(s)"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "summary": {
+                                                    "properties": {
+                                                        "total_processed": {
+                                                            "type": "integer",
+                                                            "example": 10
+                                                        },
+                                                        "total_skipped": {
+                                                            "type": "integer",
+                                                            "example": 0
+                                                        },
+                                                        "total_duplicates": {
+                                                            "type": "integer",
+                                                            "example": 2
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "detail": {
+                                                    "properties": {
+                                                        "promotion": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 2
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "promotionDetail": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 2
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
                         "description": "Formato no reconocido"
                     },
                     "500": {
                         "description": "Error en la carga masiva"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/truncate-promotions": {
+            "delete": {
+                "tags": [
+                    "Cargas Masivas - MasterPromotion"
+                ],
+                "summary": "Vaciar todas las tablas relacionadas con promociones",
+                "operationId": "2354f0a39439e34807d73cedf51de226",
+                "responses": {
+                    "200": {
+                        "description": "Tablas vaciadas exitosamente"
+                    },
+                    "500": {
+                        "description": "Error al vaciar las tablas"
                     }
                 },
                 "security": [
@@ -6686,6 +6731,18 @@
     },
     "tags": [
         {
+            "name": "Cargas Masivas - MasterCustomer",
+            "description": "Carga masiva de datos maestros de clientes"
+        },
+        {
+            "name": "Cargas Masivas - MasterProduct",
+            "description": "Carga masiva de datos maestros de productos"
+        },
+        {
+            "name": "Cargas Masivas - MasterPromotion",
+            "description": "Carga masiva de datos maestros de promociones"
+        },
+        {
             "name": "Auth",
             "description": "Autenticación (Login, Logout, Perfil)"
         },
@@ -6808,22 +6865,6 @@
         {
             "name": "Descuentos - DiscountDetailRoute",
             "description": "Rutas de detalle"
-        },
-        {
-            "name": "Cargas Masivas - MasterCustomer",
-            "description": "Carga masiva de datos maestros de clientes"
-        },
-        {
-            "name": "Cargas Masivas - MasterProduct",
-            "description": "Carga masiva de datos maestros de productos"
-        },
-        {
-            "name": "Cargas Masivas - MasterDiscount",
-            "description": "Carga masiva de datos maestros de descuentos"
-        },
-        {
-            "name": "Cargas Masivas - MasterPromotion",
-            "description": "Cargas Masivas - MasterPromotion"
         }
     ]
 }

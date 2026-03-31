@@ -204,6 +204,7 @@ class DescuentosSwagger
     // ═══════════════════════════════════════════════
     //  MASTER DISCOUNT (bulk)
     // ═══════════════════════════════════════════════
+/*
     #[OA\Post(path: '/masterdiscount', summary: 'Carga masiva de datos maestros de descuento', tags: ['Cargas Masivas - MasterDiscount'],
         security: [['sanctum' => []]],
         requestBody: new OA\RequestBody(required: true, content: new OA\JsonContent(
@@ -244,4 +245,5 @@ class DescuentosSwagger
         ]
     )]
     public function masterDiscount() {}
+*/
 }

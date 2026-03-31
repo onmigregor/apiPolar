@@ -2,15 +2,14 @@
 
 namespace Modules\PromotionRoute\Mappers;
 
-use Modules\PromotionRoute\DataTransferObjects\PromotionRouteData;
+use App\Traits\HasMapperTransform;
 
 class PromotionRouteMapper
 {
-    public static function toDatabase(PromotionRouteData $dto): array
-    {
-        return [
-            'rot_code' => $dto->rotCode,
-            'prm_code' => $dto->prmCode,
-        ];
-    }
+    use HasMapperTransform;
+
+    public static array $map = [
+        'rot_code' => ['rotCode', 'rot_code', 'ROTCODE'],
+        'prm_code' => ['prmCode', 'prm_code', 'PRMCODE'],
+    ];
 }

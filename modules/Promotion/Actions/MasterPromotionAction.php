@@ -3,114 +3,177 @@
 namespace Modules\Promotion\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Modules\Promotion\DataTransferObjects\PromotionData;
-use Modules\PromotionDetail\Actions\StorePromotionDetailAction;
-use Modules\PromotionDetail\DataTransferObjects\PromotionDetailData;
-use Modules\PromotionDetailProduct\Actions\StorePromotionDetailProductAction;
-use Modules\PromotionDetailProduct\DataTransferObjects\PromotionDetailProductData;
-use Modules\PromotionRoute\Actions\StorePromotionRouteAction;
-use Modules\PromotionRoute\DataTransferObjects\PromotionRouteData;
-use Modules\PromotionTeam\Actions\StorePromotionTeamAction;
-use Modules\PromotionTeam\DataTransferObjects\PromotionTeamData;
+use Illuminate\Support\Facades\Log;
+use Modules\Promotion\Mappers\PromotionMapper;
+use Modules\Promotion\Models\Promotion;
+use Modules\PromotionDetail\Mappers\PromotionDetailMapper;
+use Modules\PromotionDetail\Models\PromotionDetail;
+use Modules\PromotionDetailProduct\Mappers\PromotionDetailProductMapper;
+use Modules\PromotionDetailProduct\Models\PromotionDetailProduct;
+use Modules\PromotionRoute\Mappers\PromotionRouteMapper;
+use Modules\PromotionRoute\Models\PromotionRoute;
+use Modules\PromotionTeam\Mappers\PromotionTeamMapper;
+use Modules\PromotionTeam\Models\PromotionTeam;
 use Exception;
 
 class MasterPromotionAction
 {
-    public function __construct(
-        private StorePromotionAction $storePromotionAction,
-        private StorePromotionDetailAction $storePromotionDetailAction,
-        private StorePromotionDetailProductAction $storePromotionDetailProductAction,
-        private StorePromotionRouteAction $storePromotionRouteAction,
-        private StorePromotionTeamAction $storePromotionTeamAction
-    ) {}
+    private static array $fillableCache = [];
 
     public function execute(array $payloadList): array
     {
-        $totals = [
-            'promotions' => ['created' => 0, 'updated' => 0],
-            'promotionDetail' => ['created' => 0, 'updated' => 0],
-            'promotionDetailProduct' => ['created' => 0, 'updated' => 0],
-            'promotionRoute' => ['created' => 0, 'updated' => 0],
-            'promotionTeam' => ['created' => 0, 'updated' => 0],
-        ];
+        return DB::transaction(function () use ($payloadList) {
+            // Unificamos todos los bloques "value" del payload
+            $unified = [
+                'promotion' => [],
+                'promotionDetail' => [],
+                'promotionDetailProduct' => [],
+                'promotionRoute' => [],
+                'promotionTeam' => [],
+            ];
 
-        DB::transaction(function () use ($payloadList, &$totals) {
             foreach ($payloadList as $block) {
-                // 1. Cabecera (Promotion)
-                if (isset($block['promotion']) && is_array($block['promotion'])) {
-                    foreach ($block['promotion'] as $promoItem) {
-                        $promoDto = PromotionData::fromArray($promoItem);
-                        $promo = $this->storePromotionAction->execute($promoDto);
-                        
-                        if ($promo->wasRecentlyCreated) {
-                            $totals['promotions']['created']++;
-                        } else {
-                            $totals['promotions']['updated']++;
-                        }
-                    }
-                }
-
-                // 2. Detalle (PromotionDetail)
-                if (isset($block['promotionDetail']) && is_array($block['promotionDetail'])) {
-                    foreach ($block['promotionDetail'] as $detail) {
-                        $detailDto = PromotionDetailData::fromArray($detail);
-                        $det = $this->storePromotionDetailAction->execute($detailDto);
-                        
-                        if ($det->wasRecentlyCreated) {
-                            $totals['promotionDetail']['created']++;
-                        } else {
-                            $totals['promotionDetail']['updated']++;
-                        }
-                    }
-                }
-
-                // 3. Productos (PromotionDetailProduct)
-                if (isset($block['promotionDetailProduct']) && is_array($block['promotionDetailProduct'])) {
-                    foreach ($block['promotionDetailProduct'] as $product) {
-                        $productDto = PromotionDetailProductData::fromArray($product);
-                        $prod = $this->storePromotionDetailProductAction->execute($productDto);
-                        
-                        if ($prod->wasRecentlyCreated) {
-                            $totals['promotionDetailProduct']['created']++;
-                        } else {
-                            $totals['promotionDetailProduct']['updated']++;
-                        }
-                    }
-                }
-
-                // 4. Rutas (PromotionRoute)
-                if (isset($block['promotionRoute']) && is_array($block['promotionRoute'])) {
-                    foreach ($block['promotionRoute'] as $route) {
-                        $routeDto = PromotionRouteData::fromArray($route);
-                        $rot = $this->storePromotionRouteAction->execute($routeDto);
-                        
-                        if ($rot->wasRecentlyCreated) {
-                            $totals['promotionRoute']['created']++;
-                        } else {
-                            $totals['promotionRoute']['updated']++;
-                        }
-                    }
-                }
-
-                // 5. Equipos (PromotionTeam)
-                if (isset($block['promotionTeam']) && is_array($block['promotionTeam'])) {
-                    foreach ($block['promotionTeam'] as $team) {
-                        $teamDto = PromotionTeamData::fromArray($team);
-                        $tea = $this->storePromotionTeamAction->execute($teamDto);
-                        
-                        if ($tea->wasRecentlyCreated) {
-                            $totals['promotionTeam']['created']++;
-                        } else {
-                            $totals['promotionTeam']['updated']++;
-                        }
+                foreach ($unified as $key => &$list) {
+                    if (isset($block[$key]) && is_array($block[$key])) {
+                        $list = array_merge($list, $block[$key]);
                     }
                 }
             }
+
+            $detailResults = [];
+
+            // 1. Cabecera (Promotion)
+            $detailResults['promotion'] = $this->processCollection(
+                $unified['promotion'],
+                Promotion::class,
+                PromotionMapper::class,
+                'prm_code'
+            );
+
+            // 2. Detalle (PromotionDetail)
+            $detailResults['promotionDetail'] = $this->processCollection(
+                $unified['promotionDetail'],
+                PromotionDetail::class,
+                PromotionDetailMapper::class,
+                'pdl_code'
+            );
+
+            // 3. Productos (PromotionDetailProduct)
+            $detailResults['promotionDetailProduct'] = $this->processCollection(
+                $unified['promotionDetailProduct'],
+                PromotionDetailProduct::class,
+                PromotionDetailProductMapper::class,
+                'prp_code'
+            );
+
+            // 4. Rutas (PromotionRoute)
+            $detailResults['promotionRoute'] = $this->processCollection(
+                $unified['promotionRoute'],
+                PromotionRoute::class,
+                PromotionRouteMapper::class,
+                ['rot_code', 'prm_code']
+            );
+
+            // 5. Equipos (PromotionTeam)
+            $detailResults['promotionTeam'] = $this->processCollection(
+                $unified['promotionTeam'],
+                PromotionTeam::class,
+                PromotionTeamMapper::class,
+                ['tea_code', 'prm_code']
+            );
+
+            // Calcular totales para el resumen
+            $totalProcessed = 0;
+            $totalSkipped = 0;
+            $totalDuplicates = 0;
+
+            foreach ($detailResults as $res) {
+                $totalProcessed += $res['processed'];
+                $totalSkipped += $res['skipped'];
+                $totalDuplicates += $res['duplicates_removed'];
+            }
+
+            return [
+                'status' => 'success',
+                'summary' => [
+                    'total_processed' => $totalProcessed,
+                    'total_skipped' => $totalSkipped,
+                    'total_duplicates' => $totalDuplicates,
+                ],
+                'detail' => $detailResults
+            ];
         });
+    }
+
+    /**
+     * Procesa una colección de registros: mapea, filtra, deduplica y hace upsert.
+     */
+    private function processCollection(array $records, string $modelClass, string $mapperClass, string|array $uniqueKey): array
+    {
+        if (!isset(self::$fillableCache[$modelClass])) {
+            self::$fillableCache[$modelClass] = (new $modelClass)->getFillable();
+        }
+        $fillable = self::$fillableCache[$modelClass];
+        $uniqueKeys = is_array($uniqueKey) ? $uniqueKey : [$uniqueKey];
+        $now = now();
+        $skipped = 0;
+        $deduplicated = [];
+
+        foreach ($records as $record) {
+            unset($record['controller'], $record['deleted']);
+
+            $transformed = $mapperClass::transform($record);
+
+            // Filtrar registros inválidos
+            $isInvalid = false;
+            foreach ($uniqueKeys as $uk) {
+                $checkVal = $transformed[$uk] ?? null;
+                if (empty($checkVal) || $checkVal === '0000000000000000' || $checkVal === '?' || $checkVal === 0) {
+                    $isInvalid = true;
+                    break;
+                }
+            }
+
+            if ($isInvalid) {
+                $skipped++;
+                continue;
+            }
+
+            // Homologación de llaves
+            $row = array_fill_keys($fillable, null);
+            foreach ($transformed as $key => $val) {
+                if (in_array($key, $fillable)) {
+                    $row[$key] = $val;
+                }
+            }
+
+            $row['updated_at'] = $now;
+            $row['created_at'] = $now;
+
+            // Deduplicación
+            $compositeKey = implode('|', array_map(fn($k) => $row[$k] ?? '', $uniqueKeys));
+            $deduplicated[$compositeKey] = $row;
+        }
+
+        $mapped = array_values($deduplicated);
+        $duplicatesRemoved = count($records) - $skipped - count($mapped);
+
+        if (empty($mapped)) {
+            return ['processed' => 0, 'skipped' => $skipped, 'duplicates_removed' => $duplicatesRemoved];
+        }
+
+        $allColumns = array_keys($mapped[0]);
+        $updateColumns = array_diff($allColumns, $uniqueKeys);
+
+        $chunks = array_chunk($mapped, 500);
+        foreach ($chunks as $chunk) {
+            $modelClass::upsert($chunk, $uniqueKeys, array_values($updateColumns));
+        }
 
         return [
-            'status' => 'success',
-            'totals' => $totals
+            'processed'          => count($mapped),
+            'skipped'            => $skipped,
+            'duplicates_removed' => $duplicatesRemoved,
         ];
     }
 }

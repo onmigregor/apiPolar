@@ -18,6 +18,17 @@ use OpenApi\Attributes as OA;
     name: 'Authorization',
     description: 'Ingresa el token con el prefijo Bearer. Ejemplo: Bearer {token}'
 )]
+// ═══════════════════════════════════════════════
+//  1. CARGAS MASIVAS (Prioridad Polar)
+// ═══════════════════════════════════════════════
+#[OA\Tag(name: 'Cargas Masivas - MasterCustomer', description: 'Carga masiva de datos maestros de clientes')]
+#[OA\Tag(name: 'Cargas Masivas - MasterProduct', description: 'Carga masiva de datos maestros de productos')]
+#[OA\Tag(name: 'Cargas Masivas - MasterPromotion', description: 'Carga masiva de datos maestros de promociones')]
+// #[OA\Tag(name: 'Cargas Masivas - MasterDiscount', description: 'Carga masiva de datos maestros de descuentos')]
+
+// ═══════════════════════════════════════════════
+//  2. OPERACIONES INDIVIDUALES (CRUD)
+// ═══════════════════════════════════════════════
 // --- Auth & Usuarios ---
 #[OA\Tag(name: 'Auth', description: 'Autenticación (Login, Logout, Perfil)')]
 #[OA\Tag(name: 'Usuarios', description: 'Gestión de usuarios y roles')]
@@ -55,12 +66,7 @@ use OpenApi\Attributes as OA;
 #[OA\Tag(name: 'Descuentos - DiscountDetail', description: 'Detalles de descuento')]
 #[OA\Tag(name: 'Descuentos - DiscountDetailProduct', description: 'Productos de detalle')]
 #[OA\Tag(name: 'Descuentos - DiscountDetailRoute', description: 'Rutas de detalle')]
-// ═══════════════════════════════════════════════
-//  CARGAS MASIVAS (Bulk Endpoints)
-// ═══════════════════════════════════════════════
-#[OA\Tag(name: 'Cargas Masivas - MasterCustomer', description: 'Carga masiva de datos maestros de clientes')]
-#[OA\Tag(name: 'Cargas Masivas - MasterProduct', description: 'Carga masiva de datos maestros de productos')]
-#[OA\Tag(name: 'Cargas Masivas - MasterDiscount', description: 'Carga masiva de datos maestros de descuentos')]
+
 abstract class Controller
 {
     //

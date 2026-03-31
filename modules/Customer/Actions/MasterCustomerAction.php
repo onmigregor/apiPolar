@@ -3,132 +3,155 @@
 namespace Modules\Customer\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Modules\Customer\Mappers\CustomerMapper;
 use Modules\CustomerGroup\Mappers\CustomerGroupMapper;
 use Modules\CustomerBranch\Mappers\CustomerBranchMapper;
-use Modules\CustomerRegion\Mappers\CustomerRegionMapper;
+use Modules\CustomerCity\Mappers\CustomerCityMapper;
 use Modules\CustomerFrequency\Mappers\CustomerFrequencyMapper;
 use Modules\CustomerRoute\Mappers\CustomerRouteMapper;
-use Modules\InfoType\Mappers\InfoTypeMapper;
+use Modules\CustomerInfoType\Mappers\CustomerInfoTypeMapper;
+use Modules\CustomerPrice\Mappers\CustomerPriceMapper;
+use Modules\CustomerInfo\Mappers\CustomerInfoMapper;
 
 use Modules\Customer\Models\Customer;
 use Modules\CustomerGroup\Models\CustomerGroup;
 use Modules\CustomerBranch\Models\CustomerBranch;
-use Modules\CustomerRegion\Models\CustomerRegion;
+use Modules\CustomerCity\Models\CustomerCity;
 use Modules\CustomerFrequency\Models\CustomerFrequency;
 use Modules\CustomerRoute\Models\CustomerRoute;
-use Modules\InfoType\Models\InfoType;
+use Modules\CustomerInfoType\Models\CustomerInfoType;
+use Modules\CustomerPrice\Models\CustomerPrice;
+use Modules\CustomerInfo\Models\CustomerInfo;
 
 class MasterCustomerAction
 {
-    /** Cache estático de $fillable por modelo para evitar re-instanciación */
     private static array $fillableCache = [];
 
     /**
-     * Ejecuta la carga masiva de datos maestros de cliente.
-     *
-     * Recibe el payload de Polar en formato:
-     * [{ "name": "CUSTOMERS", "value": { "GrupoCliente": [...], "ramoCliente": [...], ... } }]
-     *
-     * Procesa cada sección en orden de dependencias dentro de una transacción.
-     *
-     * @param array $payload El payload completo del JSON de Polar
-     * @return array Conteo de registros procesados y omitidos por sección
+     * Estandarización de llaves: Polar Name -> Internal Key
      */
+    private array $keyMap = [
+        'type1'         => ['type1', 'GrupoCliente'],
+        'type2'         => ['type2', 'ramoCliente'],
+        'city'          => ['city', 'regionCliente'],
+        'frequency'     => ['frequency', 'frecuenciaTb'],
+        'infoType'      => ['infoType', 'licenciaTb'],
+        'customer'      => ['customer', 'Clientes'],
+        'customerRoute' => ['customerRoute', 'frecuenciaCliente'],
+        'customerPrice' => ['customerPrice', 'preciosCliente'],
+        'customerInfo'  => ['customerInfo', 'informacionCliente'],
+    ];
+
     public function execute(array $payload): array
     {
-        // Extraer el nodo "value" del wrapper de Polar si existe
-        $value = $payload[0]['value'] ?? $payload;
+        // El payload puede ser un array de objetos con name/value o el value directamente
+        $value = $payload;
+        if (isset($payload[0]['name']) && $payload[0]['name'] === 'CUSTOMERS') {
+            $value = $payload[0]['value'];
+        }
 
         return DB::transaction(function () use ($value) {
             $results = [];
 
-            // 1. GrupoCliente (no depende de nadie)
-            if (!empty($value['GrupoCliente'])) {
-                $results['GrupoCliente'] = $this->processCollection(
-                    $value['GrupoCliente'],
-                    CustomerGroup::class,
-                    CustomerGroupMapper::class,
-                    'tp1_code'
-                );
-            }
+            // 1. GrupoCliente (type1)
+            $results['GrupoCliente'] = $this->processCollection(
+                $this->getRecords($value, 'type1'),
+                CustomerGroup::class,
+                CustomerGroupMapper::class,
+                'tp1_code'
+            );
 
-            // 2. ramoCliente (no depende de nadie)
-            if (!empty($value['ramoCliente'])) {
-                $results['ramoCliente'] = $this->processCollection(
-                    $value['ramoCliente'],
-                    CustomerBranch::class,
-                    CustomerBranchMapper::class,
-                    'tp2_code'
-                );
-            }
+            // 2. ramoCliente (type2)
+            $results['ramoCliente'] = $this->processCollection(
+                $this->getRecords($value, 'type2'),
+                CustomerBranch::class,
+                CustomerBranchMapper::class,
+                'tp2_code'
+            );
 
-            // 3. regionCliente (no depende de nadie)
-            if (!empty($value['regionCliente'])) {
-                $results['regionCliente'] = $this->processCollection(
-                    $value['regionCliente'],
-                    CustomerRegion::class,
-                    CustomerRegionMapper::class,
-                    'cit_code'
-                );
-            }
+            // 3. regionCliente (city)
+            $results['regionCliente'] = $this->processCollection(
+                $this->getRecords($value, 'city'),
+                CustomerCity::class,
+                CustomerCityMapper::class,
+                'cit_code'
+            );
 
-            // 4. frecuenciaTb (no depende de nadie)
-            if (!empty($value['frecuenciaTb'])) {
-                $results['frecuenciaTb'] = $this->processCollection(
-                    $value['frecuenciaTb'],
-                    CustomerFrequency::class,
-                    CustomerFrequencyMapper::class,
-                    'fre_code'
-                );
-            }
+            // 4. frecuenciaTb (frequency)
+            $results['frecuenciaTb'] = $this->processCollection(
+                $this->getRecords($value, 'frequency'),
+                CustomerFrequency::class,
+                CustomerFrequencyMapper::class,
+                'fre_code'
+            );
 
-            // 5. licenciaTb (no depende de nadie)
-            if (!empty($value['licenciaTb'])) {
-                $results['licenciaTb'] = $this->processCollection(
-                    $value['licenciaTb'],
-                    InfoType::class,
-                    InfoTypeMapper::class,
-                    'ift_code'
-                );
-            }
+            // 5. licenciaTb (infoType)
+            $results['licenciaTb'] = $this->processCollection(
+                $this->getRecords($value, 'infoType'),
+                CustomerInfoType::class,
+                CustomerInfoTypeMapper::class,
+                'ift_code'
+            );
 
-            // 6. Clientes (depende de GrupoCliente, ramoCliente, regionCliente)
-            if (!empty($value['Clientes'])) {
-                $results['Clientes'] = $this->processCollection(
-                    $value['Clientes'],
-                    Customer::class,
-                    CustomerMapper::class,
-                    'cus_code'
-                );
-            }
+            // 6. Clientes (customer)
+            $results['Clientes'] = $this->processCollection(
+                $this->getRecords($value, 'customer'),
+                Customer::class,
+                CustomerMapper::class,
+                'cus_code'
+            );
 
-            // 7. frecuenciaCliente (depende de Clientes y frecuenciaTb)
-            if (!empty($value['frecuenciaCliente'])) {
-                $results['frecuenciaCliente'] = $this->processCollection(
-                    $value['frecuenciaCliente'],
-                    CustomerRoute::class,
-                    CustomerRouteMapper::class,
-                    ['rot_code', 'cus_code', 'fre_code'] // Asumimos esta llave compuesta basada en la migración
-                );
-            }
+            // 7. frecuenciaCliente (customerRoute)
+            $results['frecuenciaCliente'] = $this->processCollection(
+                $this->getRecords($value, 'customerRoute'),
+                CustomerRoute::class,
+                CustomerRouteMapper::class,
+                ['rot_code', 'cus_code', 'fre_code']
+            );
+            
+            // 8. preciosCliente (customerPrice)
+            $results['preciosCliente'] = $this->processCollection(
+                $this->getRecords($value, 'customerPrice'),
+                CustomerPrice::class,
+                CustomerPriceMapper::class,
+                ['rot_code', 'cus_code', 'prc_code']
+            );
+            
+            // 9. informacionCliente (customerInfo)
+            $results['informacionCliente'] = $this->processCollection(
+                $this->getRecords($value, 'customerInfo'),
+                CustomerInfo::class,
+                CustomerInfoMapper::class,
+                ['cus_code', 'ift_code']
+            );
 
             return $results;
         });
     }
 
     /**
+     * Obtiene los registros de un nodo intentando con todas las variantes del mapa.
+     */
+    private function getRecords(array $data, string $internalKey): array
+    {
+        $aliases = $this->keyMap[$internalKey] ?? [$internalKey];
+        foreach ($aliases as $alias) {
+            if (isset($data[$alias]) && is_array($data[$alias])) {
+                return $data[$alias];
+            }
+        }
+        return [];
+    }
+
+    /**
      * Procesa una colección de registros: mapea, filtra, deduplica y hace upsert.
-     *
-     * @param array $records Registros crudos del JSON
-     * @param string $modelClass Clase del modelo Eloquent
-     * @param string $mapperClass Clase del Mapper
-     * @param string|array $uniqueKey Campo(s) único(s) para upsert
-     * @return array ['processed' => int, 'skipped' => int, 'duplicates_removed' => int]
      */
     private function processCollection(array $records, string $modelClass, string $mapperClass, string|array $uniqueKey): array
     {
+        if (empty($records)) {
+            return ['processed' => 0, 'skipped' => 0, 'duplicates_removed' => 0];
+        }
+
         if (!isset(self::$fillableCache[$modelClass])) {
             self::$fillableCache[$modelClass] = (new $modelClass)->getFillable();
         }
@@ -139,12 +162,11 @@ class MasterCustomerAction
         $deduplicated = [];
 
         foreach ($records as $record) {
-            // Remover metadatos de Polar
             unset($record['controller'], $record['deleted']);
 
             $transformed = $mapperClass::transform($record);
 
-            // 1. Filtrar registros inválidos (basura de Polar tipo "0000..." o nulos en clave primaria)
+            // Filtrar registros inválidos
             $isInvalid = false;
             foreach ($uniqueKeys as $uk) {
                 $checkVal = $transformed[$uk] ?? null;
@@ -155,14 +177,10 @@ class MasterCustomerAction
             }
             if ($isInvalid) {
                 $skipped++;
-                Log::warning('MasterCustomer: Registro omitido por clave inválida o vacía', [
-                    'model'  => class_basename($modelClass),
-                    'keys'   => array_intersect_key($transformed, array_flip($uniqueKeys)),
-                ]);
                 continue;
             }
 
-            // 2. Homologación de llaves: cada fila debe tener exactamente los mismos campos
+            // Homologación de llaves
             $row = array_fill_keys($fillable, null);
             foreach ($transformed as $key => $val) {
                 if (in_array($key, $fillable)) {
@@ -170,11 +188,10 @@ class MasterCustomerAction
                 }
             }
 
-            // Timestamps uniformes para todo el lote
             $row['updated_at'] = $now;
             $row['created_at'] = $now;
 
-            // 3. Deduplicación: usar la clave compuesta como key del array para quedarnos solo con el último
+            // Deduplicación
             $compositeKey = implode('|', array_map(fn($k) => $row[$k] ?? '', $uniqueKeys));
             $deduplicated[$compositeKey] = $row;
         }
@@ -186,11 +203,9 @@ class MasterCustomerAction
             return ['processed' => 0, 'skipped' => $skipped, 'duplicates_removed' => $duplicatesRemoved];
         }
 
-        // Definir columnas a actualizar (todas menos las claves únicas)
         $allColumns = array_keys($mapped[0]);
         $updateColumns = array_diff($allColumns, $uniqueKeys);
 
-        // Procesar en lotes de 500 para evitar saturar memoria o SQL
         $chunks = array_chunk($mapped, 500);
         foreach ($chunks as $chunk) {
             $modelClass::upsert($chunk, $uniqueKeys, array_values($updateColumns));

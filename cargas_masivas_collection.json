@@ -1,0 +1,194 @@
+{
+    "info": {
+        "_postman_id": "polar-cargas-masivas-collection",
+        "name": "POLAR Cargas Masivas",
+        "description": "Colección exclusiva para las cargas masivas y borrado de Clientes, Productos y Promociones.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8091/api",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Cargas Masivas - Clientes",
+            "item": [
+                {
+                    "name": "MasterCustomer - Carga Masiva",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n    {\n        \"name\": \"CUSTOMERS\",\n        \"value\": {\n            \"type1\": [\n                {\n                    \"tp1Code\": \"111\",\n                    \"tp1Name\": \"CS Alta Visibilidad\"\n                }\n            ],\n            \"type2\": [\n                {\n                    \"tp2Code\": \"TC001\",\n                    \"tp2Name\": \"BODEGA\"\n                }\n            ],\n            \"city\": [\n                {\n                    \"citCode\": \"15\",\n                    \"citName\": \"Miranda\",\n                    \"staCode\": \"MIR\"\n                }\n            ],\n            \"frequency\": [\n                {\n                    \"freCode\": \"01\",\n                    \"freName\": \"Semanal\",\n                    \"freWeek1\": \"1\",\n                    \"freWeek2\": \"1\",\n                    \"freWeek3\": \"1\",\n                    \"freWeek4\": \"1\",\n                    \"freCustomer\": \"1\"\n                }\n            ],\n            \"infoType\": [\n                {\n                    \"iftCode\": \"04\",\n                    \"iftName\": \"Den. Comercial\",\n                    \"iftCharType\": \"04\"\n                }\n            ],\n            \"customer\": [\n                {\n                    \"cusCode\": \"0001\",\n                    \"cusName\": \"CLIENTE EJEMPLO\",\n                    \"tp1Code\": \"111\",\n                    \"tp2Code\": \"TC001\",\n                    \"citCode\": \"15\"\n                }\n            ],\n            \"customerRoute\": [\n                {\n                    \"rotCode\": \"R01\",\n                    \"cusCode\": \"0001\",\n                    \"freCode\": \"01\"\n                }\n            ],\n            \"customerPrice\": [\n                {\n                    \"rotCode\": \"R01\",\n                    \"cusCode\": \"0001\",\n                    \"prcCode\": \"PR01\"\n                }\n            ],\n            \"customerInfo\": [\n                {\n                    \"cusCode\": \"0001\",\n                    \"iftCode\": \"04\",\n                    \"ctnCharValue\": \"VALOR_123\"\n                }\n            ]\n        }\n    }\n]"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/mastercustomer",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mastercustomer"
+                            ]
+                        },
+                        "description": "Carga masiva con el nuevo formato de Polar (Nodo CUSTOMERS con sub-listas)."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Truncate Customers - Vaciar Tablas",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/truncate-customers",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "truncate-customers"
+                            ]
+                        },
+                        "description": "Vacía las 9 tablas de clientes."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cargas Masivas - Productos",
+            "item": [
+                {
+                    "name": "MasterProduct - Carga Masiva",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n\t{\n\t\t\"name\": \"PRODUCTS\",\n\t\t\"value\": {\n\t\t\t\"unit\": [\n\t\t\t\t{ \"untCode\": \"CJ\", \"untName\": \"CAJA\", \"untNick\": \"CJ\" }\n\t\t\t],\n\t\t\t\"class1\": [\n\t\t\t\t{ \"cl1code\": \"VECCER\", \"cl1name\": \"CERVEZAS\" }\n\t\t\t],\n\t\t\t\"class2\": [\n\t\t\t\t{ \"cl2code\": \"VECCERTRADPILS\", \"cl1code\": \"VECCER\", \"cl2name\": \"TRADICIONAL PILSEN\" }\n\t\t\t],\n\t\t\t\"product\": [\n\t\t\t\t{ \"proCode\": \"F01001\", \"proName\": \"POLAR PILSEN RET 222MLx36UN\", \"proShortName\": \"POLAR PILSEN RET 222MLX36U\", \"untCode\": \"CJ\", \"cl2code\": \"VECCERTRADPILS\" }\n\t\t\t],\n\t\t\t\"productUnit\": [\n\t\t\t\t{ \"proCode\": \"F01001\", \"untCode\": \"CJ\", \"pruDivideBy\": \"36\" }\n\t\t\t]\n\t\t}\n\t}\n]"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/masterproduct",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "masterproduct"
+                            ]
+                        },
+                        "description": "Carga masiva con el formato real de Polar (Nodo PRODUCTS)."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Truncate Products - Vaciar Tablas",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/truncate-products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "truncate-products"
+                            ]
+                        },
+                        "description": "Vacía las 5 tablas de productos."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cargas Masivas - Promociones",
+            "item": [
+                {
+                    "name": "MasterPromotion - Carga Masiva",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n    {\n        \"name\": \"PROMOTIONS\",\n        \"value\": {\n            \"promotion\": [\n                {\n                    \"prmCode\": \"P001\",\n                    \"prmName\": \"PROMO PRUEBA\"\n                }\n            ],\n            \"promotionDetail\": [\n                {\n                    \"pdlCode\": \"PD001\",\n                    \"prmCode\": \"P001\",\n                    \"pdlName\": \"Detalle 1\"\n                }\n            ],\n            \"promotionDetailProduct\": [\n                {\n                    \"prpCode\": \"PRP001\",\n                    \"pdlCode\": \"PD001\",\n                    \"prmCode\": \"P001\",\n                    \"proCode\": \"PROD01\"\n                }\n            ],\n            \"promotionRoute\": [\n                {\n                    \"rotCode\": \"R01\",\n                    \"prmCode\": \"P001\"\n                }\n            ],\n            \"promotionTeam\": [\n                {\n                    \"teaCode\": \"T01\",\n                    \"prmCode\": \"P001\"\n                }\n            ]\n        }\n    }\n]"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/masterpromotion",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "masterpromotion"
+                            ]
+                        },
+                        "description": "Carga masiva de promociones con el formato de Polar (Nodo PROMOTIONS)."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Truncate Promotions - Vaciar Tablas",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/truncate-promotions",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "truncate-promotions"
+                            ]
+                        },
+                        "description": "Vacía las 5 tablas de promociones."
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

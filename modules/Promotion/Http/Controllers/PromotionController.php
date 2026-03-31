@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Modules\Promotion\Actions\MasterPromotionAction;
+use Modules\Promotion\Actions\TruncatePromotionAction;
 use Exception;
 
 class PromotionController extends Controller
 {
     public function __construct(
-        private MasterPromotionAction $masterPromotionAction
+        private MasterPromotionAction $masterPromotionAction,
+        private TruncatePromotionAction $truncatePromotionAction
     ) {}
 
     /**
@@ -43,14 +45,41 @@ class PromotionController extends Controller
 
             $result = $this->masterPromotionAction->execute($promotionsData);
 
+            $summary = $result['summary'];
+            $msg = "Master Promotion: {$summary['total_processed']} procesado(s), {$summary['total_skipped']} omitido(s), {$summary['total_duplicates']} duplicado(s) eliminado(s)";
+
             return response()->json([
-                'message' => 'Promotions created successfully',
-                'data' => $result
+                'status'  => 'success',
+                'message' => $msg,
+                'data'    => [
+                    'summary' => $summary,
+                    'detail'  => $result['detail']
+                ]
             ], 200);
 
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error processing promotions',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Vaciar todas las tablas de promociones.
+     */
+    public function truncatePromotions(): JsonResponse
+    {
+        try {
+            $this->truncatePromotionAction->execute();
+
+            return response()->json([
+                'message' => 'All promotion tables truncated successfully'
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error truncating promotions',
                 'error' => $e->getMessage()
             ], 500);
         }

@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('customer_prices', function (Blueprint $table) {
             $table->id();
-            $table->string('rot_code', 6)->comment('Ruta');
-            $table->string('cus_code', 10)->comment('Número de deudor');
-            $table->string('prc_code', 4)->comment('Centro suministrador');
+            $table->string('rot_code', 20)->nullable()->comment('Ruta');
+            $table->string('cus_code', 20)->nullable()->comment('Número de deudor');
+            $table->string('prc_code', 20)->nullable()->comment('Centro suministrador');
             $table->timestamps();
             $table->softDeletes();
         });

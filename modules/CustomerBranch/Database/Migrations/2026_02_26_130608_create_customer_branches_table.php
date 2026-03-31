@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('customer_branches', function (Blueprint $table) {
             $table->id();
-            $table->string('tp2_code', 10)->comment('Código de ramo 1 (tipo cliente)');
-            $table->string('tp2_name', 20)->comment('Denominación (tipo cliente)');
+            $table->string('tp2_code', 20)->comment('Código de ramo 1 (tipo cliente)');
+            $table->string('tp2_name', 20)->nullable()->comment('Denominación (tipo cliente)');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,15 +2,14 @@
 
 namespace Modules\Promotion\Mappers;
 
-use Modules\Promotion\DataTransferObjects\PromotionData;
+use App\Traits\HasMapperTransform;
 
 class PromotionMapper
 {
-    public static function toDatabase(PromotionData $dto): array
-    {
-        return [
-            'prm_code' => $dto->prmCode,
-            'prm_name' => $dto->prmName,
-        ];
-    }
+    use HasMapperTransform;
+
+    public static array $map = [
+        'prm_code' => ['prmCode', 'prm_code', 'PRMCODE'],
+        'prm_name' => ['prmName', 'prm_name', 'PRMNAME'],
+    ];
 }

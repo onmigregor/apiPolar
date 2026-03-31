@@ -64,9 +64,9 @@ class CustomerController extends Controller
     /**
      * Carga masiva de datos maestros de cliente.
      * Recibe el JSON de Polar en formato:
-     * [{ "name": "CUSTOMERS", "value": { "GrupoCliente": [...], "ramoCliente": [...], ... } }]
+     * [{ "name": "CUSTOMERS", "value": { "type1": [...], "type2": [...], ... } }]
      *
-     * Procesa las 7 secciones en orden de dependencias dentro de UNA transacción e implementa upserts en bloque.
+     * Procesa las 9 secciones en orden de dependencias dentro de UNA transacción e implementa upserts en bloque.
      *
      * @OA\Post(
      *     path="/api/mastercustomer",
@@ -82,23 +82,23 @@ class CustomerController extends Controller
      *                 @OA\Property(
      *                     property="value",
      *                     type="object",
-     *                     @OA\Property(property="GrupoCliente", type="array", @OA\Items(
+     *                     @OA\Property(property="type1", type="array", @OA\Items(
      *                         type="object",
      *                         @OA\Property(property="tp1Code", type="string", example="111"),
      *                         @OA\Property(property="tp1Name", type="string", example="CS Alta Visibilidad")
      *                     )),
-     *                     @OA\Property(property="ramoCliente", type="array", @OA\Items(
+     *                     @OA\Property(property="type2", type="array", @OA\Items(
      *                         type="object",
      *                         @OA\Property(property="tp2Code", type="string", example="TC001"),
      *                         @OA\Property(property="tp2Name", type="string", example="BODEGA")
      *                     )),
-     *                     @OA\Property(property="regionCliente", type="array", @OA\Items(
+     *                     @OA\Property(property="city", type="array", @OA\Items(
      *                         type="object",
      *                         @OA\Property(property="citCode", type="string", example="15"),
      *                         @OA\Property(property="citName", type="string", example="Miranda"),
      *                         @OA\Property(property="staCode", type="string", example="MIR")
      *                     )),
-     *                     @OA\Property(property="frecuenciaTb", type="array", @OA\Items(
+     *                     @OA\Property(property="frequency", type="array", @OA\Items(
      *                         type="object",
      *                         @OA\Property(property="freCode", type="string", example="01"),
      *                         @OA\Property(property="freName", type="string", example="Semanal"),
@@ -108,13 +108,13 @@ class CustomerController extends Controller
      *                         @OA\Property(property="freWeek4", type="string", example="1"),
      *                         @OA\Property(property="freCustomer", type="string", example="1")
      *                     )),
-     *                     @OA\Property(property="licenciaTb", type="array", @OA\Items(
+     *                     @OA\Property(property="infoType", type="array", @OA\Items(
      *                         type="object",
      *                         @OA\Property(property="iftCode", type="string", example="04"),
      *                         @OA\Property(property="iftName", type="string", example="Den. Comercial"),
      *                         @OA\Property(property="iftCharType", type="string", example="04")
      *                     )),
-     *                     @OA\Property(property="Clientes", type="array", @OA\Items(
+     *                     @OA\Property(property="customer", type="array", @OA\Items(
      *                         type="object",
      *                         @OA\Property(property="cusCode", type="string", example="0001"),
      *                         @OA\Property(property="cusName", type="string", example="CLIENTE EJEMPLO"),
@@ -122,11 +122,23 @@ class CustomerController extends Controller
      *                         @OA\Property(property="tp2Code", type="string", example="TC001"),
      *                         @OA\Property(property="citCode", type="string", example="15")
      *                     )),
-     *                     @OA\Property(property="frecuenciaCliente", type="array", @OA\Items(
+     *                     @OA\Property(property="customerRoute", type="array", @OA\Items(
      *                         type="object",
      *                         @OA\Property(property="rotCode", type="string", example="R01"),
      *                         @OA\Property(property="cusCode", type="string", example="0001"),
      *                         @OA\Property(property="freCode", type="string", example="01")
+     *                     )),
+     *                     @OA\Property(property="customerPrice", type="array", @OA\Items(
+     *                         type="object",
+     *                         @OA\Property(property="rotCode", type="string", example="R01"),
+     *                         @OA\Property(property="cusCode", type="string", example="0001"),
+     *                         @OA\Property(property="prcCode", type="string", example="PR01")
+     *                     )),
+     *                     @OA\Property(property="customerInfo", type="array", @OA\Items(
+     *                         type="object",
+     *                         @OA\Property(property="cusCode", type="string", example="0001"),
+     *                         @OA\Property(property="iftCode", type="string", example="04"),
+     *                         @OA\Property(property="ctnCharValue", type="string", example="VALOR_123")
      *                     ))
      *                 )
      *             )
@@ -172,8 +184,8 @@ class CustomerController extends Controller
             if (isset($payload[0]['name']) && isset($payload[0]['value'])) {
                 // Formato Polar: [{ "name": "CUSTOMERS", "value": {...} }]
                 $items = $payload;
-            } elseif (isset($payload['Clientes']) || isset($payload['GrupoCliente']) || isset($payload['ramoCliente'])) {
-                // Formato directo sin wrapper: { "Clientes": [...], "GrupoCliente": [...], ... }
+            } elseif (isset($payload['customer']) || isset($payload['type1']) || isset($payload['type2'])) {
+                // Formato directo sin wrapper: { "customer": [...], "type1": [...], ... }
                 $items = [['name' => 'CUSTOMERS', 'value' => $payload]];
             } else {
                 return $this->error('Formato de payload no reconocido. Se esperaba el formato Polar CUSTOMERS.', 422);
@@ -213,9 +225,9 @@ class CustomerController extends Controller
     /**
      * Truncar todas las tablas de datos maestros de cliente.
      *
-     * Vacía las 7 tablas en estricto orden inverso de dependencias:
-     * customer_routes → customers → info_types → customer_frequencies →
-     * customer_regions → customer_branches → customer_groups.
+     * Vacía las 9 tablas en estricto orden inverso de dependencias:
+     * customer_prices → customer_infos → customer_routes → customers → customer_info_types → 
+     * customer_frequencies → customer_cities → customer_branches → customer_groups.
      *
      * @OA\Delete(
      *     path="/api/truncate-customers",
@@ -229,11 +241,13 @@ class CustomerController extends Controller
      *             @OA\Property(property="status", type="string", example="success"),
      *             @OA\Property(property="message", type="string", example="Truncate completado: 12500 registro(s) eliminado(s)"),
      *             @OA\Property(property="data", type="object",
+     *                 @OA\Property(property="customer_prices", type="integer", example=4500),
+     *                 @OA\Property(property="customer_infos", type="integer", example=4500),
      *                 @OA\Property(property="customer_routes", type="integer", example=4500),
      *                 @OA\Property(property="customers", type="integer", example=2000),
-     *                 @OA\Property(property="info_types", type="integer", example=1000),
+     *                 @OA\Property(property="customer_info_types", type="integer", example=1000),
      *                 @OA\Property(property="customer_frequencies", type="integer", example=2000),
-     *                 @OA\Property(property="customer_regions", type="integer", example=500),
+     *                 @OA\Property(property="customer_cities", type="integer", example=500),
      *                 @OA\Property(property="customer_branches", type="integer", example=500),
      *                 @OA\Property(property="customer_groups", type="integer", example=2000)
      *             )

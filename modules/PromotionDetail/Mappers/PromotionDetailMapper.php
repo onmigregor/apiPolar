@@ -2,19 +2,44 @@
 
 namespace Modules\PromotionDetail\Mappers;
 
-use Modules\PromotionDetail\DataTransferObjects\PromotionDetailData;
+use App\Traits\HasMapperTransform;
 
 class PromotionDetailMapper
 {
-    public static function toDatabase(PromotionDetailData $dto): array
+    use HasMapperTransform;
+
+    public static array $map = [
+        'pdl_code'  => ['pdlCode', 'pdl_code', 'PDLCODE'],
+        'prm_code'  => ['prmCode', 'prm_code', 'PRMCODE'],
+        'pdl_name'  => ['pdlName', 'pdl_name', 'PDLNAME'],
+        'pdl_since' => ['pdlSince', 'pdl_since', 'PDLSINCE'],
+        'pdl_until' => ['pdlUntil', 'pdl_until', 'PDLUNTIL'],
+        'cus_code'  => ['cusCode', 'cus_code', 'CUSCODE'],
+    ];
+
+    /**
+     * Override transform to handle special T in dates and nulls
+     */
+    public static function transform(array $data): array
     {
-        return [
-            'pdl_code' => $dto->pdlCode,
-            'prm_code' => $dto->prmCode,
-            'pdl_name' => $dto->pdlName,
-            'pdl_since' => $dto->pdlSince,
-            'pdl_until' => $dto->pdlUntil ? str_replace('T', ' ', $dto->pdlUntil) : null,
-            'cus_code' => $dto->cusCode,
-        ];
+        $mapped = [];
+        foreach ($data as $key => $value) {
+            $resolved = $key;
+            foreach (self::$map as $target => $aliases) {
+                if (in_array($key, $aliases, true)) {
+                    $resolved = $target;
+                    break;
+                }
+            }
+
+            // Clean date fields
+            if (($resolved === 'pdl_since' || $resolved === 'pdl_until') && is_string($value)) {
+                $value = str_replace('T', ' ', $value);
+            }
+
+            $mapped[$resolved] = $value;
+        }
+
+        return $mapped;
     }
 }
