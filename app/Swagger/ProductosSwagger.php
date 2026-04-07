@@ -104,7 +104,55 @@ class ProductosSwagger
             ])
         )),
         responses: [
-            new OA\Response(response: 201, description: 'Registros procesados exitosamente'),
+            new OA\Response(
+                response: 200,
+                description: 'Registros procesados exitosamente',
+                content: new OA\JsonContent(
+                    properties: [
+                        new OA\Property(property: 'status', type: 'string', example: 'success'),
+                        new OA\Property(property: 'message', type: 'string', example: 'Master Product: 1512 procesado(s), 0 omitido(s), 23 duplicado(s) eliminado(s)'),
+                        new OA\Property(property: 'data', type: 'object', properties: [
+                            new OA\Property(property: 'summary', type: 'object', properties: [
+                                new OA\Property(property: 'total_processed', type: 'integer', example: 1512),
+                                new OA\Property(property: 'total_skipped', type: 'integer', example: 0),
+                                new OA\Property(property: 'total_duplicates', type: 'integer', example: 23),
+                            ]),
+                            new OA\Property(property: 'detail', type: 'object', properties: [
+                                new OA\Property(property: 'unit', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 44),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 0),
+                                ]),
+                                new OA\Property(property: 'class1', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 5),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 0),
+                                ]),
+                                new OA\Property(property: 'class2', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 32),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 0),
+                                ]),
+                                new OA\Property(property: 'class3', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 45),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 0),
+                                ]),
+                                new OA\Property(property: 'product', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 497),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: '2'),
+                                ]),
+                                new OA\Property(property: 'productUnit', type: 'object', properties: [
+                                    new OA\Property(property: 'processed', type: 'integer', example: 889),
+                                    new OA\Property(property: 'skipped', type: 'integer', example: 0),
+                                    new OA\Property(property: 'duplicates_removed', type: '21'),
+                                ]),
+                            ]),
+                        ]),
+                    ]
+                )
+            ),
             new OA\Response(response: 422, description: 'Formato no reconocido'),
             new OA\Response(response: 500, description: 'Error en la carga masiva'),
         ]
