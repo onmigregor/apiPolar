@@ -21,6 +21,7 @@ use OpenApi\Attributes as OA;
 // ═══════════════════════════════════════════════
 //  1. CARGAS MASIVAS (Prioridad Polar)
 // ═══════════════════════════════════════════════
+#[OA\Tag(name: 'Cargas Masivas - MasterCompany', description: 'Carga masiva de datos organizacionales de la empresa')]
 #[OA\Tag(name: 'Cargas Masivas - MasterCustomer', description: 'Carga masiva de datos maestros de clientes')]
 #[OA\Tag(name: 'Cargas Masivas - MasterProduct', description: 'Carga masiva de datos maestros de productos')]
 #[OA\Tag(name: 'Cargas Masivas - MasterPromotion', description: 'Carga masiva de datos maestros de promociones')]

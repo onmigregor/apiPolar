@@ -13,6 +13,7 @@ return [
     Modules\CustomerRegion\Providers\CustomerRegionServiceProvider::class,
     Modules\CustomerRoute\Providers\CustomerRouteServiceProvider::class,
     Modules\Customer\Providers\CustomerServiceProvider::class,
+    Modules\Company\Providers\CompanyServiceProvider::class,
     Modules\DiscountDetailProduct\Providers\DiscountDetailProductServiceProvider::class,
     Modules\DiscountDetailRoute\Providers\DiscountDetailRouteServiceProvider::class,
     Modules\DiscountDetail\Providers\DiscountDetailServiceProvider::class,

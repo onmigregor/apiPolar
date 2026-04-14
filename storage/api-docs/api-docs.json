@@ -2247,6 +2247,271 @@
                 ]
             }
         },
+        "/mastercompany": {
+            "post": {
+                "tags": [
+                    "Cargas Masivas - MasterCompany"
+                ],
+                "summary": "Carga masiva de datos organizacionales de empresa (formato Polar)",
+                "operationId": "69e67796ce2a59beab8ad5a21006b0a4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "COMPANIES"
+                                        },
+                                        "value": {
+                                            "properties": {
+                                                "region": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "regCode": {
+                                                                "type": "string",
+                                                                "example": "001"
+                                                            },
+                                                            "regName": {
+                                                                "type": "string",
+                                                                "example": "LATAM"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "branch": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "brcCode": {
+                                                                "type": "string",
+                                                                "example": "5300"
+                                                            },
+                                                            "brcName": {
+                                                                "type": "string",
+                                                                "example": "ALIMENTOS POLAR CHILE SPA"
+                                                            },
+                                                            "brcGeneralHeader1": {
+                                                                "type": "string",
+                                                                "example": "ALIMENTOS POLAR CHILE SPA"
+                                                            },
+                                                            "regCode": {
+                                                                "type": "string",
+                                                                "example": "001"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "login": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "lgnCode": {
+                                                                "type": "string",
+                                                                "example": "PC7818"
+                                                            },
+                                                            "lgnName": {
+                                                                "type": "string",
+                                                                "example": "CLAUDIO SALVATIERRA"
+                                                            },
+                                                            "brcCode": {
+                                                                "type": "string",
+                                                                "example": "5300"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "territory": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "tryCode": {
+                                                                "type": "string",
+                                                                "example": "CS01-CH01CS1"
+                                                            },
+                                                            "brcCode": {
+                                                                "type": "string",
+                                                                "example": "5300"
+                                                            },
+                                                            "lgnCode": {
+                                                                "type": "string",
+                                                                "example": "PC1444"
+                                                            },
+                                                            "tryName": {
+                                                                "type": "string",
+                                                                "example": "Moderno 1-Oficina Santiago"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "loginBranch": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "lgnCode": {
+                                                                "type": "string",
+                                                                "example": "PC0047"
+                                                            },
+                                                            "brcCode": {
+                                                                "type": "string",
+                                                                "example": "5300"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "crewLogin": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "crwCode": {
+                                                                "type": "string",
+                                                                "example": "PAN"
+                                                            },
+                                                            "lgnCode": {
+                                                                "type": "string",
+                                                                "example": "PC7391"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Registros procesados exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Master Company: 42 procesado(s), 0 omitido(s), 5 duplicado(s) eliminado(s)"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "summary": {
+                                                    "properties": {
+                                                        "total_processed": {
+                                                            "type": "integer",
+                                                            "example": 42
+                                                        },
+                                                        "total_skipped": {
+                                                            "type": "integer",
+                                                            "example": 0
+                                                        },
+                                                        "total_duplicates": {
+                                                            "type": "integer",
+                                                            "example": 5
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "detail": {
+                                                    "properties": {
+                                                        "region": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "branch": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Formato no reconocido"
+                    },
+                    "500": {
+                        "description": "Error en la carga masiva"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/truncate-companies": {
+            "delete": {
+                "tags": [
+                    "Cargas Masivas - MasterCompany"
+                ],
+                "summary": "Vaciar todas las tablas organizacionales (Regiones, Sucursales, Logins, Territorios)",
+                "operationId": "aa620c32f7b1ca565ea9710d8592e56c",
+                "responses": {
+                    "200": {
+                        "description": "Tablas vaciadas exitosamente"
+                    },
+                    "500": {
+                        "description": "Error al vaciar las tablas"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/discounts": {
             "get": {
                 "tags": [
@@ -4271,8 +4536,152 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Registros procesados exitosamente"
+                    "200": {
+                        "description": "Registros procesados exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Master Product: 1512 procesado(s), 0 omitido(s), 23 duplicado(s) eliminado(s)"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "summary": {
+                                                    "properties": {
+                                                        "total_processed": {
+                                                            "type": "integer",
+                                                            "example": 1512
+                                                        },
+                                                        "total_skipped": {
+                                                            "type": "integer",
+                                                            "example": 0
+                                                        },
+                                                        "total_duplicates": {
+                                                            "type": "integer",
+                                                            "example": 23
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "detail": {
+                                                    "properties": {
+                                                        "unit": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 44
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "class1": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 5
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "class2": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 32
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "class3": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 45
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "product": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 497
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "2"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "productUnit": {
+                                                            "properties": {
+                                                                "processed": {
+                                                                    "type": "integer",
+                                                                    "example": 889
+                                                                },
+                                                                "skipped": {
+                                                                    "type": "integer",
+                                                                    "example": 0
+                                                                },
+                                                                "duplicates_removed": {
+                                                                    "type": "21"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
                         "description": "Formato no reconocido"
@@ -6730,6 +7139,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Cargas Masivas - MasterCompany",
+            "description": "Carga masiva de datos organizacionales de la empresa"
+        },
         {
             "name": "Cargas Masivas - MasterCustomer",
             "description": "Carga masiva de datos maestros de clientes"

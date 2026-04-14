@@ -14,6 +14,65 @@
     ],
     "item": [
         {
+            "name": "Cargas Masivas - Empresa",
+            "item": [
+                {
+                    "name": "MasterCompany - Carga Masiva",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[\n    {\n        \"name\": \"COMPANIES\",\n        \"value\": {\n            \"region\": [\n                {\n                    \"regCode\": \"001\",\n                    \"regName\": \"LATAM\"\n                }\n            ],\n            \"branch\": [\n                {\n                    \"brcCode\": \"5300\",\n                    \"brcName\": \"ALIMENTOS POLAR CHILE SPA\",\n                    \"brcGeneralHeader1\": \"ALIMENTOS POLAR CHILE SPA\",\n                    \"regCode\": \"001\"\n                }\n            ],\n            \"login\": [\n                {\n                    \"lgnCode\": \"PC7818\",\n                    \"lgnName\": \"CLAUDIO SALVATIERRA\",\n                    \"brcCode\": \"5300\"\n                }\n            ],\n            \"territory\": [\n                {\n                    \"tryCode\": \"CS01-CH01CS1\",\n                    \"brcCode\": \"5300\",\n                    \"lgnCode\": \"PC1444\",\n                    \"tryName\": \"Moderno 1-Oficina Santiago\"\n                }\n            ],\n            \"loginBranch\": [\n                {\n                    \"lgnCode\": \"PC0047\",\n                    \"brcCode\": \"5300\"\n                }\n            ],\n            \"crewLogin\": [\n                {\n                    \"crwCode\": \"PAN\",\n                    \"lgnCode\": \"PC7391\"\n                }\n            ]\n        }\n    }\n]"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/mastercompany",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "mastercompany"
+                            ]
+                        },
+                        "description": "Carga masiva de la estructura organizacional (Regiones, Sucursales, Logins, Territorios)."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Truncate Companies - Vaciar Tablas",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/truncate-companies",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "truncate-companies"
+                            ]
+                        },
+                        "description": "Vacía las 6 tablas organizacionales de la empresa."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
             "name": "Cargas Masivas - Clientes",
             "item": [
                 {
