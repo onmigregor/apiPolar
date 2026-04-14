@@ -30,5 +30,21 @@ class UserSeeder extends Seeder
         if ($role) {
             $user->roles()->syncWithoutDetaching([$role->id]);
         }
+
+        // Crear Admin Polar
+        $adminPolar = User::updateOrCreate(
+            ['email' => 'AdminPolar@mail.com'],
+            [
+                'name' => 'Admin Polar',
+                'password' => Hash::make('Polar123'),
+                'email_verified_at' => now(),
+                'active' => true,
+            ]
+        );
+
+        // Asignar rol admin
+        if ($role) {
+            $adminPolar->roles()->syncWithoutDetaching([$role->id]);
+        }
     }
 }
