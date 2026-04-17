@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Forzar HTTPS en producción para evitar mixed-content
-
-            //URL::forceScheme('https');
-
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
