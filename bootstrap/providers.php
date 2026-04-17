@@ -40,4 +40,5 @@ return [
     Modules\Taxation\Providers\TaxationServiceProvider::class,
     Modules\Unit\Providers\UnitServiceProvider::class,
     Modules\User\Providers\UserServiceProvider::class,
+    Modules\SftpManager\Providers\SftpManagerServiceProvider::class,
 ];

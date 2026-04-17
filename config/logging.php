@@ -133,6 +133,13 @@ return [
             'level' => 'info',
         ],
 
+        'sftp' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/sftp.log'),
+            'level' => 'debug',
+            'days' => 30,
+        ],
+
     ],
 
 ];

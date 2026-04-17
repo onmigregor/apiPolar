@@ -60,6 +60,16 @@ return [
             'report' => false,
         ],
 
+        'polar_sftp' => [
+            'driver' => 'sftp',
+            'host' => env('SFTP_POLAR_HOST'),
+            'username' => env('SFTP_POLAR_USERNAME'),
+            'password' => env('SFTP_POLAR_PASSWORD'),
+            'port' => 22,
+            'root' => '/',
+            'timeout' => 10,
+        ],
+
     ],
 
     /*
