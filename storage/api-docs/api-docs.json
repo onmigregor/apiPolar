@@ -4650,7 +4650,8 @@
                                                                     "example": 0
                                                                 },
                                                                 "duplicates_removed": {
-                                                                    "type": "2"
+                                                                    "type": "integer",
+                                                                    "example": 2
                                                                 }
                                                             },
                                                             "type": "object"
@@ -4666,7 +4667,8 @@
                                                                     "example": 0
                                                                 },
                                                                 "duplicates_removed": {
-                                                                    "type": "21"
+                                                                    "type": "integer",
+                                                                    "example": 21
                                                                 }
                                                             },
                                                             "type": "object"

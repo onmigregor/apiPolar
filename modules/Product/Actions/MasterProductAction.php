@@ -86,10 +86,11 @@ class MasterProductAction
                 );
             }
 
-            // 6. Unidades de producto (productUnit)
-            if (!empty($value['productUnit'])) {
+            // 6. Unidades de producto (productUnit) - Soporta 'productUnit' o 'productunit'
+            $productUnits = $value['productUnit'] ?? $value['productunit'] ?? [];
+            if (!empty($productUnits)) {
                 $results['productUnit'] = $this->processCollection(
-                    $value['productUnit'],
+                    $productUnits,
                     ProductUnit::class,
                     ProductUnitMapper::class,
                     ['pro_code', 'unt_code']
@@ -135,6 +136,10 @@ class MasterProductAction
             $row = array_fill_keys($fillable, null);
             foreach ($transformed as $key => $val) {
                 if (in_array($key, $fillable)) {
+                    // Sanitización: Convertir "" o "?" a null para fechas y pesos
+                    if (($key === 'pro_created_on' || $key === 'pro_modified_on' || $key === 'pro_weight') && ($val === '' || $val === '?')) {
+                        $val = null;
+                    }
                     $row[$key] = $val;
                 }
             }

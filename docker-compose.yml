@@ -25,6 +25,31 @@ services:
       - polar_network
       - appnet
 
+  queue-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: polar-productos-api
+    container_name: polar-productos_queue_worker
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: queue-worker
+      APP_SERVICE: queue-worker
+      DB_HOST: mysql-8.0
+      DB_DATABASE: polar-productos_api
+      DB_USERNAME: netred_docker
+      DB_PASSWORD: netred_docker
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - polar_network
+      - appnet
+    command: php artisan queue:work database --sleep=3 --tries=3 --timeout=1200
+
 networks:
   polar_network:
     driver: bridge

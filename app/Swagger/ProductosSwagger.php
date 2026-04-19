@@ -141,12 +141,12 @@ class ProductosSwagger
                                 new OA\Property(property: 'product', type: 'object', properties: [
                                     new OA\Property(property: 'processed', type: 'integer', example: 497),
                                     new OA\Property(property: 'skipped', type: 'integer', example: 0),
-                                    new OA\Property(property: 'duplicates_removed', type: '2'),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 2),
                                 ]),
                                 new OA\Property(property: 'productUnit', type: 'object', properties: [
                                     new OA\Property(property: 'processed', type: 'integer', example: 889),
                                     new OA\Property(property: 'skipped', type: 'integer', example: 0),
-                                    new OA\Property(property: 'duplicates_removed', type: '21'),
+                                    new OA\Property(property: 'duplicates_removed', type: 'integer', example: 21),
                                 ]),
                             ]),
                         ]),
