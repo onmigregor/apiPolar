@@ -26,14 +26,14 @@ class MasterProductAction
      *
      * Soporta tanto el nodo 'value' de Polar como el payload directo.
      */
-    public function execute(array $payload): array
+    public function execute(array $payload, ?\App\Models\BulkImportLog $log = null): array
     {
         $value = $payload;
         if (isset($payload[0]['name']) && $payload[0]['name'] === 'PRODUCTS') {
             $value = $payload[0]['value'];
         }
 
-        return DB::transaction(function () use ($value) {
+        return DB::transaction(function () use ($value, $log) {
             $results = [];
 
             // 1. Unidades de medida (unit)
@@ -45,6 +45,7 @@ class MasterProductAction
                     'unt_code'
                 );
             }
+            if ($log) $log->update(['progress' => 15]);
 
             // 2. Familias de producto (class1)
             if (!empty($value['class1'])) {
@@ -55,6 +56,7 @@ class MasterProductAction
                     'cl1_code'
                 );
             }
+            if ($log) $log->update(['progress' => 30]);
 
             // 3. Categorías de producto (class2)
             if (!empty($value['class2'])) {
@@ -65,6 +67,7 @@ class MasterProductAction
                     'cl2_code'
                 );
             }
+            if ($log) $log->update(['progress' => 45]);
 
             // 4. Class 3 de producto (class3)
             if (!empty($value['class3'])) {
@@ -75,6 +78,7 @@ class MasterProductAction
                     'cl3_code'
                 );
             }
+            if ($log) $log->update(['progress' => 60]);
 
             // 5. Productos (product)
             if (!empty($value['product'])) {
@@ -85,6 +89,7 @@ class MasterProductAction
                     'pro_code'
                 );
             }
+            if ($log) $log->update(['progress' => 80]);
 
             // 6. Unidades de producto (productUnit) - Soporta 'productUnit' o 'productunit'
             $productUnits = $value['productUnit'] ?? $value['productunit'] ?? [];
@@ -96,6 +101,7 @@ class MasterProductAction
                     ['pro_code', 'unt_code']
                 );
             }
+            if ($log) $log->update(['progress' => 95]);
 
             return $results;
         });

@@ -17,13 +17,17 @@ class MasterProductImportJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public string $filePath;
+    public string $originalFilename;
+    public int $userId;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(string $filePath)
+    public function __construct(string $filePath, string $originalFilename, int $userId)
     {
         $this->filePath = $filePath;
+        $this->originalFilename = $originalFilename;
+        $this->userId = $userId;
     }
 
     /**
@@ -31,17 +35,22 @@ class MasterProductImportJob implements ShouldQueue
      */
     public function handle(MasterProductAction $action): void
     {
+        $log = \App\Models\BulkImportLog::create([
+            'type' => 'products',
+            'filename' => $this->originalFilename,
+            'status' => 'processing',
+            'progress' => 0,
+            'user_id' => $this->userId,
+            'started_at' => now(),
+        ]);
+
         try {
             if (!Storage::disk('local')->exists($this->filePath)) {
-                Log::error("Importación fallida: El archivo no existe: {$this->filePath}");
-                return;
+                throw new \Exception("El archivo no existe: {$this->filePath}");
             }
 
-            Log::info("Iniciando importación asíncrona de Master Productos: {$this->filePath}");
-            
             $content = Storage::disk('local')->get($this->filePath);
             
-            // Replicar lógica de ProductController para encoding y normalización
             if (!mb_check_encoding($content, 'UTF-8')) {
                 $content = mb_convert_encoding($content, 'UTF-8', 'ISO-8859-1');
             }
@@ -49,32 +58,39 @@ class MasterProductImportJob implements ShouldQueue
             $payload = json_decode($content, true);
 
             if (!$payload) {
-                Log::error("Importación fallida: JSON Inválido. Error: " . json_last_error_msg());
-                return;
+                throw new \Exception("JSON Inválido. Error: " . json_last_error_msg());
             }
 
-            // Normalización de payload (Igual que en ProductController.php)
             if (isset($payload[0]['name']) && isset($payload[0]['value'])) {
-                // Formato Polar: [{ "name": "PRODUCTS", "value": {...} }]
                 $items = $payload;
             } elseif (isset($payload['unit']) || isset($payload['class1']) || isset($payload['product'])) {
-                // Formato directo: { "unit": [...], "class1": [...], ... }
                 $items = [['name' => 'PRODUCTS', 'value' => $payload]];
             } else {
-                Log::error("Importación fallida: Formato de payload no reconocido.");
-                return;
+                throw new \Exception("Formato de payload no reconocido.");
             }
 
-            // Ejecutar la acción masiva
-            $results = $action->execute($items);
+            // Ejecutar la acción masiva pasando el objeto Log para actualizaciones de progreso
+            $results = $action->execute($items, $log);
 
-            Log::info("Importación Finalizada Exitosamente. Resultados:", $results);
-            
-            // Limpiar archivo temporal
+            $log->update([
+                'status' => 'completed',
+                'progress' => 100,
+                'summary' => $results,
+                'finished_at' => now(),
+            ]);
+
             Storage::disk('local')->delete($this->filePath);
             
         } catch (Throwable $e) {
-            Log::error("Fallo crítico en el Job de Importación: " . $e->getMessage() . " en " . $e->getFile() . ": " . $e->getLine());
+            $log->update([
+                'status' => 'failed',
+                'error_log' => $e->getMessage() . "\n\nFile: " . $e->getFile() . ":" . $e->getLine() . "\n\nStack: " . $e->getTraceAsString(),
+                'finished_at' => now(),
+            ]);
+
+            Log::error("Fallo crítico en el Job de Importación: " . $e->getMessage());
+            
+            // Re-lanzar para que Laravel Queue sepa que falló (pero ya guardamos el log)
             throw $e;
         }
     }
