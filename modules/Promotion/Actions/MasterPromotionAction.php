@@ -143,7 +143,8 @@ class MasterPromotionAction
             $row = array_fill_keys($fillable, null);
             foreach ($transformed as $key => $val) {
                 if (in_array($key, $fillable)) {
-                    $row[$key] = $val;
+                    // Cast empty strings to NULL to avoid strict mode errors with DECIMAL/INT columns
+                    $row[$key] = ($val === '') ? null : $val;
                 }
             }
 

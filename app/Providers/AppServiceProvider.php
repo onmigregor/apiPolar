@@ -23,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
         // Forzar HTTPS en producción para evitar mixed-content
         if (app()->environment('production')) {
             URL::forceScheme('https');
+            
+            // Forzar a que la solicitud entrante sea considerada HTTPS siempre en el servidor
+            if (! app()->runningInConsole()) {
+                request()->server->set('HTTPS', 'on');
+                request()->server->set('SERVER_PORT', 443);
+            }
         }
     }
 }

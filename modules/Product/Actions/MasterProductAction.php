@@ -142,11 +142,8 @@ class MasterProductAction
             $row = array_fill_keys($fillable, null);
             foreach ($transformed as $key => $val) {
                 if (in_array($key, $fillable)) {
-                    // Sanitización: Convertir "" o "?" a null para fechas y pesos
-                    if (($key === 'pro_created_on' || $key === 'pro_modified_on' || $key === 'pro_weight') && ($val === '' || $val === '?')) {
-                        $val = null;
-                    }
-                    $row[$key] = $val;
+                    // Sanitización: Convertir "" o "?" a null globalmente
+                    $row[$key] = ($val === '' || $val === '?') ? null : $val;
                 }
             }
 

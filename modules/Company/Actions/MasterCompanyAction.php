@@ -135,7 +135,7 @@ class MasterCompanyAction
             $row = array_fill_keys($fillable, null);
             foreach ($transformed as $key => $val) {
                 if (in_array($key, $fillable)) {
-                    $row[$key] = $val;
+                    $row[$key] = ($val === '') ? null : $val;
                 }
             }
 
