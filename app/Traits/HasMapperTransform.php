@@ -29,9 +29,13 @@ trait HasMapperTransform
 
         foreach ($data as $key => $value) {
             $resolved = $key;
+            $lowerKey = strtolower($key);
 
             foreach (static::$map as $target => $aliases) {
-                if (in_array($key, $aliases, true)) {
+                // Normalizamos los alias a minúsculas para una comparación insensible
+                $lowerAliases = array_map('strtolower', $aliases);
+                
+                if (in_array($lowerKey, $lowerAliases, true)) {
                     $resolved = $target;
                     break;
                 }

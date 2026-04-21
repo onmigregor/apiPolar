@@ -66,7 +66,7 @@ class MasterPromotionImportJob implements ShouldQueue
             if (isset($payload[0]['name']) && isset($payload[0]['value'])) {
                 // El payload de Promociones a menudo trae varios bloques con name = PROMOTIONS
                 foreach ($payload as $block) {
-                    if ($block['name'] === 'PROMOTIONS') {
+                    if (isset($block['name']) && strtoupper($block['name']) === 'PROMOTIONS') {
                         $items[] = $block['value'];
                     }
                 }

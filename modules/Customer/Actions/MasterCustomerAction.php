@@ -44,9 +44,8 @@ class MasterCustomerAction
 
     public function execute(array $payload): array
     {
-        // El payload puede ser un array de objetos con name/value o el value directamente
         $value = $payload;
-        if (isset($payload[0]['name']) && $payload[0]['name'] === 'CUSTOMERS') {
+        if (isset($payload[0]['name']) && strtoupper($payload[0]['name']) === 'CUSTOMERS') {
             $value = $payload[0]['value'];
         }
 

@@ -29,7 +29,7 @@ class MasterCompanyAction
     public function execute(array $payload): array
     {
         $value = $payload;
-        if (isset($payload[0]['name']) && $payload[0]['name'] === 'COMPANIES') {
+        if (isset($payload[0]['name']) && strtoupper($payload[0]['name']) === 'COMPANIES') {
             $value = $payload[0]['value'];
         }
 

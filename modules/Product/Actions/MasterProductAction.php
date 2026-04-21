@@ -29,7 +29,7 @@ class MasterProductAction
     public function execute(array $payload, ?\App\Models\BulkImportLog $log = null): array
     {
         $value = $payload;
-        if (isset($payload[0]['name']) && $payload[0]['name'] === 'PRODUCTS') {
+        if (isset($payload[0]['name']) && strtoupper($payload[0]['name']) === 'PRODUCTS') {
             $value = $payload[0]['value'];
         }
 
