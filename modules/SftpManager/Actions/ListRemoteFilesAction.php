@@ -22,22 +22,42 @@ class ListRemoteFilesAction
         try {
             $disk = Storage::disk('polar_sftp');
             
-            // Obtener todos los archivos en el path definido
-            $files = $disk->files($path);
+            // Listar contenido del directorio (archivos y carpetas)
+            $contents = $disk->listContents($path);
             
-            $fileDataList = [];
-            foreach ($files as $file) {
-                $fileDataList[] = [
-                    'name' => basename($file),
-                    'path' => $file,
-                    'size' => $disk->size($file),
-                    'last_modified' => date('Y-m-d H:i:s', $disk->lastModified($file)),
+            $items = [];
+            foreach ($contents as $item) {
+                $name = basename($item->path());
+                
+                // Filtrar archivos/carpetas ocultos (empiezan con .)
+                if (str_starts_with($name, '.')) {
+                    continue;
+                }
+
+                $type = $item->isDir() ? 'dir' : 'file';
+                
+                $itemData = [
+                    'name' => $name,
+                    'path' => $item->path(),
+                    'type' => $type,
+                    'size' => $item->isFile() ? $item->fileSize() : 0,
+                    'last_modified' => date('Y-m-d H:i:s', $item->lastModified()),
                 ];
+
+                $items[] = $itemData;
             }
 
-            Log::channel('sftp')->info("Se listaron exitosamente " . count($fileDataList) . " archivos desde {$path}");
+            // Ordenar: primero carpetas, luego archivos, ambos alfabéticamente
+            usort($items, function ($a, $b) {
+                if ($a['type'] === $b['type']) {
+                    return strcasecmp($a['name'], $b['name']);
+                }
+                return $a['type'] === 'dir' ? -1 : 1;
+            });
+
+            Log::channel('sftp')->info("Se listaron exitosamente " . count($items) . " elementos desde {$path}");
             
-            return $fileDataList;
+            return $items;
             
         } catch (Exception $e) {
             Log::channel('sftp')->error("Fallo al conectar o leer el SFTP en listar: " . $e->getMessage());

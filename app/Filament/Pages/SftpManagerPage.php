@@ -16,16 +16,42 @@ class SftpManagerPage extends Page
 
     protected static string $view = 'filament.pages.sftp-manager-page';
 
+    public string $currentPath = '/';
     public array $remoteFiles = [];
 
-    public function mount(ListRemoteFilesAction $listAction)
+    public function mount()
     {
+        $this->loadFiles();
+    }
+
+    public function loadFiles()
+    {
+        $listAction = app(ListRemoteFilesAction::class);
         try {
-            $this->remoteFiles = $listAction->execute('/');
+            $this->remoteFiles = $listAction->execute($this->currentPath);
         } catch (\Exception $e) {
             $this->remoteFiles = [];
-            // Optional: Filament Notification can be added here if needed
+            // Notification can be added here
         }
+    }
+
+    public function changeDirectory(string $path)
+    {
+        $this->currentPath = $path;
+        $this->loadFiles();
+    }
+
+    public function goBack()
+    {
+        if ($this->currentPath === '/' || $this->currentPath === '') {
+            return;
+        }
+
+        $parts = explode('/', trim($this->currentPath, '/'));
+        array_pop($parts);
+        $this->currentPath = count($parts) > 0 ? '/' . implode('/', $parts) : '/';
+        
+        $this->loadFiles();
     }
 
     public function downloadFile(string $filePath)

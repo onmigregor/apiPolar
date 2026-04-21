@@ -66,7 +66,7 @@ return [
             'username' => env('SFTP_POLAR_USERNAME'),
             'password' => env('SFTP_POLAR_PASSWORD'),
             'port' => (int) env('SFTP_POLAR_PORT', 22),
-            'root' => '/',
+            'root' => env('SFTP_POLAR_ROOT', '/'),
             'timeout' => 30,
         ],
 
