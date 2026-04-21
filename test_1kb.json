@@ -1,0 +1,12 @@
+{
+    "name": "PRODUCTS",
+    "value": {
+        "unit": [
+            {
+                "unt_code": "KG",
+                "unt_name": "KILOGRAMOS T",
+                "unt_abbr": "KGT"
+            }
+        ]
+    }
+}

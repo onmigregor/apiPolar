@@ -20,15 +20,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Forzar HTTPS en producción para evitar mixed-content
-        if (app()->environment('production')) {
+        // Si la URL de la app es HTTPS, forzamos que todo el framework (incluyendo firmas de Livewire)
+        // se genere y valide bajo HTTPS y el dominio correcto, sin importar los proxies.
+        if (str_starts_with(config('app.url'), 'https://')) {
             URL::forceScheme('https');
-            
-            // Forzar a que la solicitud entrante sea considerada HTTPS siempre en el servidor
-            if (! app()->runningInConsole()) {
-                request()->server->set('HTTPS', 'on');
-                request()->server->set('SERVER_PORT', 443);
-            }
+            URL::forceRootUrl(config('app.url'));
         }
     }
 }
