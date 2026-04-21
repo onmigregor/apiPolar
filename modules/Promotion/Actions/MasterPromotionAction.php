@@ -16,12 +16,16 @@ use Modules\PromotionTeam\Mappers\PromotionTeamMapper;
 use Modules\PromotionTeam\Models\PromotionTeam;
 use Exception;
 
+class MasterPromotionAction
+{
+    private static array $fillableCache = [];
+
     private array $keyMap = [
         'promotion'              => ['promotion', 'promociones', 'promocionTb'],
         'promotionDetail'        => ['promotionDetail', 'promotiondetail', 'promotion detail', 'detallePromocion'],
         'promotionDetailProduct' => ['promotionDetailProduct', 'promotiondetailproduct', 'promotion detail product', 'productosPromocion'],
         'promotionRoute'         => ['promotionRoute', 'promotionroute', 'promotion route', 'rutasPromocion'],
-        'promotionTeam'          => ['promotionTeam', 'promotionteam', 'promotion team', 'equiposPromocion'],
+        'promotionTeam'          => ['promotionTeam', 'promotionteam', 'promotion team', 'promotion teams', 'equiposPromocion'],
     ];
 
     public function execute(array $payloadList): array
