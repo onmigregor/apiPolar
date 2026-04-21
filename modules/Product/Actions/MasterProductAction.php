@@ -21,10 +21,17 @@ class MasterProductAction
 {
     private static array $fillableCache = [];
 
+    private array $keyMap = [
+        'unit'         => ['unit', 'Unidades', 'product unit'],
+        'class1'       => ['class1', 'Familias', 'familiaTb'],
+        'class2'       => ['class2', 'Categorias', 'categoriaTb'],
+        'class3'       => ['class3', 'Subcategorias', 'subcategoriaTb'],
+        'product'      => ['product', 'Productos'],
+        'productUnit'  => ['productUnit', 'productunit', 'UnidadesProducto', 'product unit'],
+    ];
+
     /**
      * Ejecuta la carga masiva de datos maestros de producto.
-     *
-     * Soporta tanto el nodo 'value' de Polar como el payload directo.
      */
     public function execute(array $payload, ?\App\Models\BulkImportLog $log = null): array
     {
@@ -37,74 +44,83 @@ class MasterProductAction
             $results = [];
 
             // 1. Unidades de medida (unit)
-            if (!empty($value['unit'])) {
-                $results['unit'] = $this->processCollection(
-                    $value['unit'],
-                    Unit::class,
-                    UnitMapper::class,
-                    'unt_code'
-                );
-            }
+            $results['unit'] = $this->processCollection(
+                $this->getRecords($value, 'unit'),
+                Unit::class,
+                UnitMapper::class,
+                'unt_code'
+            );
             if ($log) $log->update(['progress' => 15]);
 
             // 2. Familias de producto (class1)
-            if (!empty($value['class1'])) {
-                $results['class1'] = $this->processCollection(
-                    $value['class1'],
-                    ProductFamily::class,
-                    ProductFamilyMapper::class,
-                    'cl1_code'
-                );
-            }
+            $results['class1'] = $this->processCollection(
+                $this->getRecords($value, 'class1'),
+                ProductFamily::class,
+                ProductFamilyMapper::class,
+                'cl1_code'
+            );
             if ($log) $log->update(['progress' => 30]);
 
             // 3. Categorías de producto (class2)
-            if (!empty($value['class2'])) {
-                $results['class2'] = $this->processCollection(
-                    $value['class2'],
-                    ProductCategory::class,
-                    ProductCategoryMapper::class,
-                    'cl2_code'
-                );
-            }
+            $results['class2'] = $this->processCollection(
+                $this->getRecords($value, 'class2'),
+                ProductCategory::class,
+                ProductCategoryMapper::class,
+                'cl2_code'
+            );
             if ($log) $log->update(['progress' => 45]);
 
             // 4. Class 3 de producto (class3)
-            if (!empty($value['class3'])) {
-                $results['class3'] = $this->processCollection(
-                    $value['class3'],
-                    ProductClass3::class,
-                    ProductClass3Mapper::class,
-                    'cl3_code'
-                );
-            }
+            $results['class3'] = $this->processCollection(
+                $this->getRecords($value, 'class3'),
+                ProductClass3::class,
+                ProductClass3Mapper::class,
+                'cl3_code'
+            );
             if ($log) $log->update(['progress' => 60]);
 
             // 5. Productos (product)
-            if (!empty($value['product'])) {
-                $results['product'] = $this->processCollection(
-                    $value['product'],
-                    Product::class,
-                    ProductMapper::class,
-                    'pro_code'
-                );
-            }
+            $results['product'] = $this->processCollection(
+                $this->getRecords($value, 'product'),
+                Product::class,
+                ProductMapper::class,
+                'pro_code'
+            );
             if ($log) $log->update(['progress' => 80]);
 
-            // 6. Unidades de producto (productUnit) - Soporta 'productUnit' o 'productunit'
-            $productUnits = $value['productUnit'] ?? $value['productunit'] ?? [];
-            if (!empty($productUnits)) {
-                $results['productUnit'] = $this->processCollection(
-                    $productUnits,
-                    ProductUnit::class,
-                    ProductUnitMapper::class,
-                    ['pro_code', 'unt_code']
-                );
-            }
+            // 6. Unidades de producto (productUnit)
+            $results['productUnit'] = $this->processCollection(
+                $this->getRecords($value, 'productUnit'),
+                ProductUnit::class,
+                ProductUnitMapper::class,
+                ['pro_code', 'unt_code']
+            );
             if ($log) $log->update(['progress' => 95]);
 
             return $results;
         });
+    }
+
+    /**
+     * Obtiene los registros de un nodo de forma robusta.
+     */
+    private function getRecords(array $data, string $internalKey): array
+    {
+        $normalizedData = [];
+        foreach ($data as $k => $v) {
+            $normK = strtolower(str_replace(' ', '', $k));
+            $normalizedData[$normK] = $v;
+        }
+
+        $aliases = $this->keyMap[$internalKey] ?? [$internalKey];
+        foreach ($aliases as $alias) {
+            $normAlias = strtolower(str_replace(' ', '', $alias));
+            if (isset($normalizedData[$normAlias]) && is_array($normalizedData[$normAlias])) {
+                return $normalizedData[$normAlias];
+            }
+        }
+
+        return [];
     }
 
     /**

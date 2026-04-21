@@ -26,6 +26,18 @@ class MasterCompanyAction
      * @param array $payload
      * @return array
      */
+    private array $keyMap = [
+        'region'      => ['region', 'regiones', 'regionTb'],
+        'branch'      => ['branch', 'sucursales', 'sucursalTb'],
+        'login'       => ['login', 'usuarios', 'loginTb'],
+        'territory'   => ['territory', 'territorios', 'territorioTb'],
+        'loginBranch' => ['loginBranch', 'loginbranch', 'login branch', 'relacionLoginSucursal'],
+        'crewLogin'   => ['crewLogin', 'crewlogin', 'crew login', 'relacionTripulacionLogin'],
+    ];
+
+    /**
+     * Ejecuta la carga masiva de datos organizacionales (Companies).
+     */
     public function execute(array $payload): array
     {
         $value = $payload;
@@ -37,67 +49,77 @@ class MasterCompanyAction
             $results = [];
 
             // 1. Regiones (region)
-            if (!empty($value['region'])) {
-                $results['region'] = $this->processCollection(
-                    $value['region'],
-                    Region::class,
-                    RegionMapper::class,
-                    'reg_code'
-                );
-            }
+            $results['region'] = $this->processCollection(
+                $this->getRecords($value, 'region'),
+                Region::class,
+                RegionMapper::class,
+                'reg_code'
+            );
 
             // 2. Sucursales (branch)
-            if (!empty($value['branch'])) {
-                $results['branch'] = $this->processCollection(
-                    $value['branch'],
-                    Branch::class,
-                    BranchMapper::class,
-                    'brc_code'
-                );
-            }
+            $results['branch'] = $this->processCollection(
+                $this->getRecords($value, 'branch'),
+                Branch::class,
+                BranchMapper::class,
+                'brc_code'
+            );
 
             // 3. Usuarios (login)
-            if (!empty($value['login'])) {
-                $results['login'] = $this->processCollection(
-                    $value['login'],
-                    Login::class,
-                    LoginMapper::class,
-                    'lgn_code'
-                );
-            }
+            $results['login'] = $this->processCollection(
+                $this->getRecords($value, 'login'),
+                Login::class,
+                LoginMapper::class,
+                'lgn_code'
+            );
 
             // 4. Territorios (territory)
-            if (!empty($value['territory'])) {
-                $results['territory'] = $this->processCollection(
-                    $value['territory'],
-                    Territory::class,
-                    TerritoryMapper::class,
-                    'try_code'
-                );
-            }
+            $results['territory'] = $this->processCollection(
+                $this->getRecords($value, 'territory'),
+                Territory::class,
+                TerritoryMapper::class,
+                'try_code'
+            );
 
             // 5. Relación Login-Branch (loginBranch)
-            if (!empty($value['loginBranch'])) {
-                $results['loginBranch'] = $this->processCollection(
-                    $value['loginBranch'],
-                    LoginBranch::class,
-                    LoginBranchMapper::class,
-                    ['lgn_code', 'brc_code']
-                );
-            }
+            $results['loginBranch'] = $this->processCollection(
+                $this->getRecords($value, 'loginBranch'),
+                LoginBranch::class,
+                LoginBranchMapper::class,
+                ['lgn_code', 'brc_code']
+            );
 
             // 6. Relación Crew-Login (crewLogin)
-            if (!empty($value['crewLogin'])) {
-                $results['crewLogin'] = $this->processCollection(
-                    $value['crewLogin'],
-                    CrewLogin::class,
-                    CrewLoginMapper::class,
-                    ['crw_code', 'lgn_code']
-                );
-            }
+            $results['crewLogin'] = $this->processCollection(
+                $this->getRecords($value, 'crewLogin'),
+                CrewLogin::class,
+                CrewLoginMapper::class,
+                ['crw_code', 'lgn_code']
+            );
 
             return $results;
         });
+    }
+
+    /**
+     * Obtiene los registros de un nodo de forma robusta.
+     */
+    private function getRecords(array $data, string $internalKey): array
+    {
+        $normalizedData = [];
+        foreach ($data as $k => $v) {
+            $normK = strtolower(str_replace(' ', '', $k));
+            $normalizedData[$normK] = $v;
+        }
+
+        $aliases = $this->keyMap[$internalKey] ?? [$internalKey];
+        foreach ($aliases as $alias) {
+            $normAlias = strtolower(str_replace(' ', '', $alias));
+            if (isset($normalizedData[$normAlias]) && is_array($normalizedData[$normAlias])) {
+                return $normalizedData[$normAlias];
+            }
+        }
+
+        return [];
     }
 
     /**

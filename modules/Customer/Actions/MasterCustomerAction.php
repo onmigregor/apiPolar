@@ -35,11 +35,11 @@ class MasterCustomerAction
         'type2'         => ['type2', 'ramoCliente'],
         'city'          => ['city', 'regionCliente'],
         'frequency'     => ['frequency', 'frecuenciaTb'],
-        'infoType'      => ['infoType', 'licenciaTb'],
+        'infoType'      => ['infoType', 'licenciaTb', 'info type'],
         'customer'      => ['customer', 'Clientes'],
-        'customerRoute' => ['customerRoute', 'frecuenciaCliente'],
-        'customerPrice' => ['customerPrice', 'preciosCliente'],
-        'customerInfo'  => ['customerInfo', 'informacionCliente'],
+        'customerRoute' => ['customerRoute', 'frecuenciaCliente', 'customer route'],
+        'customerPrice' => ['customerPrice', 'preciosCliente', 'customer price'],
+        'customerInfo'  => ['customerInfo', 'informacionCliente', 'customer info'],
     ];
 
     public function execute(array $payload): array
@@ -129,16 +129,26 @@ class MasterCustomerAction
     }
 
     /**
-     * Obtiene los registros de un nodo intentando con todas las variantes del mapa.
+     * Obtiene los registros de un nodo de forma robusta (insensible a espacios y mayúsculas).
      */
     private function getRecords(array $data, string $internalKey): array
     {
+        // 1. Normalizamos las llaves del JSON para la búsqueda
+        $normalizedData = [];
+        foreach ($data as $k => $v) {
+            $normK = strtolower(str_replace(' ', '', $k));
+            $normalizedData[$normK] = $v;
+        }
+
+        // 2. Buscamos el internalKey o cualquiera de sus alias en el mapa
         $aliases = $this->keyMap[$internalKey] ?? [$internalKey];
         foreach ($aliases as $alias) {
-            if (isset($data[$alias]) && is_array($data[$alias])) {
-                return $data[$alias];
+            $normAlias = strtolower(str_replace(' ', '', $alias));
+            if (isset($normalizedData[$normAlias]) && is_array($normalizedData[$normAlias])) {
+                return $normalizedData[$normAlias];
             }
         }
+
         return [];
     }
 

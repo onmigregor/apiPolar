@@ -16,9 +16,13 @@ use Modules\PromotionTeam\Mappers\PromotionTeamMapper;
 use Modules\PromotionTeam\Models\PromotionTeam;
 use Exception;
 
-class MasterPromotionAction
-{
-    private static array $fillableCache = [];
+    private array $keyMap = [
+        'promotion'              => ['promotion', 'promociones', 'promocionTb'],
+        'promotionDetail'        => ['promotionDetail', 'promotiondetail', 'promotion detail', 'detallePromocion'],
+        'promotionDetailProduct' => ['promotionDetailProduct', 'promotiondetailproduct', 'promotion detail product', 'productosPromocion'],
+        'promotionRoute'         => ['promotionRoute', 'promotionroute', 'promotion route', 'rutasPromocion'],
+        'promotionTeam'          => ['promotionTeam', 'promotionteam', 'promotion team', 'equiposPromocion'],
+    ];
 
     public function execute(array $payloadList): array
     {
@@ -33,9 +37,21 @@ class MasterPromotionAction
             ];
 
             foreach ($payloadList as $block) {
-                foreach ($unified as $key => &$list) {
-                    if (isset($block[$key]) && is_array($block[$key])) {
-                        $list = array_merge($list, $block[$key]);
+                // Normalizamos las llaves del bloque actual para la búsqueda robusta
+                $normalizedBlock = [];
+                foreach ($block as $k => $v) {
+                    $normK = strtolower(str_replace(' ', '', $k));
+                    $normalizedBlock[$normK] = $v;
+                }
+
+                foreach ($unified as $internalKey => &$list) {
+                    $aliases = $this->keyMap[$internalKey] ?? [$internalKey];
+                    foreach ($aliases as $alias) {
+                        $normAlias = strtolower(str_replace(' ', '', $alias));
+                        if (isset($normalizedBlock[$normAlias]) && is_array($normalizedBlock[$normAlias])) {
+                            $list = array_merge($list, $normalizedBlock[$normAlias]);
+                            break; // Encontró la sección en este bloque, pasar a la siguiente sección
+                        }
                     }
                 }
             }
