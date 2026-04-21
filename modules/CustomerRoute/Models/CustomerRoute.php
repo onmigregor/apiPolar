@@ -19,6 +19,8 @@ class CustomerRoute extends Model
         'ctr_wednesday',
         'ctr_thursday',
         'ctr_friday',
+        'ctr_saturday',
+        'ctr_sunday',
     ];
 
 
