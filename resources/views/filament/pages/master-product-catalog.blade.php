@@ -65,6 +65,10 @@
             <x-filament::tabs.item @click="tab = 'class3'" alpine-active="tab === 'class3'">
                 Product Class 3
             </x-filament::tabs.item>
+            
+            <x-filament::tabs.item @click="tab = 'class4'" alpine-active="tab === 'class4'">
+                Product Class 4
+            </x-filament::tabs.item>
 
             <x-filament::tabs.item @click="tab = 'family'" alpine-active="tab === 'family'">
                 Product Family
@@ -90,6 +94,10 @@
 
             <div x-show="tab === 'class3'" x-cloak>
                 @livewire('product-class3-table')
+            </div>
+
+            <div x-show="tab === 'class4'" x-cloak>
+                @livewire('product-class4-table')
             </div>
 
             <div x-show="tab === 'family'" x-cloak>

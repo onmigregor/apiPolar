@@ -7,6 +7,7 @@ use Modules\Unit\Mappers\UnitMapper;
 use Modules\ProductFamily\Mappers\ProductFamilyMapper;
 use Modules\ProductCategory\Mappers\ProductCategoryMapper;
 use Modules\ProductClass3\Mappers\ProductClass3Mapper;
+use Modules\Product\Mappers\ProductClass4Mapper;
 use Modules\Product\Mappers\ProductMapper;
 use Modules\ProductUnit\Mappers\ProductUnitMapper;
 
@@ -14,6 +15,7 @@ use Modules\Unit\Models\Unit;
 use Modules\ProductFamily\Models\ProductFamily;
 use Modules\ProductCategory\Models\ProductCategory;
 use Modules\ProductClass3\Models\ProductClass3;
+use Modules\Product\Models\ProductClass4;
 use Modules\Product\Models\Product;
 use Modules\ProductUnit\Models\ProductUnit;
 
@@ -26,6 +28,7 @@ class MasterProductAction
         'class1'       => ['class1', 'Familias', 'familiaTb'],
         'class2'       => ['class2', 'Categorias', 'categoriaTb'],
         'class3'       => ['class3', 'Subcategorias', 'subcategoriaTb'],
+        'class4'       => ['class4', 'Subcategorias2', 'class4Tb'],
         'product'      => ['product', 'Productos'],
         'productUnit'  => ['productUnit', 'productunit', 'UnidadesProducto', 'product unit'],
     ];
@@ -77,7 +80,16 @@ class MasterProductAction
                 ProductClass3Mapper::class,
                 'cl3_code'
             );
-            if ($log) $log->update(['progress' => 60]);
+            if ($log) $log->update(['progress' => 55]);
+
+            // 4b. Class 4 de producto (class4)
+            $results['class4'] = $this->processCollection(
+                $this->getRecords($value, 'class4'),
+                ProductClass4::class,
+                ProductClass4Mapper::class,
+                'cl4_code'
+            );
+            if ($log) $log->update(['progress' => 65]);
 
             // 5. Productos (product)
             $results['product'] = $this->processCollection(

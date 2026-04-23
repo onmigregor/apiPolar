@@ -9,3 +9,17 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Forzar scroll horizontal en tablas de Filament */
+.fi-ta-content {
+    overflow-x: auto !important;
+}
+
+.fi-ta-table {
+    min-width: 100%;
+    table-layout: auto !important;
+}
+
+.fi-ta-cell {
+    white-space: nowrap !important;
+}

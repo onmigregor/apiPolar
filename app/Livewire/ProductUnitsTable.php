@@ -23,7 +23,9 @@ class ProductUnitsTable extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('pro_code')->label('Código Producto')->searchable()->sortable(),
                 TextColumn::make('unt_code')->label('Código Unidad')->searchable()->sortable(),
+                TextColumn::make('pru_multiply_by')->label('Multiplicador')->sortable(),
                 TextColumn::make('pru_divide_by')->label('Divisor')->sortable(),
+                TextColumn::make('pru_bar_code')->label('Barcode')->searchable(),
             ]);
     }
 

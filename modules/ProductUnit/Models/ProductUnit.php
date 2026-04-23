@@ -13,7 +13,9 @@ class ProductUnit extends Model
     protected $fillable = [
         'pro_code',
         'unt_code',
+        'pru_multiply_by',
         'pru_divide_by',
+        'pru_bar_code',
     ];
 
 
