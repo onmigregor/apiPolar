@@ -19,6 +19,7 @@ class CustomerMapper
         'cus_comm_id'         => ['cusCommId', 'CUS_COMM_ID', 'cus_comm_id'],
         'tp1_code'            => ['tp1Code', 'TP1_CODE', 'tp1_code'],
         'tp2_code'            => ['tp2Code', 'TP2_CODE', 'tp2_code'],
+        'tp3_code'            => ['tp3Code', 'TP3_CODE', 'tp3_code'],
         'cit_code'            => ['citCode', 'CIT_CODE', 'cit_code'],
         'txn_code'            => ['txnCode', 'TXN_CODE', 'txn_code'],
         'cus_phone'           => ['cusPhone', 'CUS_PHONE', 'cus_phone'],

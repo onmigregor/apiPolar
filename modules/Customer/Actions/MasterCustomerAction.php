@@ -33,6 +33,7 @@ class MasterCustomerAction
     private array $keyMap = [
         'type1'         => ['type1', 'GrupoCliente'],
         'type2'         => ['type2', 'ramoCliente'],
+        'type3'         => ['type3', 'segmentoCliente'],
         'city'          => ['city', 'regionCliente'],
         'frequency'     => ['frequency', 'frecuenciaTb'],
         'infoType'      => ['infoType', 'licenciaTb', 'info type'],
@@ -66,6 +67,14 @@ class MasterCustomerAction
                 CustomerBranch::class,
                 CustomerBranchMapper::class,
                 'tp2_code'
+            );
+            
+            // 2b. segmentoCliente (type3)
+            $results['segmentoCliente'] = $this->processCollection(
+                $this->getRecords($value, 'type3'),
+                \Modules\Customer\Models\CustomerSegment::class,
+                \Modules\Customer\Mappers\CustomerSegmentMapper::class,
+                'tp3_code'
             );
 
             // 3. regionCliente (city)

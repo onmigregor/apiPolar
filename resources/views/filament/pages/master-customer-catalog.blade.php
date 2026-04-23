@@ -64,6 +64,10 @@
                     Branches
                 </x-filament::tabs.item>
 
+                <x-filament::tabs.item @click="tab = 'segments'" alpine-active="tab === 'segments'">
+                    Segments
+                </x-filament::tabs.item>
+
                 <x-filament::tabs.item @click="tab = 'cities'" alpine-active="tab === 'cities'">
                     Cities
                 </x-filament::tabs.item>
@@ -117,6 +121,10 @@
 
             <div x-show="tab === 'branches'" x-cloak>
                 @livewire('customer-branches-table')
+            </div>
+
+            <div x-show="tab === 'segments'" x-cloak>
+                @livewire('customer-segments-table')
             </div>
 
             <div x-show="tab === 'cities'" x-cloak>

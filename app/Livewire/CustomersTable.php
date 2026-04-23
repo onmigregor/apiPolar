@@ -26,6 +26,7 @@ class CustomersTable extends Component implements HasForms, HasTable
                         $join->on(DB::raw("TRIM(LEADING '0' FROM customers.cus_code)"), '=', DB::raw("TRIM(LEADING '0' FROM customer_routes.cus_code)"));
                     })
                     ->leftJoin('customer_branches', 'customers.tp2_code', '=', 'customer_branches.tp2_code')
+                    ->leftJoin('customer_segments', 'customers.tp3_code', '=', 'customer_segments.tp3_code')
                     ->select(
                         'customers.*', 
                         'customer_routes.ctr_monday', 
@@ -35,7 +36,8 @@ class CustomersTable extends Component implements HasForms, HasTable
                         'customer_routes.ctr_friday', 
                         'customer_routes.ctr_saturday', 
                         'customer_routes.ctr_sunday',
-                        'customer_branches.tp2_name as customer_type_name'
+                        'customer_branches.tp2_name as customer_type_name',
+                        'customer_segments.tp3_name as customer_segment_name'
                     )
             )
             ->columns([
@@ -48,11 +50,14 @@ class CustomersTable extends Component implements HasForms, HasTable
                 TextColumn::make('cus_business_name')->label('Razón Social')->searchable(query: function ($query, $search) {
                     $query->where('customers.cus_business_name', 'like', "%{$search}%");
                 })->sortable(),
-                TextColumn::make('cus_administrator')->label('Administrador')->searchable(query: function ($query, $search) {
-                    $query->where('customers.cus_administrator', 'like', "%{$search}%");
-                })->sortable(),
                 TextColumn::make('customer_type_name')->label('Tipo de Cliente')->searchable(query: function ($query, $search) {
                     $query->where('customer_branches.tp2_name', 'like', "%{$search}%");
+                })->sortable(),
+                TextColumn::make('customer_segment_name')->label('Segmento')->searchable(query: function ($query, $search) {
+                    $query->where('customer_segments.tp3_name', 'like', "%{$search}%");
+                })->sortable(),
+                TextColumn::make('cus_administrator')->label('Administrador')->searchable(query: function ($query, $search) {
+                    $query->where('customers.cus_administrator', 'like', "%{$search}%");
                 })->sortable(),
                 TextColumn::make('frecuencia')
                     ->label('Frecuencia (Días)')
