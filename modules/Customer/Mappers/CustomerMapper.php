@@ -34,5 +34,6 @@ class CustomerMapper
         'prc_code_for_return' => ['prcCodeForReturn', 'PRC_CODE_FOR_RETURN', 'prc_code_for_return'],
         'cus_contact_person'  => ['cusContactPerson', 'CUS_CONTACT_PERSON', 'cus_contact_person'],
         'cus_email'           => ['cusEmail', 'CUS_EMAIL', 'cus_email'],
+        'cus_administrator'   => ['cusAdministrator', 'CUS_ADMINISTRATOR', 'cus_administrator'],
     ];
 }

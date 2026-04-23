@@ -33,6 +33,7 @@ class Customer extends Model
         'prc_code_for_return',
         'cus_contact_person',
         'cus_email',
+        'cus_administrator',
     ];
 
 

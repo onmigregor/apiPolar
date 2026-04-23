@@ -50,47 +50,61 @@
     </div>
 
     <div x-data="{ tab: 'customers' }">
-        <x-filament::tabs>
-            <x-filament::tabs.item @click="tab = 'customers'" alpine-active="tab === 'customers'">
-                Customers
-            </x-filament::tabs.item>
-            
-            <x-filament::tabs.item @click="tab = 'groups'" alpine-active="tab === 'groups'">
-                Groups
-            </x-filament::tabs.item>
+        <div class="flex items-center justify-between gap-4">
+            <x-filament::tabs class="flex-1">
+                <x-filament::tabs.item @click="tab = 'customers'" alpine-active="tab === 'customers'">
+                    Customers
+                </x-filament::tabs.item>
+                
+                <x-filament::tabs.item @click="tab = 'groups'" alpine-active="tab === 'groups'">
+                    Groups
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'branches'" alpine-active="tab === 'branches'">
-                Branches
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'branches'" alpine-active="tab === 'branches'">
+                    Branches
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'cities'" alpine-active="tab === 'cities'">
-                Cities
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'cities'" alpine-active="tab === 'cities'">
+                    Cities
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'frequencies'" alpine-active="tab === 'frequencies'">
-                Frequencies
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'frequencies'" alpine-active="tab === 'frequencies'">
+                    Frequencies
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'info-types'" alpine-active="tab === 'info-types'">
-                Info Types
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'info-types'" alpine-active="tab === 'info-types'">
+                    Info Types
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'routes'" alpine-active="tab === 'routes'">
-                Routes
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'routes'" alpine-active="tab === 'routes'">
+                    Routes
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'prices'" alpine-active="tab === 'prices'">
-                Prices
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'prices'" alpine-active="tab === 'prices'">
+                    Prices
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'infos'" alpine-active="tab === 'infos'">
-                Customer Infos
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'infos'" alpine-active="tab === 'infos'">
+                    Customer Infos
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'import-report'" alpine-active="tab === 'import-report'">
-                REPORTE CARGAS CLIENTES
-            </x-filament::tabs.item>
-        </x-filament::tabs>
+                <x-filament::tabs.item @click="tab = 'import-report'" alpine-active="tab === 'import-report'">
+                    REPORTE CARGAS CLIENTES
+                </x-filament::tabs.item>
+            </x-filament::tabs>
+
+            <button 
+                wire:click="syncCustomers"
+                wire:loading.attr="disabled"
+                wire:target="syncCustomers"
+                wire:confirm="¿Estás seguro de que deseas sincronizar los datos de Clientes con Polar API?"
+                class="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-bold text-white shadow hover:bg-primary-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <x-heroicon-m-arrow-path wire:loading.class="animate-spin" wire:target="syncCustomers" class="h-4 w-4" />
+                <span wire:loading.remove wire:target="syncCustomers">SINCRONIZAR CLIENTES</span>
+                <span wire:loading wire:target="syncCustomers">SINCRONIZANDO...</span>
+            </button>
+        </div>
 
         <div class="mt-6">
             <div x-show="tab === 'customers'">

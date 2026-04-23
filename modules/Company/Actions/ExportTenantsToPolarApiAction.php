@@ -49,7 +49,7 @@ class ExportTenantsToPolarApiAction
                     'name' => $login->lgn_name, // Nombre Empresa
                     'route_name' => $tenant,    // Ej: V56161
                     'cep' => $normalizedLgnCode, // Código sin ceros
-                    'db_name' => 'www_' . $tenant, // Prefijo solicitado
+                    'db_name' => 'www_' . $tenant . '-p', // Prefijo y sufijo solicitado
                 ];
             }
         }
@@ -63,8 +63,11 @@ class ExportTenantsToPolarApiAction
         
         // 2. Enviar a PolarAPI
         try {
-            $apiUrl = env('POLAR_API_URL') . '/company-routes/sync';
+            $baseUrl = env('POLAR_API_URL', 'http://polar_api/api');
+            $apiUrl = $baseUrl . '/company-routes/sync';
             $apiToken = env('POLAR_API_TOKEN');
+
+            Log::info("ExportTenantsToPolarApiAction: Attempting sync to " . $apiUrl);
 
             $response = Http::withToken($apiToken)
                 ->timeout(30)

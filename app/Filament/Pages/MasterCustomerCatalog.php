@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
 use Livewire\WithFileUploads;
+use Modules\Customer\Actions\ExportCustomersToPolarApiAction;
 use Filament\Notifications\Notification;
 
 class MasterCustomerCatalog extends Page
@@ -50,6 +51,26 @@ class MasterCustomerCatalog extends Page
             ->body('El archivo "' . $originalName . '" se está procesando en segundo plano. Revisa la pestaña de Reporte.')
             ->success()
             ->send();
+    }
+
+    public function syncCustomers(ExportCustomersToPolarApiAction $action)
+    {
+        $result = $action->execute();
+
+        if ($result['success']) {
+            Notification::make()
+                ->title('Sincronización Exitosa')
+                ->body($result['message'])
+                ->success()
+                ->send();
+        } else {
+            Notification::make()
+                ->title('Error de Sincronización')
+                ->body($result['message'])
+                ->danger()
+                ->persistent()
+                ->send();
+        }
     }
 
     protected static string $view = 'filament.pages.master-customer-catalog';
