@@ -50,35 +50,46 @@
     </div>
 
     <div x-data="{ tab: 'regions' }">
-        <x-filament::tabs>
-            <x-filament::tabs.item @click="tab = 'regions'" alpine-active="tab === 'regions'">
-                Regions
-            </x-filament::tabs.item>
+        <div class="flex items-center justify-between gap-4">
+            <x-filament::tabs class="flex-1">
+                <x-filament::tabs.item @click="tab = 'regions'" alpine-active="tab === 'regions'">
+                    Regions
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'branches'" alpine-active="tab === 'branches'">
-                Branches
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'branches'" alpine-active="tab === 'branches'">
+                    Branches
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'logins'" alpine-active="tab === 'logins'">
-                Logins
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'logins'" alpine-active="tab === 'logins'">
+                    Logins
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'territories'" alpine-active="tab === 'territories'">
-                Territories
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'territories'" alpine-active="tab === 'territories'">
+                    Territories
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'login-branches'" alpine-active="tab === 'login-branches'">
-                Login Branches
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'login-branches'" alpine-active="tab === 'login-branches'">
+                    Login Branches
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'crew-logins'" alpine-active="tab === 'crew-logins'">
-                Crew Logins
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'crew-logins'" alpine-active="tab === 'crew-logins'">
+                    Crew Logins
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'import-report'" alpine-active="tab === 'import-report'">
-                REPORTE CARGAS EMPRESAS
-            </x-filament::tabs.item>
-        </x-filament::tabs>
+                <x-filament::tabs.item @click="tab = 'import-report'" alpine-active="tab === 'import-report'">
+                    REPORTE CARGAS EMPRESAS
+                </x-filament::tabs.item>
+            </x-filament::tabs>
+
+            <button 
+                wire:click="syncTenants"
+                wire:confirm="¿Estás seguro de que deseas sincronizar los datos de Logins y crear las rutas en Polar API?"
+                class="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-bold text-white shadow hover:bg-primary-700 transition duration-200"
+            >
+                <x-heroicon-m-arrow-path wire:loading.class="animate-spin" wire:target="syncTenants" class="h-4 w-4" />
+                <span>SINCRONIZAR TENANTS</span>
+            </button>
+        </div>
 
         <div class="mt-6">
             <div x-show="tab === 'regions'">

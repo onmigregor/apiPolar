@@ -3,8 +3,9 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
-use Livewire\WithFileUploads;
 use Filament\Notifications\Notification;
+use Modules\Company\Actions\ExportTenantsToPolarApiAction;
+use Livewire\WithFileUploads;
 
 class MasterCompanyCatalog extends Page
 {
@@ -54,4 +55,23 @@ class MasterCompanyCatalog extends Page
     }
 
     protected static string $view = 'filament.pages.master-company-catalog';
+
+    public function syncTenants(ExportTenantsToPolarApiAction $action)
+    {
+        $result = $action->execute();
+
+        if ($result['success']) {
+            Notification::make()
+                ->title('Sincronización Exitosa')
+                ->body("Se han procesado " . (($result['results']['created'] ?? 0) + ($result['results']['updated'] ?? 0)) . " registros.")
+                ->success()
+                ->send();
+        } else {
+            Notification::make()
+                ->title('Error en Sincronización')
+                ->body($result['message'])
+                ->danger()
+                ->send();
+        }
+    }
 }
