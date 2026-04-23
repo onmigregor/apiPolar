@@ -21,9 +21,25 @@ class CustomerRoutesTable extends Component implements HasForms, HasTable
         return $table
             ->query(CustomerRoute::query())
             ->columns([
-                TextColumn::make('rot_code')->label('rot_code')->searchable()->sortable(),
-                TextColumn::make('cus_code')->label('cus_code')->searchable()->sortable(),
-                TextColumn::make('fre_code')->label('fre_code')->searchable()->sortable(),
+                TextColumn::make('rot_code')->label('Ruta')->searchable()->sortable(),
+                TextColumn::make('cus_code')->label('Cód. Cliente')->searchable()->sortable(),
+                TextColumn::make('fre_code')->label('Frecuencia')->searchable()->sortable(),
+                TextColumn::make('dias_despacho')
+                    ->label('Días de Despacho')
+                    ->getStateUsing(function ($record) {
+                        $days = [];
+                        if (($record->ctr_monday ?? 0) > 0) $days[] = 'Lunes';
+                        if (($record->ctr_tuesday ?? 0) > 0) $days[] = 'Martes';
+                        if (($record->ctr_wednesday ?? 0) > 0) $days[] = 'Miércoles';
+                        if (($record->ctr_thursday ?? 0) > 0) $days[] = 'Jueves';
+                        if (($record->ctr_friday ?? 0) > 0) $days[] = 'Viernes';
+                        if (($record->ctr_saturday ?? 0) > 0) $days[] = 'Sábado';
+                        if (($record->ctr_sunday ?? 0) > 0) $days[] = 'Domingo';
+                        
+                        return implode(', ', $days) ?: 'N/A';
+                    })
+                    ->color('primary')
+                    ->weight('bold'),
             ]);
     }
 

@@ -21,7 +21,22 @@ class ExportCustomersToPolarApiAction
                 'customers.cus_name',
                 'customers.cus_business_name',
                 'customers.cus_administrator',
-                'customer_routes.rot_code'
+                'customers.cus_tax_id1',
+                'customers.cus_street1',
+                'customers.cus_street2',
+                'customers.cus_street3',
+                'customers.cus_latitude',
+                'customers.cus_longitude',
+                'customers.cus_contact_person',
+                'customers.cus_phone',
+                'customer_routes.rot_code',
+                'customer_routes.ctr_monday',
+                'customer_routes.ctr_tuesday',
+                'customer_routes.ctr_wednesday',
+                'customer_routes.ctr_thursday',
+                'customer_routes.ctr_friday',
+                'customer_routes.ctr_saturday',
+                'customer_routes.ctr_sunday'
             )
             ->get();
 
@@ -38,6 +53,12 @@ class ExportCustomersToPolarApiAction
                 'cus_name' => $customer->cus_name,
                 'cus_business_name' => $customer->cus_business_name,
                 'cus_administrator' => $customer->cus_administrator,
+                'cus_tax_id1' => $customer->cus_tax_id1,
+                'address' => trim($customer->cus_street1 . ' ' . $customer->cus_street2 . ' ' . $customer->cus_street3),
+                'latitude' => $customer->cus_latitude,
+                'longitude' => $customer->cus_longitude,
+                'contact_person' => $customer->cus_contact_person,
+                'phone' => $customer->cus_phone,
                 'route_name' => $routeCode, // Ej: V09011
             ];
         }
