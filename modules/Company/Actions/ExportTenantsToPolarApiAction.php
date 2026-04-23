@@ -49,7 +49,7 @@ class ExportTenantsToPolarApiAction
                     'name' => $login->lgn_name, // Nombre Empresa
                     'route_name' => $tenant,    // Ej: V56161
                     'cep' => $normalizedLgnCode, // Código sin ceros
-                    'db_name' => 'www_' . $tenant . '-p', // Prefijo y sufijo solicitado
+                    'db_name' => 'www_' . $tenant . 'p', // Prefijo y sufijo solicitado
                 ];
             }
         }
