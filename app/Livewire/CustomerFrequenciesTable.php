@@ -21,9 +21,13 @@ class CustomerFrequenciesTable extends Component implements HasForms, HasTable
         return $table
             ->query(CustomerFrequency::query())
             ->columns([
-                TextColumn::make('fre_code')->label('fre_code')->searchable()->sortable(),
-                TextColumn::make('fre_name')->label('fre_name')->searchable()->sortable(),
-                TextColumn::make('fre_week1')->label('fre_week1')->searchable()->sortable(),
+                TextColumn::make('fre_code')->label('Código')->searchable()->sortable(),
+                TextColumn::make('fre_name')->label('Nombre')->searchable()->sortable(),
+                TextColumn::make('fre_week1')->label('Semana 1')->searchable()->sortable(),
+                TextColumn::make('fre_week2')->label('Semana 2')->searchable()->sortable(),
+                TextColumn::make('fre_week3')->label('Semana 3')->searchable()->sortable(),
+                TextColumn::make('fre_week4')->label('Semana 4')->searchable()->sortable(),
+                TextColumn::make('fre_customer')->label('Frec. Cliente')->searchable()->sortable(),
             ]);
     }
 
