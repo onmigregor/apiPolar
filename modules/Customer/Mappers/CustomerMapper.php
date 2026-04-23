@@ -22,6 +22,7 @@ class CustomerMapper
         'tp3_code'            => ['tp3Code', 'TP3_CODE', 'tp3_code'],
         'cit_code'            => ['citCode', 'CIT_CODE', 'cit_code'],
         'txn_code'            => ['txnCode', 'TXN_CODE', 'txn_code'],
+        'met_code1'           => ['metCode1', 'MET_CODE1', 'met_code1'],
         'cus_phone'           => ['cusPhone', 'CUS_PHONE', 'cus_phone'],
         'cus_fax'             => ['cusFax', 'CUS_FAX', 'cus_fax'],
         'cus_street1'         => ['cusStreet1', 'CUS_STREET1', 'cus_street1'],

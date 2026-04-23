@@ -26,6 +26,8 @@ class Customer extends Model
         'cus_contact_person',
         'cus_administrator',
         'cit_code',
+        'txn_code',
+        'met_code1',
         'tp1_code',
         'tp2_code',
         'tp3_code',

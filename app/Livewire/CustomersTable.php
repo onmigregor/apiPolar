@@ -56,6 +56,16 @@ class CustomersTable extends Component implements HasForms, HasTable
                 TextColumn::make('customer_segment_name')->label('Segmento')->searchable(query: function ($query, $search) {
                     $query->where('customer_segments.tp3_name', 'like', "%{$search}%");
                 })->sortable(),
+                TextColumn::make('tp1_code')->label('Tipo 1 (tp1)')->searchable(),
+                TextColumn::make('tp2_code')->label('Tipo 2 (tp2)')->searchable(),
+                TextColumn::make('tp3_code')->label('Tipo 3 (tp3)')->searchable(),
+                TextColumn::make('met_code1')->label('Met. Pago (met1)')->searchable(),
+                TextColumn::make('cit_code')->label('Ciudad (cit)')->searchable(),
+                TextColumn::make('txn_code')->label('Txn Code')->searchable(),
+                TextColumn::make('cus_phone')->label('Teléfono')->searchable(),
+                TextColumn::make('cus_street1')->label('Calle 1')->searchable(),
+                TextColumn::make('cus_street3')->label('Calle 3')->searchable(),
+                TextColumn::make('cus_tax_id1')->label('RIF/TaxId')->searchable(),
                 TextColumn::make('cus_administrator')->label('Administrador')->searchable(query: function ($query, $search) {
                     $query->where('customers.cus_administrator', 'like', "%{$search}%");
                 })->sortable(),
