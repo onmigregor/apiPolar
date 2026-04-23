@@ -28,15 +28,15 @@ class CustomerRoutesTable extends Component implements HasForms, HasTable
                     ->label('Días de Despacho')
                     ->getStateUsing(function ($record) {
                         $days = [];
-                        if (($record->ctr_monday ?? 0) > 0) $days[] = 'Lunes';
-                        if (($record->ctr_tuesday ?? 0) > 0) $days[] = 'Martes';
-                        if (($record->ctr_wednesday ?? 0) > 0) $days[] = 'Miércoles';
-                        if (($record->ctr_thursday ?? 0) > 0) $days[] = 'Jueves';
-                        if (($record->ctr_friday ?? 0) > 0) $days[] = 'Viernes';
-                        if (($record->ctr_saturday ?? 0) > 0) $days[] = 'Sábado';
-                        if (($record->ctr_sunday ?? 0) > 0) $days[] = 'Domingo';
+                        if (($record->ctr_monday ?? 0) > 0) $days[] = 'LUNES';
+                        if (($record->ctr_tuesday ?? 0) > 0) $days[] = 'MARTES';
+                        if (($record->ctr_wednesday ?? 0) > 0) $days[] = 'MIERCOLES';
+                        if (($record->ctr_thursday ?? 0) > 0) $days[] = 'JUEVES';
+                        if (($record->ctr_friday ?? 0) > 0) $days[] = 'VIERNES';
+                        if (($record->ctr_saturday ?? 0) > 0) $days[] = 'SABADO';
+                        if (($record->ctr_sunday ?? 0) > 0) $days[] = 'DOMINGO';
                         
-                        return implode(', ', $days) ?: 'N/A';
+                        return implode(', ', $days) ?: 'SIN ASIGNAR';
                     })
                     ->color('primary')
                     ->weight('bold'),

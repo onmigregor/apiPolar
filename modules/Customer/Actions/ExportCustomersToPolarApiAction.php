@@ -60,6 +60,15 @@ class ExportCustomersToPolarApiAction
                 'contact_person' => $customer->cus_contact_person,
                 'phone' => $customer->cus_phone,
                 'route_name' => $routeCode, // Ej: V09011
+                'days' => [
+                    'monday' => $customer->ctr_monday ?? 0,
+                    'tuesday' => $customer->ctr_tuesday ?? 0,
+                    'wednesday' => $customer->ctr_wednesday ?? 0,
+                    'thursday' => $customer->ctr_thursday ?? 0,
+                    'friday' => $customer->ctr_friday ?? 0,
+                    'saturday' => $customer->ctr_saturday ?? 0,
+                    'sunday' => $customer->ctr_sunday ?? 0,
+                ]
             ];
         }
 
