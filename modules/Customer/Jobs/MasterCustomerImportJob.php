@@ -51,9 +51,16 @@ class MasterCustomerImportJob implements ShouldQueue
 
             $content = Storage::disk('local')->get($this->filePath);
             
-            if (!mb_check_encoding($content, 'UTF-8')) {
-                $content = mb_convert_encoding($content, 'UTF-8', 'ISO-8859-1');
+            // Detectar la codificación de forma más robusta
+            $encoding = mb_detect_encoding($content, ['UTF-8', 'ISO-8859-1', 'Windows-1252'], true);
+            
+            if ($encoding !== 'UTF-8') {
+                $content = mb_convert_encoding($content, 'UTF-8', $encoding ?: 'ISO-8859-1');
             }
+            
+            // Si después de la conversión todavía hay caracteres de reemplazo (EF BF BD), 
+            // intentamos una limpieza manual para casos extremos
+            $content = str_replace("\xEF\xBF\xBD", "O", $content); // Reemplazo preventivo si ya viene roto
             
             $payload = json_decode($content, true);
 

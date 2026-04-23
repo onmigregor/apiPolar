@@ -10,8 +10,16 @@ class ExportCustomersToPolarApiAction
 {
     public function execute(): array
     {
+        // 0. Obtener tipos de cliente (branches)
+        $branches = DB::table('customer_branches')
+            ->select('tp2_code', 'tp2_name')
+            ->get()
+            ->map(fn($b) => [
+                'tp2_code' => $b->tp2_code,
+                'tp2_name' => $b->tp2_name
+            ])->toArray();
+
         // 1. Obtener clientes con su ruta asignada
-        // Hacemos un join con customer_routes para obtener el rot_code
         $customers = DB::table('customers')
             ->leftJoin('customer_routes', function($join) {
                 $join->on(DB::raw("TRIM(LEADING '0' FROM customers.cus_code)"), '=', DB::raw("TRIM(LEADING '0' FROM customer_routes.cus_code)"));
@@ -21,6 +29,7 @@ class ExportCustomersToPolarApiAction
                 'customers.cus_name',
                 'customers.cus_business_name',
                 'customers.cus_administrator',
+                'customers.tp2_code', // Incluimos el código de tipo de cliente
                 'customers.cus_tax_id1',
                 'customers.cus_street1',
                 'customers.cus_street2',
@@ -53,6 +62,7 @@ class ExportCustomersToPolarApiAction
                 'cus_name' => $customer->cus_name,
                 'cus_business_name' => $customer->cus_business_name,
                 'cus_administrator' => $customer->cus_administrator,
+                'tp2_code' => $customer->tp2_code, // Enviamos el código
                 'cus_tax_id1' => $customer->cus_tax_id1,
                 'address' => trim($customer->cus_street1 . ' ' . $customer->cus_street2 . ' ' . $customer->cus_street3),
                 'latitude' => $customer->cus_latitude,
@@ -77,7 +87,7 @@ class ExportCustomersToPolarApiAction
             return ['success' => false, 'message' => 'No hay clientes para sincronizar'];
         }
 
-        Log::info("ExportCustomersToPolarApiAction: Sending " . count($payload) . " customers to PolarAPI.");
+        Log::info("ExportCustomersToPolarApiAction: Sending " . count($payload) . " customers and " . count($branches) . " branches to PolarAPI.");
 
         // 2. Enviar a PolarAPI
         try {
@@ -88,8 +98,11 @@ class ExportCustomersToPolarApiAction
             Log::info("ExportCustomersToPolarApiAction: Attempting sync to " . $apiUrl);
 
             $response = Http::withToken($apiToken)
-                ->timeout(60) // Clientes pueden ser muchos, damos más tiempo
-                ->post($apiUrl, ['data' => $payload]);
+                ->timeout(60) 
+                ->post($apiUrl, [
+                    'branches' => $branches, // Enviamos los tipos de cliente
+                    'data' => $payload       // Enviamos los clientes
+                ]);
 
             if ($response->successful()) {
                 Log::info("ExportCustomersToPolarApiAction: Sync successful.");

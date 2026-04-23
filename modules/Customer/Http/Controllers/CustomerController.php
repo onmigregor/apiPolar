@@ -169,14 +169,19 @@ class CustomerController extends Controller
         try {
             // Validación de encoding: normalizar ISO-8859-1 a UTF-8 si es necesario
             $rawContent = $request->getContent();
-            if (!mb_check_encoding($rawContent, 'UTF-8')) {
-                $rawContent = mb_convert_encoding($rawContent, 'UTF-8', 'ISO-8859-1');
-                $payload = json_decode($rawContent, true);
-                if (json_last_error() !== JSON_ERROR_NONE) {
-                    return $this->error('Error de encoding en el payload: ' . json_last_error_msg(), 422);
-                }
-            } else {
-                $payload = $request->all();
+            
+            $encoding = mb_detect_encoding($rawContent, ['UTF-8', 'ISO-8859-1', 'Windows-1252'], true);
+            
+            if ($encoding !== 'UTF-8') {
+                $rawContent = mb_convert_encoding($rawContent, 'UTF-8', $encoding ?: 'ISO-8859-1');
+            }
+
+            // Limpieza de caracteres de reemplazo si ya vienen rotos
+            $rawContent = str_replace("\xEF\xBF\xBD", "O", $rawContent);
+
+            $payload = json_decode($rawContent, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return $this->error('Error de encoding en el payload: ' . json_last_error_msg(), 422);
             }
 
             // Si el payload es un array indexado con wrapper de Polar, pasarlo directo

@@ -47,9 +47,9 @@ class ExportTenantsToPolarApiAction
                 $payload[] = [
                     'code' => $login->brc_code . '_' . $tenant, // Concatenado para unicidad
                     'name' => $login->lgn_name, // Nombre Empresa
-                    'route_name' => $tenant,    // Ej: V56161
+                    'route_name' => strtolower($tenant),    // Ej: v56161 (en minúsculas)
                     'cep' => $normalizedLgnCode, // Código sin ceros
-                    'db_name' => 'www_' . $tenant . 'p', // Prefijo y sufijo solicitado
+                    'db_name' => 'www_' . strtolower($tenant) . 'p', // Prefijo y sufijo solicitado en minúsculas
                 ];
             }
         }
