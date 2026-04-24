@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use Filament\Notifications\Notification;
 use Modules\CustomerADC\Jobs\ImportCustomerAdcJob;
 use Modules\CustomerADC\Models\CustomerAdc;
+use Modules\CustomerADC\Actions\SyncCustomerAdcToPolarApiAction;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Table;
@@ -91,6 +92,35 @@ class CustomerAdcPage extends Page implements HasTable
                 ->title('Error')
                 ->body($e->getMessage())
                 ->danger()
+                ->send();
+        }
+    }
+
+    public function syncToTenants(SyncCustomerAdcToPolarApiAction $action)
+    {
+        try {
+            $result = $action->execute();
+
+            if ($result['success']) {
+                Notification::make()
+                    ->title('Éxito')
+                    ->body($result['message'])
+                    ->success()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Atención')
+                    ->body($result['message'] ?? 'Hubo un problema en la sincronización.')
+                    ->warning()
+                    ->send();
+            }
+
+        } catch (\Exception $e) {
+            Notification::make()
+                ->title('Error de Sincronización')
+                ->body($e->getMessage())
+                ->danger()
+                ->persistent()
                 ->send();
         }
     }

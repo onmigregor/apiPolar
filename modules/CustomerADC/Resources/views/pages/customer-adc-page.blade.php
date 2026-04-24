@@ -63,6 +63,20 @@
                     REPORTE CARGAS EQUIPOS
                 </x-filament::tabs.item>
             </x-filament::tabs>
+
+            {{-- Botón de Sincronización --}}
+            <button 
+                type="button"
+                wire:click="syncToTenants"
+                wire:loading.attr="disabled"
+                wire:target="syncToTenants"
+                wire:confirm="¿Estás seguro de que deseas sincronizar los equipos ADC a sus respectivos tenants?"
+                class="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-bold text-white shadow hover:bg-primary-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <x-heroicon-m-arrow-path wire:loading.class="animate-spin" wire:target="syncToTenants" class="h-4 w-4" />
+                <span wire:loading.remove wire:target="syncToTenants">SINCRONIZAR EQUIPOS ADC</span>
+                <span wire:loading wire:target="syncToTenants">SINCRONIZANDO...</span>
+            </button>
         </div>
 
         <div class="mt-6">
