@@ -34,6 +34,12 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                \Modules\DynamicPlan\Filament\Pages\PlanesDinamicosPolar::class,
+            ])
+            ->navigationGroups([
+                'Cargas Automatizadas',
+                'Cargas Manuales',
+                'Administración',
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([

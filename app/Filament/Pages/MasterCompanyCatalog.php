@@ -11,6 +11,7 @@ class MasterCompanyCatalog extends Page
 {
     use WithFileUploads;
 
+    protected static ?string $navigationGroup = 'Cargas Automatizadas';
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
     protected static ?string $navigationLabel = 'Master Empresas';
     protected static ?string $slug = 'master-company-catalog';

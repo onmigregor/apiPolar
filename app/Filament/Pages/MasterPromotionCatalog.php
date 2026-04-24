@@ -10,6 +10,7 @@ class MasterPromotionCatalog extends Page
 {
     use WithFileUploads;
 
+    protected static ?string $navigationGroup = 'Cargas Automatizadas';
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationLabel = 'Master Promotion';
     protected static ?string $title = 'Master Promotion';

@@ -41,4 +41,5 @@ return [
     Modules\Unit\Providers\UnitServiceProvider::class,
     Modules\User\Providers\UserServiceProvider::class,
     Modules\SftpManager\Providers\SftpManagerServiceProvider::class,
+    Modules\DynamicPlan\Providers\DynamicPlanServiceProvider::class,
 ];

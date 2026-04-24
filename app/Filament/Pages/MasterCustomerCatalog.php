@@ -11,6 +11,7 @@ class MasterCustomerCatalog extends Page
 {
     use WithFileUploads;
 
+    protected static ?string $navigationGroup = 'Cargas Automatizadas';
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationLabel = 'Master Clientes';
     protected static ?string $title = 'Master Clientes';

@@ -11,6 +11,7 @@ class MasterProductCatalog extends Page
     use WithFileUploads;
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
+    protected static ?string $navigationGroup = 'Cargas Automatizadas';
     protected static ?string $navigationLabel = 'Master Productos';
     protected static ?string $title = 'Master Productos';
     protected static ?int $navigationSort = 1;
