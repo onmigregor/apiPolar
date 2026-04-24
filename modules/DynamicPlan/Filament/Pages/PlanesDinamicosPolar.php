@@ -12,6 +12,7 @@ class PlanesDinamicosPolar extends Page
     protected static ?string $navigationGroup = 'Cargas Manuales';
     protected static ?string $navigationLabel = 'Planes Dinámicos Polar';
     protected static ?string $title = 'Planes Dinámicos Polar';
+    protected static ?int $navigationSort = 1;
 
     protected static string $view = 'dynamicplan::pages.planes-dinamicos-polar';
 
