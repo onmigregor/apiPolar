@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
                 \Modules\DynamicPlan\Filament\Pages\PlanesDinamicosPolar::class,
                 \Modules\CustomerADC\Filament\Pages\CustomerAdcPage::class,
+                \Modules\ProductsPrice\Filament\Pages\ProductsPricePage::class,
             ])
             ->navigationGroups([
                 'Cargas Automatizadas',

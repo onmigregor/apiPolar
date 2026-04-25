@@ -43,4 +43,5 @@ return [
     Modules\SftpManager\Providers\SftpManagerServiceProvider::class,
     Modules\DynamicPlan\Providers\DynamicPlanServiceProvider::class,
     Modules\CustomerADC\Providers\CustomerAdcServiceProvider::class,
+    Modules\ProductsPrice\Providers\ProductsPriceServiceProvider::class,
 ];
