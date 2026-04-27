@@ -175,6 +175,26 @@ class MasterProductAction
                 }
             }
 
+            // Breakdown logic for CL4
+            if (!empty($row['cl4_code'])) {
+                $breakdown = $this->breakdownCl4Code($row['cl4_code']);
+                if (in_array('brand_code', $fillable)) $row['brand_code'] = $breakdown['brand_code'];
+                if (in_array('segment_code', $fillable)) $row['segment_code'] = $breakdown['segment_code'];
+            }
+
+            // Boolean cleaning for Incidencia 10
+            $boolFields = [
+                'pro_return_allowed', 
+                'pro_damage_returns_allowed', 
+                'pro_available_for_sale', 
+                'pro_customer_inventory_allowed'
+            ];
+            foreach ($boolFields as $bf) {
+                if (array_key_exists($bf, $row)) {
+                    $row[$bf] = (strtoupper($row[$bf] ?? '') === 'X') ? 1 : 0;
+                }
+            }
+
             $row['updated_at'] = $now;
             $row['created_at'] = $now;
 
@@ -201,6 +221,46 @@ class MasterProductAction
             'processed'          => count($mapped),
             'skipped'            => $skipped,
             'duplicates_removed' => $duplicatesRemoved,
+        ];
+    }
+
+    private function breakdownCl4Code(string $code): array
+    {
+        $code = trim($code);
+        $brand_code = null;
+        $segment_code = null;
+        $suffixes = ['BA', 'AG', 'PR', 'S0', 'IN', 'S1'];
+
+        if (empty($code)) {
+            return ['brand_code' => null, 'segment_code' => null];
+        }
+
+        foreach ($suffixes as $suffix) {
+            if (str_ends_with($code, $suffix)) {
+                $segment_code = $suffix;
+                $remaining = substr($code, 0, -strlen($suffix));
+                if (str_contains($remaining, ' ')) {
+                    $parts = explode(' ', $remaining);
+                    $brand_code = end($parts);
+                } else {
+                    $brand_code = substr($remaining, -4);
+                }
+                break;
+            }
+        }
+
+        if (!$segment_code) {
+             if (str_contains($code, ' ')) {
+                $parts = explode(' ', $code);
+                $brand_code = end($parts);
+            } else {
+                $brand_code = substr($code, -4);
+            }
+        }
+
+        return [
+            'brand_code'   => $brand_code,
+            'segment_code' => $segment_code
         ];
     }
 }

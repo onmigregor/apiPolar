@@ -22,6 +22,8 @@ class ProductMapper
         'cl2_code'          => ['cl2Code', 'CL2_CODE', 'cl2_code', 'cl2code'],
         'cl3_code'          => ['cl3Code', 'CL3_CODE', 'cl3_code', 'cl3code'],
         'cl4_code'          => ['cl4Code', 'CL4_CODE', 'cl4_code', 'cl4code'],
+        'brand_code'        => ['brand_code'],
+        'segment_code'      => ['segment_code'],
         'pro_return_allowed' => ['proReturnAllowed', 'PRO_RETURN_ALLOWED', 'pro_return_allowed', 'proreturnallowed'],
         'pro_damage_returns_allowed' => ['proDamageReturnsAllowed', 'PRO_DAMAGE_RETURNS_ALLOWED', 'pro_damage_returns_allowed', 'prodamagereturnsallowed'],
         'pro_available_for_sale' => ['proAvailableForSale', 'PRO_AVAILABLE_FOR_SALE', 'pro_available_for_sale', 'proavailableforsale'],

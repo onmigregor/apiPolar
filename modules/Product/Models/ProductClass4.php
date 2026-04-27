@@ -9,6 +9,8 @@ class ProductClass4 extends Model
     
     protected $fillable = [
         'cl4_code',
-        'cl4_name'
+        'cl4_name',
+        'brand_code',
+        'segment_code'
     ];
 }

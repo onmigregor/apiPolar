@@ -58,5 +58,25 @@ class MasterProductCatalog extends Page
             ->send();
     }
 
+    public function syncProducts(\Modules\Product\Actions\TriggerMasterProductSyncAction $action)
+    {
+        $result = $action->execute();
+
+        if ($result['success']) {
+            Notification::make()
+                ->title('Sincronización Exitosa')
+                ->body($result['message'])
+                ->success()
+                ->send();
+        } else {
+            Notification::make()
+                ->title('Error de Sincronización')
+                ->body($result['message'])
+                ->danger()
+                ->persistent()
+                ->send();
+        }
+    }
+
     protected static string $view = 'filament.pages.master-product-catalog';
 }

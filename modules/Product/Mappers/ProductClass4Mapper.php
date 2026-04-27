@@ -10,5 +10,7 @@ class ProductClass4Mapper
     public static array $map = [
         'cl4_code' => ['cl4code', 'CL4CODE', 'cl4_code'],
         'cl4_name' => ['cl4name', 'CL4NAME', 'cl4_name'],
+        'brand_code' => ['brand_code'],
+        'segment_code' => ['segment_code'],
     ];
 }

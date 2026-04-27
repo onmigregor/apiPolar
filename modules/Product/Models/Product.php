@@ -21,6 +21,8 @@ class Product extends Model
         'cl2_code',
         'cl3_code',
         'cl4_code',
+        'brand_code',
+        'segment_code',
         'pro_return_allowed',
         'pro_damage_returns_allowed',
         'pro_available_for_sale',

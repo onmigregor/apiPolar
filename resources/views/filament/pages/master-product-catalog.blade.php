@@ -53,35 +53,49 @@
 
     {{-- Tabs de datos --}}
     <div x-data="{ tab: 'product' }">
-        <x-filament::tabs>
-            <x-filament::tabs.item @click="tab = 'product'" alpine-active="tab === 'product'">
-                Product
-            </x-filament::tabs.item>
-            
-            <x-filament::tabs.item @click="tab = 'category'" alpine-active="tab === 'category'">
-                Product Category
-            </x-filament::tabs.item>
+        <div class="flex items-center justify-between gap-4">
+            <x-filament::tabs class="flex-1">
+                <x-filament::tabs.item @click="tab = 'product'" alpine-active="tab === 'product'">
+                    Product
+                </x-filament::tabs.item>
+                
+                <x-filament::tabs.item @click="tab = 'category'" alpine-active="tab === 'category'">
+                    Product Category
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'class3'" alpine-active="tab === 'class3'">
-                Product Class 3
-            </x-filament::tabs.item>
-            
-            <x-filament::tabs.item @click="tab = 'class4'" alpine-active="tab === 'class4'">
-                Product Class 4
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'class3'" alpine-active="tab === 'class3'">
+                    Product Class 3
+                </x-filament::tabs.item>
+                
+                <x-filament::tabs.item @click="tab = 'class4'" alpine-active="tab === 'class4'">
+                    Product Class 4
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'family'" alpine-active="tab === 'family'">
-                Product Family
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'family'" alpine-active="tab === 'family'">
+                    Product Family
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'product-unit'" alpine-active="tab === 'product-unit'">
-                Product Unit
-            </x-filament::tabs.item>
+                <x-filament::tabs.item @click="tab = 'product-unit'" alpine-active="tab === 'product-unit'">
+                    Product Unit
+                </x-filament::tabs.item>
 
-            <x-filament::tabs.item @click="tab = 'import-report'" alpine-active="tab === 'import-report'">
-                REPORTE CARGAS PRODUCTOS
-            </x-filament::tabs.item>
-        </x-filament::tabs>
+                <x-filament::tabs.item @click="tab = 'import-report'" alpine-active="tab === 'import-report'">
+                    REPORTE CARGAS PRODUCTOS
+                </x-filament::tabs.item>
+            </x-filament::tabs>
+
+            <button 
+                wire:click="syncProducts"
+                wire:loading.attr="disabled"
+                wire:target="syncProducts"
+                wire:confirm="¿Estás seguro de que deseas sincronizar los datos de Productos con Polar API Hub?"
+                class="flex items-center gap-2 rounded-lg bg-primary-600 px-4 py-2 text-sm font-bold text-white shadow hover:bg-primary-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <x-heroicon-m-arrow-path wire:loading.class="animate-spin" wire:target="syncProducts" class="h-4 w-4" />
+                <span wire:loading.remove wire:target="syncProducts">SINCRONIZAR PRODUCTOS</span>
+                <span wire:loading wire:target="syncProducts">SINCRONIZANDO...</span>
+            </button>
+        </div>
 
         <div class="mt-6">
             <div x-show="tab === 'product'">
